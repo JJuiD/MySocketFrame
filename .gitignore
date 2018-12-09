@@ -1,0 +1,15 @@
+#Client
+Client/*.suo
+Client/*.csproj
+Client/*.sln
+Client/1/Library/
+Client/1/Temp/
+
+#Server
+Server/x64/
+Server/ConsoleApplication1/x64/
+Server/*.user
+
+#protocol_protobufTool
+protocol_protobufTool/c#/include/
+protocol_protobufTool/c++/include/

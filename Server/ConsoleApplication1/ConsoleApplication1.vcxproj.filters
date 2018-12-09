@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="GameServer\Base\SocketUdp.cpp">
+      <Filter>Classes\GameServer\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServer\Base\ikcp.c">
+      <Filter>Classes\GameServer\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\_protocol\ProtoBase.pb.cc">
+      <Filter>Classes\Protocol\_protocol</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{a036a7e5-603c-4e4c-9cb5-8dd07e549879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\GameServer">
+      <UniqueIdentifier>{1f4974b4-0ee0-4dfc-b81a-6302793de3f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\GameServer\Base">
+      <UniqueIdentifier>{2582cc6c-f39a-4a83-b08e-9d645e2d3ad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Protocol">
+      <UniqueIdentifier>{ffa358d1-802b-499a-be61-451e0454473f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\GameServer\Logic">
+      <UniqueIdentifier>{e2a958b7-1181-4788-86f4-fd63afda62dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Protocol\_protocol">
+      <UniqueIdentifier>{80cad3ab-714c-4259-969b-bb9668097eec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Config">
+      <UniqueIdentifier>{302c153c-94fc-4e3e-9cd8-ac76952e052e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Protocol\ProtocolBase.h">
+      <Filter>Classes\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Base\ikcp.h">
+      <Filter>Classes\GameServer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Base\SocketBase.h">
+      <Filter>Classes\GameServer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Base\SocketConfig.h">
+      <Filter>Classes\GameServer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Base\SocketManager.h">
+      <Filter>Classes\GameServer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Base\SocketUdp.h">
+      <Filter>Classes\GameServer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Logic\BaseLogic.h">
+      <Filter>Classes\GameServer\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Config\ConfigBase.h">
+      <Filter>Classes\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\DataCenter.h">
+      <Filter>Classes\GameServer</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\ProtoBase.pb.h">
+      <Filter>Classes\Protocol\_protocol</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
