@@ -13,3 +13,5 @@ Server/*.user
 #protocol_protobufTool
 protocol_protobufTool/c#/include/
 protocol_protobufTool/c++/include/
+Server/ConsoleApplication1/Protocol/lib/libprotocd.lib
+Server/ConsoleApplication1/Protocol/lib/libprotobufd.lib
