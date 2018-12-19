@@ -30,7 +30,7 @@ namespace socketframe
 		serAddr.sin_family = AF_INET;
 		serAddr.sin_port = htons(port);
 		serAddr.sin_addr.S_un.S_addr = INADDR_ANY;
-		if (bind(m_SocketUdp, (sockaddr *)&serAddr, sizeof(serAddr)) == SOCKET_ERROR)
+		if (::bind(m_SocketUdp, (sockaddr *)&serAddr, sizeof(serAddr)) == SOCKET_ERROR)
 		{
 			printf("bind error !");
 			closesocket(m_SocketUdp);

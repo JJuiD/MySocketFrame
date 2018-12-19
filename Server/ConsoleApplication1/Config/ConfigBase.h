@@ -17,6 +17,7 @@ using namespace std;
 #define USERID_NULL -1       //不存在的用户编号
 #define RECV_BUFFER_LEN 1024
 #define SEND_BUFFER_LEN 1024
+#define PACKET_BUFFER_MAXLEN 1024
 //////////////////////////////////////////////////////////////////
 
 

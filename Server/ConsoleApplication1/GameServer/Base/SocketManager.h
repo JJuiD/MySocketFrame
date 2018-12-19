@@ -109,8 +109,8 @@ namespace socketframe
 				int ret = recvfrom(_SocketClass->GetSocket(), recvData, RECV_BUFFER_LEN, 0, (sockaddr*)&remoteAddr, &nAddrLen);
 				if (ret > 0)
 				{
-					char sendBuf[20] = { '\0' };
-					printf("接受到一个连接：%s \r\n", inet_ntop(AF_INET, (void*)&remoteAddr.sin_addr, sendBuf, 16));
+					//char sendBuf[20] = { '\0' };
+					//printf("接受到一个连接：%s \r\n", inet_ntop(AF_INET, (void*)&remoteAddr.sin_addr, sendBuf, 16));
 					NET_CLIENT client = DataCenter::getInstance().GetClient(remoteAddr);
 					if (client.id != USERID_NULL)
 					{
@@ -121,7 +121,7 @@ namespace socketframe
 						DataCenter::getInstance().AddClient(remoteAddr);
 						client = DataCenter::getInstance().GetClient(remoteAddr);
 					}
-					DataCenter::getInstance().AddBuffer(recvData, client.id);
+					DataCenter::getInstance().AddBuffer(recvData, ret, client.id);
 					_SocketClass->Recv(DataCenter::getInstance().GetClient(remoteAddr), recvData);
 					//UDP_USERINFO tempData = _SocketClass->GetUerSocketInfo(remoteAddr);
 					//if (tempData.id != USERID_NULL)

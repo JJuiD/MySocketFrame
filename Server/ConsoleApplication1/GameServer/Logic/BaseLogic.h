@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "../DataCenter.h"
-#include "../../Protocol/ProtocolBase.h"
 #include "../Base/SocketManager.h"
 //#include <winsock2.h>   
 
@@ -33,19 +32,17 @@ namespace logic
 			_thread.detach();
 		}
 
-		bool DoMainlogic(char* data, int len)
+		bool DoMainlogic(Proto::ProtoCommand cmd, string buffer)
 		{
-			Proto::ProtoBaseCmd CmdBase ;
-			CmdBase.ParseFromArray(data, len);
-			switch (CmdBase.cmdhead())
+			switch (cmd)
 			{
 			case Proto::ProtoCommand::ProtoCommand_TestModel:
 				Proto::CMD_TEST cmdTest;
-				cmdTest.ParseFromString(CmdBase.buffer());
-				std::cout << "客户端" << ":" << cmdTest.msg() << "\n";
+				cmdTest.ParseFromString(buffer);
+				std::cout << "客户端" << ":" << cmdTest.msg() << endl;
 
 				char data[SEND_BUFFER_LEN];
-				cmdTest.set_msg("hello,world! 你好");
+				cmdTest.set_msg("hello,Client! 你好,客户端!");
 				cmdTest.SerializePartialToArray(data, SEND_BUFFER_LEN);
 				SendMsg(Proto::ProtoCommand::ProtoCommand_TestModel, data);
 				break;
@@ -70,20 +67,22 @@ namespace logic
 
 	void SwitchToLogicThread()
 	{
-		static DataCenter _DataCenter;
 		while (true)
 		{
 			Sleep(1000);
-			char* buffer = _DataCenter.GetBuffer();
-			if (buffer != NULL)
+			PACKET* packet = DataCenter::getInstance().GetBuffer();
+			if (packet != NULL)
 			{
-				string str_id;
-				for (BYTE i = RECV_BUFFER_LEN; *(buffer + i) != '\0'; ++i)
+				/*stringstream str_id;
+				UINT id;
+				for (BYTE i = RECV_BUFFER_LEN; *(recvBuffer + i) != '\0'; ++i)
 				{
-					str_id[str_id.length()] = *(buffer + i);
+					str_id << *(recvBuffer + i);
 				}
-				logic::BaseLogic* _BaseLogic = new logic::BaseLogic(atoi(str_id.c_str()));
-				_BaseLogic->DoMainlogic(buffer, SEND_BUFFER_LEN);
+				str_id >> id;*/
+				//logic::BaseLogic* _BaseLogic = new logic::BaseLogic(atoi(str_id.c_str()));
+				logic::BaseLogic* _BaseLogic = new logic::BaseLogic(packet->ID);
+				_BaseLogic->DoMainlogic(packet->CMD_HEAD,packet->PACKET_BUFFER);
 				delete _BaseLogic;
 			}
 		}
