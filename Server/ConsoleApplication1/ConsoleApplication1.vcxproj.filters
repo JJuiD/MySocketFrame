@@ -11,6 +11,24 @@
     <ClCompile Include="Protocol\_protocol\ProtoBase.pb.cc">
       <Filter>Classes\Protocol\_protocol</Filter>
     </ClCompile>
+    <ClCompile Include="Protocol\_protocol\Game\GameProto.pb.cc">
+      <Filter>Classes\Protocol\_protocol\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\_protocol\Game\GameBase.pb.cc">
+      <Filter>Classes\Protocol\_protocol\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\_protocol\Room\RoomBase.pb.cc">
+      <Filter>Classes\Protocol\_protocol\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\_protocol\Room\RoomProto.pb.cc">
+      <Filter>Classes\Protocol\_protocol\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\_protocol\Room\UserProto.pb.cc">
+      <Filter>Classes\Protocol\_protocol\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServer\Logic\RoomLogic.cpp">
+      <Filter>Classes\GameServer\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -34,6 +52,12 @@
     <Filter Include="Classes\Config">
       <UniqueIdentifier>{302c153c-94fc-4e3e-9cd8-ac76952e052e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Protocol\_protocol\Game">
+      <UniqueIdentifier>{fa1cc627-b8b1-4b92-b020-880710f14678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Protocol\_protocol\Room">
+      <UniqueIdentifier>{ff0dce51-7cde-48ad-8a26-2a49d66e34b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Protocol\ProtocolBase.h">
@@ -54,9 +78,6 @@
     <ClInclude Include="GameServer\Base\SocketUdp.h">
       <Filter>Classes\GameServer\Base</Filter>
     </ClInclude>
-    <ClInclude Include="GameServer\Logic\BaseLogic.h">
-      <Filter>Classes\GameServer\Logic</Filter>
-    </ClInclude>
     <ClInclude Include="Config\ConfigBase.h">
       <Filter>Classes\Config</Filter>
     </ClInclude>
@@ -65,6 +86,30 @@
     </ClInclude>
     <ClInclude Include="Protocol\_protocol\ProtoBase.pb.h">
       <Filter>Classes\Protocol\_protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\Game\GameProto.pb.h">
+      <Filter>Classes\Protocol\_protocol\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\Game\GameBase.pb.h">
+      <Filter>Classes\Protocol\_protocol\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\Room\RoomBase.pb.h">
+      <Filter>Classes\Protocol\_protocol\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\Room\RoomProto.pb.h">
+      <Filter>Classes\Protocol\_protocol\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\Room\UserProto.pb.h">
+      <Filter>Classes\Protocol\_protocol\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Logic\RoomLogic.h">
+      <Filter>Classes\GameServer\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Logic\LogicManager.h">
+      <Filter>Classes\GameServer\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Logic\LogicBase.h">
+      <Filter>Classes\GameServer\Logic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

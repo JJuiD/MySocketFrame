@@ -23,7 +23,8 @@ namespace socket
         byte[] recvData = new byte[1024]; //接收的数据，必须为字节
         byte[] sendData = new byte[1024]; //发送的数据，必须为字节
         int recvLen; //接收的数据长度
-        Thread connectThread; //连接线程\
+        Thread connectThread; //连接线程
+        Thread serverHeartThread;
 
         public void Start()
         {
@@ -54,6 +55,9 @@ namespace socket
             //开启一个线程连接，必须的，否则主线程卡死
             connectThread = new Thread(new ThreadStart(SocketReceive));
             connectThread.Start();
+
+            serverHeartThread = new Thread(new ThreadStart(SocketHeartSend));
+            serverHeartThread.Start();
         }
 
         public void SocketSend(ProtoCommand cmdHead, byte[] buffer)
@@ -69,6 +73,19 @@ namespace socket
             sendData = ms.ToArray();
             //发送给指定服务端
             socket.SendTo(sendData, sendData.Length, SocketFlags.None, ipEnd);
+        }
+
+        //定时发送服务器心跳
+        void SocketHeartSend()
+        {
+            while(true)
+            {
+                CMD_HEART cmdHeart = new CMD_HEART();
+                MemoryStream ms = new MemoryStream();
+                Serializer.Serialize<CMD_HEART>(ms, cmdHeart);
+                SocketSend(ProtoCommand.ProtoCommand_Heart, ms.ToArray());
+                Thread.Sleep(1000);
+            }
         }
 
         //服务器接收
@@ -98,17 +115,17 @@ namespace socket
             }
         }
 
-        //返回接收到的字符串  
-        public string GetRecvStr()
-        {
-            string returnStr;
-            //加锁防止字符串被改  
-            lock (this)
-            {
-                returnStr = recvStr;
-            }
-            return returnStr;
-        }
+        ////返回接收到的字符串  
+        //public string GetRecvStr()
+        //{
+        //    string returnStr;
+        //    //加锁防止字符串被改  
+        //    lock (this)
+        //    {
+        //        returnStr = recvStr;
+        //    }
+        //    return returnStr;
+        //}
 
         //连接关闭
         public void SocketQuit()
@@ -119,6 +136,14 @@ namespace socket
                 connectThread.Interrupt();
                 connectThread.Abort();
             }
+
+            //关闭心跳线程
+            if (serverHeartThread != null)
+            {
+                serverHeartThread.Interrupt();
+                serverHeartThread.Abort();
+            }
+
             //最后关闭socket
             if (socket != null)
                 socket.Close();

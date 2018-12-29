@@ -1,0 +1,25 @@
+syntax = "proto2";
+import "RoomBase.proto";
+package Proto.UserProto;
+
+message ReqCreateUser
+{
+	required string name = 1;
+}
+
+message RespCreateUser
+{
+    optional RoomBase.FlagMsg data = 1;
+	optional RoomBase.UserInfo userinfo = 2;
+}
+
+message ReqGetUser
+{
+	required string id = 1;
+}
+
+message RespGetUser
+{
+	optional RoomBase.FlagMsg data = 1;
+	optional RoomBase.UserInfo userinfo = 2;
+}

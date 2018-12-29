@@ -3,6 +3,7 @@
 
 //#include <../../GameServer/Base/SocketConfig.h>
 #include "_protocol/ProtoBase.pb.h"
+#include "_protocol/Room/RoomProto.pb.h"
 
 namespace protocol
 {

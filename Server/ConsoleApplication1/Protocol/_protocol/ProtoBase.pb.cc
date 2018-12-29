@@ -21,6 +21,10 @@ class ProtoBaseCmdDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ProtoBaseCmd> _instance;
 } _ProtoBaseCmd_default_instance_;
+class CMD_HEARTDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<CMD_HEART> _instance;
+} _CMD_HEART_default_instance_;
 class CMD_TESTDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<CMD_TEST> _instance;
@@ -40,6 +44,20 @@ static void InitDefaultsProtoBaseCmd_ProtoBase_2eproto() {
 ::google::protobuf::internal::SCCInfo<0> scc_info_ProtoBaseCmd_ProtoBase_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsProtoBaseCmd_ProtoBase_2eproto}, {}};
 
+static void InitDefaultsCMD_HEART_ProtoBase_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::Proto::_CMD_HEART_default_instance_;
+    new (ptr) ::Proto::CMD_HEART();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::Proto::CMD_HEART::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_CMD_HEART_ProtoBase_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsCMD_HEART_ProtoBase_2eproto}, {}};
+
 static void InitDefaultsCMD_TEST_ProtoBase_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -56,10 +74,11 @@ static void InitDefaultsCMD_TEST_ProtoBase_2eproto() {
 
 void InitDefaults_ProtoBase_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_ProtoBaseCmd_ProtoBase_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_CMD_HEART_ProtoBase_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_CMD_TEST_ProtoBase_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_ProtoBase_2eproto[2];
+::google::protobuf::Metadata file_level_metadata_ProtoBase_2eproto[3];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_ProtoBase_2eproto[1];
 constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_ProtoBase_2eproto = nullptr;
 
@@ -70,9 +89,16 @@ const ::google::protobuf::uint32 TableStruct_ProtoBase_2eproto::offsets[] PROTOB
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Proto::ProtoBaseCmd, cmdhead_),
+  PROTOBUF_FIELD_OFFSET(::Proto::ProtoBaseCmd, cmdinfo_),
   PROTOBUF_FIELD_OFFSET(::Proto::ProtoBaseCmd, buffer_),
+  2,
   1,
   0,
+  PROTOBUF_FIELD_OFFSET(::Proto::CMD_HEART, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::Proto::CMD_HEART, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Proto::CMD_TEST, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::Proto::CMD_TEST, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -82,32 +108,36 @@ const ::google::protobuf::uint32 TableStruct_ProtoBase_2eproto::offsets[] PROTOB
   0,
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 7, sizeof(::Proto::ProtoBaseCmd)},
-  { 9, 15, sizeof(::Proto::CMD_TEST)},
+  { 0, 8, sizeof(::Proto::ProtoBaseCmd)},
+  { 11, 16, sizeof(::Proto::CMD_HEART)},
+  { 16, 22, sizeof(::Proto::CMD_TEST)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::_ProtoBaseCmd_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::_CMD_HEART_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::_CMD_TEST_default_instance_),
 };
 
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_ProtoBase_2eproto = {
   {}, AddDescriptors_ProtoBase_2eproto, "ProtoBase.proto", schemas,
   file_default_instances, TableStruct_ProtoBase_2eproto::offsets,
-  file_level_metadata_ProtoBase_2eproto, 2, file_level_enum_descriptors_ProtoBase_2eproto, file_level_service_descriptors_ProtoBase_2eproto,
+  file_level_metadata_ProtoBase_2eproto, 3, file_level_enum_descriptors_ProtoBase_2eproto, file_level_service_descriptors_ProtoBase_2eproto,
 };
 
 const char descriptor_table_protodef_ProtoBase_2eproto[] =
-  "\n\017ProtoBase.proto\022\005Proto\"D\n\014ProtoBaseCmd"
-  "\022$\n\007CmdHead\030\001 \002(\0162\023.Proto.ProtoCommand\022\016"
-  "\n\006buffer\030\002 \002(\014\"\027\n\010CMD_TEST\022\013\n\003msg\030\001 \001(\014*"
-  "*\n\014ProtoCommand\022\032\n\026ProtoCommand_TestMode"
-  "l\020\001"
+  "\n\017ProtoBase.proto\022\005Proto\"U\n\014ProtoBaseCmd"
+  "\022$\n\007CmdHead\030\001 \002(\0162\023.Proto.ProtoCommand\022\017"
+  "\n\007CmdInfo\030\002 \002(\r\022\016\n\006buffer\030\003 \002(\014\"\013\n\tCMD_H"
+  "EART\"\027\n\010CMD_TEST\022\013\n\003msg\030\001 \001(\014*p\n\014ProtoCo"
+  "mmand\022\026\n\022ProtoCommand_Heart\020\001\022\032\n\026ProtoCo"
+  "mmand_TestModel\020\002\022\025\n\021ProtoCommand_Game\020\003"
+  "\022\025\n\021ProtoCommand_Room\020\004"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_ProtoBase_2eproto = {
   false, InitDefaults_ProtoBase_2eproto, 
   descriptor_table_protodef_ProtoBase_2eproto,
-  "ProtoBase.proto", &assign_descriptors_table_ProtoBase_2eproto, 163,
+  "ProtoBase.proto", &assign_descriptors_table_ProtoBase_2eproto, 263,
 };
 
 void AddDescriptors_ProtoBase_2eproto() {
@@ -127,6 +157,9 @@ const ::google::protobuf::EnumDescriptor* ProtoCommand_descriptor() {
 bool ProtoCommand_IsValid(int value) {
   switch (value) {
     case 1:
+    case 2:
+    case 3:
+    case 4:
       return true;
     default:
       return false;
@@ -141,6 +174,9 @@ void ProtoBaseCmd::InitAsDefaultInstance() {
 class ProtoBaseCmd::HasBitSetters {
  public:
   static void set_has_cmdhead(ProtoBaseCmd* msg) {
+    msg->_has_bits_[0] |= 0x00000004u;
+  }
+  static void set_has_cmdinfo(ProtoBaseCmd* msg) {
     msg->_has_bits_[0] |= 0x00000002u;
   }
   static void set_has_buffer(ProtoBaseCmd* msg) {
@@ -150,6 +186,7 @@ class ProtoBaseCmd::HasBitSetters {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ProtoBaseCmd::kCmdHeadFieldNumber;
+const int ProtoBaseCmd::kCmdInfoFieldNumber;
 const int ProtoBaseCmd::kBufferFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -167,7 +204,9 @@ ProtoBaseCmd::ProtoBaseCmd(const ProtoBaseCmd& from)
   if (from.has_buffer()) {
     buffer_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.buffer_);
   }
-  cmdhead_ = from.cmdhead_;
+  ::memcpy(&cmdinfo_, &from.cmdinfo_,
+    static_cast<size_t>(reinterpret_cast<char*>(&cmdhead_) -
+    reinterpret_cast<char*>(&cmdinfo_)) + sizeof(cmdhead_));
   // @@protoc_insertion_point(copy_constructor:Proto.ProtoBaseCmd)
 }
 
@@ -175,6 +214,7 @@ void ProtoBaseCmd::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_ProtoBaseCmd_ProtoBase_2eproto.base);
   buffer_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  cmdinfo_ = 0u;
   cmdhead_ = 1;
 }
 
@@ -203,10 +243,11 @@ void ProtoBaseCmd::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      buffer_.ClearNonDefaultToEmptyNoArena();
-    }
+  if (cached_has_bits & 0x00000001u) {
+    buffer_.ClearNonDefaultToEmptyNoArena();
+  }
+  if (cached_has_bits & 0x00000006u) {
+    cmdinfo_ = 0u;
     cmdhead_ = 1;
   }
   _has_bits_.Clear();
@@ -240,9 +281,19 @@ const char* ProtoBaseCmd::_InternalParse(const char* begin, const char* end, voi
         msg->set_cmdhead(value);
         break;
       }
-      // required bytes buffer = 2;
+      // required uint32 CmdInfo = 2;
       case 2: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ::google::protobuf::uint32 value = val;
+        msg->set_cmdinfo(value);
+        break;
+      }
+      // required bytes buffer = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
         ptr = Varint::Parse32Inline(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         auto str = msg->mutable_buffer();
@@ -311,9 +362,22 @@ bool ProtoBaseCmd::MergePartialFromCodedStream(
         break;
       }
 
-      // required bytes buffer = 2;
+      // required uint32 CmdInfo = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
+          HasBitSetters::set_has_cmdinfo(this);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cmdinfo_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required bytes buffer = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_buffer()));
         } else {
@@ -351,15 +415,20 @@ void ProtoBaseCmd::SerializeWithCachedSizes(
 
   cached_has_bits = _has_bits_[0];
   // required .Proto.ProtoCommand CmdHead = 1;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->cmdhead(), output);
   }
 
-  // required bytes buffer = 2;
+  // required uint32 CmdInfo = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->cmdinfo(), output);
+  }
+
+  // required bytes buffer = 3;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      2, this->buffer(), output);
+      3, this->buffer(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -378,16 +447,21 @@ void ProtoBaseCmd::SerializeWithCachedSizes(
 
   cached_has_bits = _has_bits_[0];
   // required .Proto.ProtoCommand CmdHead = 1;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->cmdhead(), target);
   }
 
-  // required bytes buffer = 2;
+  // required uint32 CmdInfo = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->cmdinfo(), target);
+  }
+
+  // required bytes buffer = 3;
   if (cached_has_bits & 0x00000001u) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
-        2, this->buffer(), target);
+        3, this->buffer(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -403,10 +477,17 @@ size_t ProtoBaseCmd::RequiredFieldsByteSizeFallback() const {
   size_t total_size = 0;
 
   if (has_buffer()) {
-    // required bytes buffer = 2;
+    // required bytes buffer = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->buffer());
+  }
+
+  if (has_cmdinfo()) {
+    // required uint32 CmdInfo = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->cmdinfo());
   }
 
   if (has_cmdhead()) {
@@ -426,11 +507,16 @@ size_t ProtoBaseCmd::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required bytes buffer = 2;
+  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+    // required bytes buffer = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->buffer());
+
+    // required uint32 CmdInfo = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->cmdinfo());
 
     // required .Proto.ProtoCommand CmdHead = 1;
     total_size += 1 +
@@ -471,12 +557,15 @@ void ProtoBaseCmd::MergeFrom(const ProtoBaseCmd& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _has_bits_[0] |= 0x00000001u;
       buffer_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.buffer_);
     }
     if (cached_has_bits & 0x00000002u) {
+      cmdinfo_ = from.cmdinfo_;
+    }
+    if (cached_has_bits & 0x00000004u) {
       cmdhead_ = from.cmdhead_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -498,7 +587,7 @@ void ProtoBaseCmd::CopyFrom(const ProtoBaseCmd& from) {
 }
 
 bool ProtoBaseCmd::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
   return true;
 }
 
@@ -512,10 +601,232 @@ void ProtoBaseCmd::InternalSwap(ProtoBaseCmd* other) {
   swap(_has_bits_[0], other->_has_bits_[0]);
   buffer_.Swap(&other->buffer_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  swap(cmdinfo_, other->cmdinfo_);
   swap(cmdhead_, other->cmdhead_);
 }
 
 ::google::protobuf::Metadata ProtoBaseCmd::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_ProtoBase_2eproto);
+  return ::file_level_metadata_ProtoBase_2eproto[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void CMD_HEART::InitAsDefaultInstance() {
+}
+class CMD_HEART::HasBitSetters {
+ public:
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CMD_HEART::CMD_HEART()
+  : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:Proto.CMD_HEART)
+}
+CMD_HEART::CMD_HEART(const CMD_HEART& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(nullptr),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:Proto.CMD_HEART)
+}
+
+void CMD_HEART::SharedCtor() {
+}
+
+CMD_HEART::~CMD_HEART() {
+  // @@protoc_insertion_point(destructor:Proto.CMD_HEART)
+  SharedDtor();
+}
+
+void CMD_HEART::SharedDtor() {
+}
+
+void CMD_HEART::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const CMD_HEART& CMD_HEART::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_CMD_HEART_ProtoBase_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void CMD_HEART::Clear() {
+// @@protoc_insertion_point(message_clear_start:Proto.CMD_HEART)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* CMD_HEART::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<CMD_HEART*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->EndGroup(tag);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr != nullptr);
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth, tag));
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool CMD_HEART::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Proto.CMD_HEART)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+  handle_unusual:
+    if (tag == 0) {
+      goto success;
+    }
+    DO_(::google::protobuf::internal::WireFormat::SkipField(
+          input, tag, _internal_metadata_.mutable_unknown_fields()));
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Proto.CMD_HEART)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Proto.CMD_HEART)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void CMD_HEART::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Proto.CMD_HEART)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Proto.CMD_HEART)
+}
+
+::google::protobuf::uint8* CMD_HEART::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:Proto.CMD_HEART)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Proto.CMD_HEART)
+  return target;
+}
+
+size_t CMD_HEART::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Proto.CMD_HEART)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CMD_HEART::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:Proto.CMD_HEART)
+  GOOGLE_DCHECK_NE(&from, this);
+  const CMD_HEART* source =
+      ::google::protobuf::DynamicCastToGenerated<CMD_HEART>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Proto.CMD_HEART)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Proto.CMD_HEART)
+    MergeFrom(*source);
+  }
+}
+
+void CMD_HEART::MergeFrom(const CMD_HEART& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Proto.CMD_HEART)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+}
+
+void CMD_HEART::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:Proto.CMD_HEART)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CMD_HEART::CopyFrom(const CMD_HEART& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Proto.CMD_HEART)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CMD_HEART::IsInitialized() const {
+  return true;
+}
+
+void CMD_HEART::Swap(CMD_HEART* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CMD_HEART::InternalSwap(CMD_HEART* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+}
+
+::google::protobuf::Metadata CMD_HEART::GetMetadata() const {
   ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_ProtoBase_2eproto);
   return ::file_level_metadata_ProtoBase_2eproto[kIndexInFileMessages];
 }
@@ -827,6 +1138,9 @@ namespace google {
 namespace protobuf {
 template<> PROTOBUF_NOINLINE ::Proto::ProtoBaseCmd* Arena::CreateMaybeMessage< ::Proto::ProtoBaseCmd >(Arena* arena) {
   return Arena::CreateInternal< ::Proto::ProtoBaseCmd >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Proto::CMD_HEART* Arena::CreateMaybeMessage< ::Proto::CMD_HEART >(Arena* arena) {
+  return Arena::CreateInternal< ::Proto::CMD_HEART >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Proto::CMD_TEST* Arena::CreateMaybeMessage< ::Proto::CMD_TEST >(Arena* arena) {
   return Arena::CreateInternal< ::Proto::CMD_TEST >(arena);

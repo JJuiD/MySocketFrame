@@ -1,0 +1,30 @@
+syntax = "proto2";
+package Proto.GameBase;
+
+enum GameCommand
+{
+	CMDG_KEY = 1;
+	CMDG_MOVE = 2;
+	CMDG_REQSTARTGAME = 3;
+	CMDG_RESPSTARTGAME = 4;
+}
+
+message Position {
+	optional int32 x = 1;
+	optional int32 y = 2;
+	optional int32 z = 3;
+}
+
+message GameUserInfo
+{
+	required string id = 1;
+	required string name = 2;
+	required Position pos =3;
+}
+
+message FlagMsg
+{
+	optional uint32 flag = 1;
+	optional bytes msg = 2;
+}
+

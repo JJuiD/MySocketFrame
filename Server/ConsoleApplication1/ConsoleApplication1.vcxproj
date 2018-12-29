@@ -21,8 +21,14 @@
   <ItemGroup>
     <ClCompile Include="GameServer\Base\ikcp.c" />
     <ClCompile Include="GameServer\Base\SocketUdp.cpp" />
+    <ClCompile Include="GameServer\Logic\RoomLogic.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Protocol\_protocol\Game\GameBase.pb.cc" />
+    <ClCompile Include="Protocol\_protocol\Game\GameProto.pb.cc" />
     <ClCompile Include="Protocol\_protocol\ProtoBase.pb.cc" />
+    <ClCompile Include="Protocol\_protocol\Room\RoomBase.pb.cc" />
+    <ClCompile Include="Protocol\_protocol\Room\RoomProto.pb.cc" />
+    <ClCompile Include="Protocol\_protocol\Room\UserProto.pb.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config\ConfigBase.h" />
@@ -32,9 +38,16 @@
     <ClInclude Include="GameServer\Base\SocketManager.h" />
     <ClInclude Include="GameServer\Base\SocketUdp.h" />
     <ClInclude Include="GameServer\DataCenter.h" />
-    <ClInclude Include="GameServer\Logic\BaseLogic.h" />
+    <ClInclude Include="GameServer\Logic\LogicBase.h" />
+    <ClInclude Include="GameServer\Logic\LogicManager.h" />
+    <ClInclude Include="GameServer\Logic\RoomLogic.h" />
     <ClInclude Include="Protocol\ProtocolBase.h" />
+    <ClInclude Include="Protocol\_protocol\Game\GameBase.pb.h" />
+    <ClInclude Include="Protocol\_protocol\Game\GameProto.pb.h" />
     <ClInclude Include="Protocol\_protocol\ProtoBase.pb.h" />
+    <ClInclude Include="Protocol\_protocol\Room\RoomBase.pb.h" />
+    <ClInclude Include="Protocol\_protocol\Room\RoomProto.pb.h" />
+    <ClInclude Include="Protocol\_protocol\Room\UserProto.pb.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -96,8 +109,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>.\Protocol\_protocol;$(IncludePath)</IncludePath>
-    <LibraryPath>.\Protocol\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\MySocketFrame\Server\Redis;.\Protocol\_protocol;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\MySocketFrame\Server\ConsoleApplication1\Protocol\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

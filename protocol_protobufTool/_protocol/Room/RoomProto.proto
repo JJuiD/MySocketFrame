@@ -1,0 +1,26 @@
+syntax = "proto2";
+import "RoomBase.proto";
+package Proto.RoomProto;
+
+message ReqCreateRoom
+{
+	required string id =1;
+}
+
+message RespCreateRoom
+{
+	optional RoomBase.FlagMsg data = 1;
+	required uint32 roomid = 2;
+}
+
+message ReqJoinRoom
+{
+	required string id = 1;
+	required uint32 roomid = 2;
+}
+
+message RespJoinRoom
+{
+	optional RoomBase.FlagMsg data = 1;
+	repeated RoomBase.UserInfo userinfo = 2;
+}

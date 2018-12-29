@@ -22,13 +22,30 @@ namespace Proto
       get { return _CmdHead; }
       set { _CmdHead = value; }
     }
+    private uint _CmdInfo;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"CmdInfo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public uint CmdInfo
+    {
+      get { return _CmdInfo; }
+      set { _CmdInfo = value; }
+    }
     private byte[] _buffer;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"buffer", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"buffer", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public byte[] buffer
     {
       get { return _buffer; }
       set { _buffer = value; }
     }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CMD_HEART")]
+  public partial class CMD_HEART : global::ProtoBuf.IExtensible
+  {
+    public CMD_HEART() {}
+    
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -56,8 +73,17 @@ namespace Proto
     public enum ProtoCommand
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_TestModel", Value=1)]
-      ProtoCommand_TestModel = 1
+      [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_Heart", Value=1)]
+      ProtoCommand_Heart = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_TestModel", Value=2)]
+      ProtoCommand_TestModel = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_Game", Value=3)]
+      ProtoCommand_Game = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_Room", Value=4)]
+      ProtoCommand_Room = 4
     }
   
 }

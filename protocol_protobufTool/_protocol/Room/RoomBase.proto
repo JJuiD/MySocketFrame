@@ -1,0 +1,29 @@
+syntax = "proto2";
+package Proto.RoomBase;
+
+enum RoomCommand
+{
+	//UserProto
+	CMDR_REQCREATEUSER = 1;
+	CMDR_RESPCREATEUSER = 2;
+	CMDR_REQGETUSER = 3;
+	CMDR_RESPGETUSER = 4;
+
+	//RoomProto
+	CMDR_REQCREATEROOM = 5;
+	CMDR_RESPCREATEROOM = 6;
+	CMDR_REQJOINROOM = 7;
+	CMDR_RESPJOINROOM = 8;
+}
+
+message UserInfo 
+{
+	required string name = 1;
+	required string id = 2;
+}
+
+message FlagMsg
+{
+	optional uint32 flag = 1;
+	optional bytes msg = 2;
+}

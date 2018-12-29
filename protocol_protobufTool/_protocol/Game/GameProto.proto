@@ -1,0 +1,25 @@
+syntax = "proto2";
+import "GameBase.proto";
+package Proto.GameProto;
+
+message ReqStartGame
+{
+	required uint32 roomid = 1;
+}
+
+message RespStartGame
+{
+	repeated GameBase.GameUserInfo gameUser = 1;
+}
+
+message ReqKey
+{
+	required string key = 1;
+}
+
+message RespActionMove
+{
+	optional GameBase.Position pos = 1;
+}
+
+

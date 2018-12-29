@@ -42,7 +42,7 @@ struct TableStruct_ProtoBase_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[2]
+  static const ::google::protobuf::internal::ParseTable schema[3]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -50,6 +50,9 @@ struct TableStruct_ProtoBase_2eproto {
 };
 void AddDescriptors_ProtoBase_2eproto();
 namespace Proto {
+class CMD_HEART;
+class CMD_HEARTDefaultTypeInternal;
+extern CMD_HEARTDefaultTypeInternal _CMD_HEART_default_instance_;
 class CMD_TEST;
 class CMD_TESTDefaultTypeInternal;
 extern CMD_TESTDefaultTypeInternal _CMD_TEST_default_instance_;
@@ -59,6 +62,7 @@ extern ProtoBaseCmdDefaultTypeInternal _ProtoBaseCmd_default_instance_;
 }  // namespace Proto
 namespace google {
 namespace protobuf {
+template<> ::Proto::CMD_HEART* Arena::CreateMaybeMessage<::Proto::CMD_HEART>(Arena*);
 template<> ::Proto::CMD_TEST* Arena::CreateMaybeMessage<::Proto::CMD_TEST>(Arena*);
 template<> ::Proto::ProtoBaseCmd* Arena::CreateMaybeMessage<::Proto::ProtoBaseCmd>(Arena*);
 }  // namespace protobuf
@@ -66,11 +70,14 @@ template<> ::Proto::ProtoBaseCmd* Arena::CreateMaybeMessage<::Proto::ProtoBaseCm
 namespace Proto {
 
 enum ProtoCommand {
-  ProtoCommand_TestModel = 1
+  ProtoCommand_Heart = 1,
+  ProtoCommand_TestModel = 2,
+  ProtoCommand_Game = 3,
+  ProtoCommand_Room = 4
 };
 bool ProtoCommand_IsValid(int value);
-const ProtoCommand ProtoCommand_MIN = ProtoCommand_TestModel;
-const ProtoCommand ProtoCommand_MAX = ProtoCommand_TestModel;
+const ProtoCommand ProtoCommand_MIN = ProtoCommand_Heart;
+const ProtoCommand ProtoCommand_MAX = ProtoCommand_Room;
 const int ProtoCommand_ARRAYSIZE = ProtoCommand_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ProtoCommand_descriptor();
@@ -186,10 +193,10 @@ class ProtoBaseCmd : public ::google::protobuf::Message /* @@protoc_insertion_po
 
   // accessors -------------------------------------------------------
 
-  // required bytes buffer = 2;
+  // required bytes buffer = 3;
   bool has_buffer() const;
   void clear_buffer();
-  static const int kBufferFieldNumber = 2;
+  static const int kBufferFieldNumber = 3;
   const ::std::string& buffer() const;
   void set_buffer(const ::std::string& value);
   #if LANG_CXX11
@@ -200,6 +207,13 @@ class ProtoBaseCmd : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::std::string* mutable_buffer();
   ::std::string* release_buffer();
   void set_allocated_buffer(::std::string* buffer);
+
+  // required uint32 CmdInfo = 2;
+  bool has_cmdinfo() const;
+  void clear_cmdinfo();
+  static const int kCmdInfoFieldNumber = 2;
+  ::google::protobuf::uint32 cmdinfo() const;
+  void set_cmdinfo(::google::protobuf::uint32 value);
 
   // required .Proto.ProtoCommand CmdHead = 1;
   bool has_cmdhead() const;
@@ -219,7 +233,120 @@ class ProtoBaseCmd : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr buffer_;
+  ::google::protobuf::uint32 cmdinfo_;
   int cmdhead_;
+  friend struct ::TableStruct_ProtoBase_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CMD_HEART : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.CMD_HEART) */ {
+ public:
+  CMD_HEART();
+  virtual ~CMD_HEART();
+
+  CMD_HEART(const CMD_HEART& from);
+
+  inline CMD_HEART& operator=(const CMD_HEART& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  CMD_HEART(CMD_HEART&& from) noexcept
+    : CMD_HEART() {
+    *this = ::std::move(from);
+  }
+
+  inline CMD_HEART& operator=(CMD_HEART&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const CMD_HEART& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CMD_HEART* internal_default_instance() {
+    return reinterpret_cast<const CMD_HEART*>(
+               &_CMD_HEART_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  void Swap(CMD_HEART* other);
+  friend void swap(CMD_HEART& a, CMD_HEART& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CMD_HEART* New() const final {
+    return CreateMaybeMessage<CMD_HEART>(nullptr);
+  }
+
+  CMD_HEART* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<CMD_HEART>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const CMD_HEART& from);
+  void MergeFrom(const CMD_HEART& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CMD_HEART* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:Proto.CMD_HEART)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtoBase_2eproto;
 };
 // -------------------------------------------------------------------
@@ -268,7 +395,7 @@ class CMD_TEST : public ::google::protobuf::Message /* @@protoc_insertion_point(
                &_CMD_TEST_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   void Swap(CMD_TEST* other);
   friend void swap(CMD_TEST& a, CMD_TEST& b) {
@@ -363,11 +490,11 @@ class CMD_TEST : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
 // required .Proto.ProtoCommand CmdHead = 1;
 inline bool ProtoBaseCmd::has_cmdhead() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void ProtoBaseCmd::clear_cmdhead() {
   cmdhead_ = 1;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::Proto::ProtoCommand ProtoBaseCmd::cmdhead() const {
   // @@protoc_insertion_point(field_get:Proto.ProtoBaseCmd.CmdHead)
@@ -375,12 +502,30 @@ inline ::Proto::ProtoCommand ProtoBaseCmd::cmdhead() const {
 }
 inline void ProtoBaseCmd::set_cmdhead(::Proto::ProtoCommand value) {
   assert(::Proto::ProtoCommand_IsValid(value));
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   cmdhead_ = value;
   // @@protoc_insertion_point(field_set:Proto.ProtoBaseCmd.CmdHead)
 }
 
-// required bytes buffer = 2;
+// required uint32 CmdInfo = 2;
+inline bool ProtoBaseCmd::has_cmdinfo() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ProtoBaseCmd::clear_cmdinfo() {
+  cmdinfo_ = 0u;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::google::protobuf::uint32 ProtoBaseCmd::cmdinfo() const {
+  // @@protoc_insertion_point(field_get:Proto.ProtoBaseCmd.CmdInfo)
+  return cmdinfo_;
+}
+inline void ProtoBaseCmd::set_cmdinfo(::google::protobuf::uint32 value) {
+  _has_bits_[0] |= 0x00000002u;
+  cmdinfo_ = value;
+  // @@protoc_insertion_point(field_set:Proto.ProtoBaseCmd.CmdInfo)
+}
+
+// required bytes buffer = 3;
 inline bool ProtoBaseCmd::has_buffer() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -439,6 +584,10 @@ inline void ProtoBaseCmd::set_allocated_buffer(::std::string* buffer) {
   buffer_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), buffer);
   // @@protoc_insertion_point(field_set_allocated:Proto.ProtoBaseCmd.buffer)
 }
+
+// -------------------------------------------------------------------
+
+// CMD_HEART
 
 // -------------------------------------------------------------------
 
@@ -507,6 +656,8 @@ inline void CMD_TEST::set_allocated_msg(::std::string* msg) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

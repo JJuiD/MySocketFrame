@@ -3,16 +3,28 @@ package Proto;
 
 enum ProtoCommand
 {
-	ProtoCommand_TestModel = 1;
+	ProtoCommand_Heart = 1;
+	ProtoCommand_TestModel = 2;
+	ProtoCommand_Game = 3;
+	ProtoCommand_Room = 4;
 }
 
 message ProtoBaseCmd
 {
 	required ProtoCommand CmdHead = 1;   //主协议 
-	required bytes        buffer = 2;    //内容
+	required uint32       CmdInfo = 2;   //子协议
+	required bytes        buffer = 3;    //内容
+}
+
+message CMD_HEART
+{
+	
 }
 
 message CMD_TEST
 {
 	optional bytes msg = 1;
 }
+
+
+

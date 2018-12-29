@@ -2,6 +2,7 @@
 #define SOCKET_MANAGER_H
 
 #include "SocketUdp.h"
+using namespace protocol;
 
 namespace socketframe
 {
@@ -106,6 +107,7 @@ namespace socketframe
 			{
 				char recvData[RECV_BUFFER_LEN] = {'\0'};
 				printf("is waiting for client msg..........\n");
+				DataCenter::getInstance().UpdateClientHeart(CHECK_ALL_HEART_TAG);
 				int ret = recvfrom(_SocketClass->GetSocket(), recvData, RECV_BUFFER_LEN, 0, (sockaddr*)&remoteAddr, &nAddrLen);
 				if (ret > 0)
 				{
