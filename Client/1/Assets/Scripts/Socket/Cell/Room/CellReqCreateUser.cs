@@ -1,6 +1,4 @@
 ﻿using System;
-using Scripts.Utils;
-
 
 namespace Proto.Cell.Room
 {
@@ -22,8 +20,8 @@ namespace Proto.Cell.Room
             if(packet.data.flag == ProtoConfig.PROTO_FLAG_SUCCESS)
             {
                 Console.WriteLine(string.Format("ID:%s,Name:%s", packet.userinfo.id, packet.userinfo.name));
-                FileUtils.writeToXml<string>("ID", packet.userinfo.id);
-                FileUtils.writeToXml<string>("NAME", packet.userinfo.name);
+                //FileUtils.writeToXml<string>("ID", packet.userinfo.id);
+                //FileUtils.writeToXml<string>("NAME", packet.userinfo.name);
             }
         }
     }

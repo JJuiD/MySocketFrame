@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<_XmlRoot>
+  <View>
+    <!--<_Scene name="SimpleGame">
+      <View>
+        <ViewToPath name="UILoading">UI/UILoading</ViewToPath>
+      </View>
+    </_Scene>-->
+    <ViewToPath name="UILoading">UI/UILoading</ViewToPath>
+    <ViewToPath name="UILobby">UI/UILobby</ViewToPath>
+    <ViewToPath name="UISet">UI/UISet</ViewToPath>
+  </View>
+</_XmlRoot>
