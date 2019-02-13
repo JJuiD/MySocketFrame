@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Scripts.UI
 {
@@ -10,7 +11,7 @@ namespace Scripts.UI
         private string WN_BTN_SAVE = "WN_BTN_SAVE";
 
 
-        public override void onEnter()
+        public override void Open(params object[] _params)
         {
             UIManager.GetInstance().RegisterClickEvent(WN_BTN_SAVE, this, onClickSave);
             UIManager.GetInstance().RegisterClickEvent(WN_BTN_CLOSE, this, onClickClose);
@@ -19,13 +20,15 @@ namespace Scripts.UI
 
         private void InitKeyCode()
         {
-            Transform KeyListNode = UIManager.GetInstance().GetWNTransform(WN_PNL_KeyList, this);
+            Transform KeyListNode = GetWMNode(WN_PNL_KeyList);
             foreach (Transform temp in KeyListNode)
             {
                 string KeyName = temp.name;
                 string _KeyCode = DataCenter.GetInstance().GetKeyValue(KeyName);
 
                 //修改显示的按键
+                Text holder = temp.Find("holder").GetComponent<Text>();
+                holder.text = _KeyCode;
             }
         }
 
@@ -36,7 +39,7 @@ namespace Scripts.UI
 
         private void onClickClose()
         {
-
+            this.Close();
         }
     }
 }

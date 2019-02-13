@@ -31,7 +31,7 @@ namespace Scripts.UI
             rootNode = GameObject.Instantiate(Resources.Load<GameObject>("UI/Root"), Vector3.zero, Quaternion.identity);
             rootNode.name = "UIRoot";
             DontDestroyOnLoad(rootNode);
-            initUIPath();
+            initUIPrefab();
         }
 
         #region 场景Load Realse
@@ -59,35 +59,18 @@ namespace Scripts.UI
 
         #region UI 相关操作 LoadNode RealseNode
         private Dictionary<string, BaseUI> UINodeList = new Dictionary<string, BaseUI>();
-        private Dictionary<string, List<Transform>> DICWNNode = new Dictionary<string, List<Transform>>();
-        /// <summary>
-        /// 加载节点
-        /// </summary>
-        /// <param 节点名></param>
-        /// <param 层级></param>
-        /// <param 是否唯一></param>
-        public void LoadNode(string name,int zOrder = -1)
+        public void OpenNode(string name,params object[] _params)
         {
-            GameObject node ;
-            if (!UIPathList.ContainsKey(name)) return;
-            zOrder = zOrder < 0 ? rootNode.transform.childCount : Math.Min(zOrder, rootNode.transform.childCount);
-            bool isClone = false;
-            if (UINodeList.ContainsKey(name) && !isClone) { node = UINodeList[name].gameObject; }
-            string path = UIPathList[name] ;
+            if (!UIPrefabList.ContainsKey(name)) return;
+            int zOrder = rootNode.transform.childCount;
             Transform nodeRoot = rootNode.transform;
-
-            node = GameObject.Instantiate(Resources.Load<GameObject>(path), rootNode.transform, false);
-            node.transform.SetParent(rootNode.transform);
+            GameObject node = GameObject.Instantiate(UIPrefabList[name],nodeRoot);
+            //node.transform.SetParent(rootNode.transform);
             node.transform.SetSiblingIndex(zOrder);
+            if(UINodeList.ContainsKey(name)) name = name + "_" + zOrder.ToString();
             node.transform.name = name;
-            if (isClone) node.transform.name = name + "_" + zOrder.ToString();
-
             UINodeList.Add(name, node.GetComponent<BaseUI>());
-            DICWNNode.Add(name, new List<Transform>());
-            SearchWNNode(node.transform, node.transform.name);
-
-            node.GetComponent<BaseUI>().onEnter();
-            //node.GetComponent<BaseUI>().
+            node.GetComponent<BaseUI>().Open(_params);
         }
         public void RealseNode(string name)
         {
@@ -95,59 +78,33 @@ namespace Scripts.UI
             if (UINodeList.ContainsKey(name))
             {
                 index = UINodeList[name].transform.GetSiblingIndex();
-                UINodeList[name].onExit();
                 UINodeList.Remove(name);
             }
+            
             //Transform[] transforms = rootNode.transform.GetComponentsInChildren<Transform>();
             //for(;index < transforms.Length; ++index)
             //{
             //    transforms[index].SetSiblingIndex(index);
             //}
         }
-        /// <summary>
-        /// 遍历节点筛选 "WN"开头节点
-        /// </summary>
-        /// <param name="transform"></param>
-        /// <param name="rootName"></param>
-        private void SearchWNNode(Transform transform,string rootName)
-        {
-            foreach(Transform temp in transform)
-            {
-                if(temp.childCount > 0)
-                {
-                    SearchWNNode(temp, rootName);
-                }
 
-                if(temp.name.Contains("WN"))
-                {
-                    DICWNNode[rootName].Add(temp);
-                }
-            }
-        }
-        public Transform GetWNTransform(string name, BaseUI baseUI)
-        {
-            string rootName = baseUI.transform.name;
-            if (DICWNNode.ContainsKey(rootName) && DICWNNode[rootName].Count > 0)
-            {
-                foreach (Transform temp in DICWNNode[rootName])
-                {
-                    if (temp.name == name)
-                    {
-                        return temp;
-                    }
-                }
-            }
-            Debug.LogError(name + " 节点不存在");
-            return null;
-        }
         #endregion
 
         #region 事件相关 注册
         public void RegisterClickEvent(string nodeName,BaseUI baseUI,UnityAction func)
         {
-            Transform Btn = GetWNTransform(nodeName,baseUI);
+            Transform Btn = baseUI.GetWMNode(nodeName);
             if (Btn == null) return;
             Button tempBtn = Btn.GetComponent<Button>();
+            if (tempBtn != null)
+            {
+                tempBtn.onClick.AddListener(func);
+            }
+            else Debug.LogError(tempBtn.name + "Button控件不存在");
+        }
+        public void RegisterClickEvent(Transform nodeName, BaseUI baseUI, UnityAction func)
+        {
+            Button tempBtn = nodeName.GetComponent<Button>();
             if (tempBtn != null)
             {
                 tempBtn.onClick.AddListener(func);
@@ -159,15 +116,15 @@ namespace Scripts.UI
         /// <summary>
         /// 初始化UI相关资源路径
         /// </summary>
-        private Dictionary<string, string> UIPathList = new Dictionary<string, string>();
-        private void initUIPath()
+        private Dictionary<string, GameObject> UIPrefabList;
+        private void initUIPrefab()
         {
             rootNodeXml = FileUtils.LoadFromXml<_XmlRoot>(Config.XML_UIDEFAULT);
-            UIPathList = new Dictionary<string, string>();
+            UIPrefabList = new Dictionary<string, GameObject>();
             if (rootNodeXml.ViewList == null) return;
             foreach (ViewToPath temp in rootNodeXml.ViewList)
             {
-                UIPathList.Add(temp.name, temp.path);
+                UIPrefabList.Add(temp.name, Resources.Load<GameObject>(temp.path));
             }
         }
     }

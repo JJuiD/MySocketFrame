@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Protocol\_protocol\Game\GameBase.pb.cc">
+      <Filter>Class\Protocol\_protocol\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\_protocol\Game\GameProto.pb.cc">
+      <Filter>Class\Protocol\_protocol\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServer\Base\ikcp.c">
+      <Filter>Class\GameServer\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\_protocol\ProtoBase.pb.cc">
+      <Filter>Class\Protocol\_protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\_protocol\Room\RoomBase.pb.cc">
+      <Filter>Class\Protocol\_protocol\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServer\Logic\RoomLogic.cpp">
+      <Filter>Class\Protocol\_protocol\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\_protocol\Room\RoomProto.pb.cc">
+      <Filter>Class\Protocol\_protocol\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServer\Base\SocketUdp.cpp">
+      <Filter>Class\GameServer\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\_protocol\Room\UserProto.pb.cc">
+      <Filter>Class\Protocol\_protocol\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Class</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServer\Logic\LogicManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Config\ConfigBase.h">
+      <Filter>Class\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\DataCenter.h">
+      <Filter>Class\GameServer</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\Game\GameBase.pb.h">
+      <Filter>Class\Protocol\_protocol\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\Game\GameProto.pb.h">
+      <Filter>Class\Protocol\_protocol\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Base\ikcp.h">
+      <Filter>Class\GameServer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Logic\LogicBase.h">
+      <Filter>Class\GameServer\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Logic\LogicManager.h">
+      <Filter>Class\GameServer\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\ProtoBase.pb.h">
+      <Filter>Class\Protocol\_protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\ProtocolBase.h">
+      <Filter>Class\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Config\RedisConfig.h">
+      <Filter>Class\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\RedisModel.h">
+      <Filter>Class\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\Room\RoomProto.pb.h">
+      <Filter>Class\Protocol\_protocol\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\Room\RoomBase.pb.h">
+      <Filter>Class\Protocol\_protocol\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Logic\RoomLogic.h">
+      <Filter>Class\Protocol\_protocol\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Base\SocketUdp.h">
+      <Filter>Class\GameServer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Base\SocketConfig.h">
+      <Filter>Class\GameServer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Base\SocketManager.h">
+      <Filter>Class\GameServer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer\Base\SocketBase.h">
+      <Filter>Class\GameServer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\_protocol\Room\UserProto.pb.h">
+      <Filter>Class\Protocol\_protocol\Room</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Class">
+      <UniqueIdentifier>{3209795b-6eec-4f26-857c-ab01f68451ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\GameServer">
+      <UniqueIdentifier>{4c15a13d-3743-4523-82a6-19af4b0f1d67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Config">
+      <UniqueIdentifier>{bb4b6938-f547-4eb2-9e65-3cbe5868b434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Model">
+      <UniqueIdentifier>{f6c7dae9-c3e5-4829-bf3f-912dc7f1a3a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Protocol">
+      <UniqueIdentifier>{f513bdca-0d19-40ef-9a1a-d4eb3f70fdc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Protocol\_protocol">
+      <UniqueIdentifier>{7b573501-a04c-4c97-a3f8-9bdac6af8fe2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Protocol\_protocol\Room">
+      <UniqueIdentifier>{bd987fb2-0257-4628-97c4-ae18e035411a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Protocol\_protocol\Game">
+      <UniqueIdentifier>{9c177ba2-0ca8-45d3-94d0-d3cebf02266f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\GameServer\Base">
+      <UniqueIdentifier>{fc52efd7-1edc-4485-ad23-562430b920c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\GameServer\Logic">
+      <UniqueIdentifier>{1eba22ae-6c80-459e-bdfb-e5135e15ee1d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

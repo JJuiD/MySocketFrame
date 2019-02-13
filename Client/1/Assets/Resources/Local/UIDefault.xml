@@ -9,5 +9,6 @@
     <ViewToPath name="UILoading">UI/UILoading</ViewToPath>
     <ViewToPath name="UILobby">UI/UILobby</ViewToPath>
     <ViewToPath name="UISet">UI/UISet</ViewToPath>
+    <ViewToPath name="UIMessageBox">UI/UIMessageBox</ViewToPath>
   </View>
 </_XmlRoot>

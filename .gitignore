@@ -9,6 +9,7 @@ Client/1/Temp/
 Server/x64/
 Server/ConsoleApplication1/x64/
 Server/*.user
+Server/lib/*.lib
 
 #protocol_protobufTool
 protocol_protobufTool/c#/include/

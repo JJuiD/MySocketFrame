@@ -1,0 +1,3 @@
+LIBRARY Redis
+EXPORTS
+Connect @ 1

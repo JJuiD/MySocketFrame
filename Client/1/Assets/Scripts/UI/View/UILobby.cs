@@ -11,7 +11,7 @@ namespace Scripts.UI
         private string WN_BTN_START = "WN_BTN_START";
         private string WN_BTN_SET = "WN_BTN_SET";
 
-        public override void onEnter()
+        public override void Open(params object[] _params)
         {
             UIManager.GetInstance().RegisterClickEvent(WN_BTN_SET, this, onClickSet);
             UIManager.GetInstance().RegisterClickEvent(WN_BTN_START, this, onClickStart);
@@ -25,7 +25,7 @@ namespace Scripts.UI
         private void onClickSet()
         {
             Debug.Log("onClickSet Start");
-            UIManager.GetInstance().LoadNode("UISet");
+            UIManager.GetInstance().OpenNode(UIConfig.UISet);
         }
     }
 }
