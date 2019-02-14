@@ -7,7 +7,7 @@ namespace Scripts.UI
     {
         public override void onEnter()
         {
-            UIManager.GetInstance().LoadNode("UITowerDefense");
+            UIManager.GetInstance().OpenNode("UITowerDefense");
         }
 
         public override void onExit()

@@ -217,7 +217,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: "\u7CFB\u7EDF\u4FE1\u606F"
 --- !u!114 &114133059777187672
 MonoBehaviour:
   m_ObjectHideFlags: 1

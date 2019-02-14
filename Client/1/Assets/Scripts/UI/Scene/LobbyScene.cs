@@ -7,7 +7,7 @@ namespace Scripts.UI
     {
         public override void onEnter()
         {
-            UIManager.GetInstance().LoadNode("UILobby");
+            UIManager.GetInstance().OpenNode(UIConfig.UILobby);
         }
 
         public override void onExit()

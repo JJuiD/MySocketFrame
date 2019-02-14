@@ -102,7 +102,7 @@ namespace Scripts.UI
             }
             else Debug.LogError(tempBtn.name + "Button控件不存在");
         }
-        public void RegisterClickEvent(Transform nodeName, BaseUI baseUI, UnityAction func)
+        public void RegisterClickEvent(Transform nodeName, UnityAction func)
         {
             Button tempBtn = nodeName.GetComponent<Button>();
             if (tempBtn != null)
