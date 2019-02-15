@@ -59,9 +59,9 @@ namespace Scripts.UI
 
         #region UI 相关操作 LoadNode RealseNode
         private Dictionary<string, BaseUI> UINodeList = new Dictionary<string, BaseUI>();
-        public void OpenNode(string name,params object[] _params)
+        public T OpenNode<T>(string name,params object[] _params) where T : BaseUI
         {
-            if (!UIPrefabList.ContainsKey(name)) return;
+            if (!UIPrefabList.ContainsKey(name)) return null;
             int zOrder = rootNode.transform.childCount;
             Transform nodeRoot = rootNode.transform;
             GameObject node = GameObject.Instantiate(UIPrefabList[name],nodeRoot);
@@ -71,6 +71,7 @@ namespace Scripts.UI
             node.transform.name = name;
             UINodeList.Add(name, node.GetComponent<BaseUI>());
             node.GetComponent<BaseUI>().Open(_params);
+            return node.GetComponent<T>();
         }
         public void RealseNode(string name)
         {
@@ -102,7 +103,7 @@ namespace Scripts.UI
             }
             else Debug.LogError(tempBtn.name + "Button控件不存在");
         }
-        public void RegisterClickEvent(Transform nodeName, UnityAction func)
+        public void RegisterClickEvent(GameObject nodeName, UnityAction func)
         {
             Button tempBtn = nodeName.GetComponent<Button>();
             if (tempBtn != null)
@@ -127,6 +128,21 @@ namespace Scripts.UI
                 UIPrefabList.Add(temp.name, Resources.Load<GameObject>(temp.path));
             }
         }
+
+        #region 操作UI 
+        public void SetUIXPosition(Transform node,float posX)
+        {
+            if (node == null) return;
+            Vector3 _nodePos = node.position;
+            node.position = new Vector2(posX,_nodePos.y);
+        }
+        public void SetUIYPosition(Transform node,float posY)
+        {
+            if (node == null) return;
+            Vector3 _nodePos = node.position;
+            node.position = new Vector2(_nodePos.x, posY);
+        }
+        #endregion
     }
 
 }

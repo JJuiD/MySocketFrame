@@ -34,12 +34,44 @@ namespace Scripts.UI
 
         private void onClickSave()
         {
+            SaveToLocal();
+        }
 
+        private void SaveToLocal()
+        {
+            Transform KeyListNode = GetWMNode(WN_PNL_KeyList);
+            foreach (Transform temp in KeyListNode)
+            {
+                string KeyName = temp.name;
+                Text holder = temp.Find("holder").GetComponent<Text>();
+                KeyCode _KeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), holder.text);
+                DataCenter.GetInstance().SetKeyEvent(KeyName, _KeyCode);
+            }
         }
 
         private void onClickClose()
         {
-            this.Close();
+            UIMessageBox _UIMessageBox = UIManager.GetInstance().OpenNode<UIMessageBox>(
+                UIConfig.UIMessageBox,"是否应用设置", "", "save|save_cancel");
+            _UIMessageBox.ConfirmAction = onClickMessageBoxConfirm;
+            _UIMessageBox.CancelAction = onClickMessageBoxCancel;
+        }
+
+        private void onClickMessageBoxConfirm(string btnName)
+        {
+            if(btnName == "save")
+            {
+                SaveToLocal();
+                this.Close();
+            }
+        }
+
+        private void onClickMessageBoxCancel(string btnName)
+        {
+            if (btnName == "save_cancel")
+            {
+                this.Close();
+            }
         }
     }
 }

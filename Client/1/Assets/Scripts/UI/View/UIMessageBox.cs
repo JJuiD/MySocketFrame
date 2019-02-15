@@ -7,21 +7,17 @@ namespace Scripts.UI
 {
     public class UIMessageBox : BaseUI
     {
-        private Transform Btn_Confirm;
-        private Transform Btn_Cancel;
-        private Transform Btn_Click;
+        private GameObject Btn_Confirm;
+        private GameObject Btn_Cancel;
+        private GameObject Btn_Close;
         private Text Txt_Info; //显示的内容
         private Text Txt_Head; //标题
 
-        public UnityAction ConfirmAction;
-        public UnityAction CancelAction;
-        public UnityAction CloseAction;
+        public UnityAction<string> ConfirmAction;
+        public UnityAction<string> CancelAction;
+        public UnityAction<string> CloseAction;
 
-        /// <summary>
-        /// (string,string,string)
-        /// (内容,标题,
-        /// </summary>
-        /// <param name="_params"></param>
+        
         public override void Open(params object[] _params)
         {
             string InfoStr = _params[0].ToString();
@@ -30,8 +26,8 @@ namespace Scripts.UI
             InitHead(HeadStr);
             string BtnStr = _params[2].ToString();
             InitBtn(BtnStr);
-            
-            
+            bool IsShow = (bool)_params[3];
+            InitCloseBtn(IsShow);
         }
 
         private void InitInfo(string info)
@@ -41,14 +37,14 @@ namespace Scripts.UI
                 Debug.LogError("UIMessageBox Info is Null");
                 return;
             }
-            Txt_Info = this.transform.Find("Txt_Info").GetComponent<Text>();
+            Txt_Info = this.transform.Find("TXT_Info").GetComponent<Text>();
             Txt_Info.text = info;
         }
 
         private void InitHead(string head)
         {
             if (head == "") return;
-            Txt_Head = this.transform.Find("Txt_Head").GetComponent<Text>();
+            Txt_Head = this.transform.Find("TXT_Head").GetComponent<Text>();
             Txt_Head.text = head;
         }
 
@@ -56,23 +52,26 @@ namespace Scripts.UI
         { 
             if(strBtn == "") return ;
             string[] strBtns = strBtn.Split('|');
-            Btn_Confirm = this.transform.Find("Btn_Confirm");
-            Btn_Cancel = this.transform.Find("Btn_Cancel");
-            Btn_Click = this.transform.Find("Btn_Click");
+            Btn_Confirm = this.transform.Find("BTN_Confirm").gameObject;
+            Btn_Cancel = this.transform.Find("BTN_Cancel").gameObject;
 
-            AddClickFunc(Btn_Confirm, onClickConfirm, ConfirmAction);
-            AddClickFunc(Btn_Cancel, onClickCancel, CancelAction);
-            AddClickFunc(Btn_Click, onClickClose, CloseAction);
+            InitBtnMsg(Btn_Confirm, strBtns, 0);
+            InitBtnMsg(Btn_Cancel, strBtns, 1);
+
+            AddClickFunc(Btn_Confirm, onClickClose, ConfirmAction);
+            AddClickFunc(Btn_Cancel, onClickClose, CancelAction);
+
+            if(strBtns.Length == 1 )
+            {
+                UIManager.GetInstance().SetUIXPosition(Btn_Confirm.transform,0);
+            }
         }
 
-        private void onClickConfirm()
+        private void InitCloseBtn(bool isShow = false)
         {
-            this.Close();
-        }
-
-        private void onClickCancel()
-        {
-            this.Close();
+            Btn_Close = this.transform.Find("BTN_Close").gameObject;
+            Btn_Close.SetActive(false);
+            AddClickFunc(Btn_Close, onClickClose, CloseAction);
         }
 
         private void onClickClose()
@@ -80,14 +79,26 @@ namespace Scripts.UI
             this.Close();
         }
 
-        private void AddClickFunc(Transform node,UnityAction defaultAction,UnityAction Action = null)
+        private void AddClickFunc(GameObject node,UnityAction defaultAction, UnityAction<string> Action = null)
         {
+            if (!node.activeSelf) return;
             if (Action == null)
             {
                 UIManager.GetInstance().RegisterClickEvent(node, defaultAction);
                 return;
             }
-            UIManager.GetInstance().RegisterClickEvent(node, Action);
+            defaultAction += delegate ()
+            {
+                Action(node.name);
+            };
+            UIManager.GetInstance().RegisterClickEvent(node, defaultAction);
+        }
+
+        private void InitBtnMsg(GameObject btn,string[] array,int index)
+        {
+            if (index >= array.Length) return;
+            btn.name = array[index];
+            btn.SetActive(true);
         }
     }
 }
