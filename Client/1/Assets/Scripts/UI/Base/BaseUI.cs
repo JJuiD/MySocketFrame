@@ -38,7 +38,7 @@ namespace Scripts.UI
         }
         private void SearchWNNode(Transform transform)
         {
-            foreach (Transform temp in this.transform)
+            foreach (Transform temp in transform)
             {
                 if (temp.childCount > 0)
                 {

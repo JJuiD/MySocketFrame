@@ -20,6 +20,7 @@ namespace Scripts.UI
         private void onClickStart()
         {
             Debug.Log("onClickStart Start");
+            UIManager.GetInstance().LoadScene(UIConfig.PVPGameScene);
         }
 
         private void onClickSet()

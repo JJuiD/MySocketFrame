@@ -91,4 +91,35 @@ namespace Scripts
 
 
     #endregion
+
+    #region CardDefault.xml
+    [XmlRootAttribute("_XmlCardRoot", IsNullable = false)]
+    public class _XmlCardRoot
+    {
+        [XmlArrayAttribute("Card")]
+        public _XmlCard[] CardList { get; set; }
+    }
+
+    public class _XmlCard
+    {
+
+        [XmlAttribute("name")]
+        public string name { get; set; }
+
+        [XmlArrayAttribute("CardInfo")]
+
+        public _CardInfo[] _CardInfoList { get; set; }
+    }
+
+    public class _CardInfo
+    {
+        [XmlAttribute("name")]
+        public string name { get; set; }
+
+        [XmlText]
+        public string value { get; set; }
+    }
+
+
+    #endregion
 }

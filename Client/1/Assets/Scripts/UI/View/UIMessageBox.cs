@@ -20,13 +20,13 @@ namespace Scripts.UI
         
         public override void Open(params object[] _params)
         {
-            string InfoStr = _params[0].ToString();
+            string InfoStr = _params.Length == 1 ? _params[0].ToString() : "";
             InitInfo(InfoStr);
-            string HeadStr = _params[1].ToString();
+            string HeadStr = _params.Length == 2 ? _params[0].ToString() : "";
             InitHead(HeadStr);
-            string BtnStr = _params[2].ToString();
+            string BtnStr = _params.Length == 3 ? _params[0].ToString() : "";
             InitBtn(BtnStr);
-            bool IsShow = (bool)_params[3];
+            bool IsShow = _params.Length == 4 ? (bool)_params[3] : false;
             InitCloseBtn(IsShow);
         }
 
@@ -58,10 +58,10 @@ namespace Scripts.UI
             InitBtnMsg(Btn_Confirm, strBtns, 0);
             InitBtnMsg(Btn_Cancel, strBtns, 1);
 
-            AddClickFunc(Btn_Confirm, onClickClose, ConfirmAction);
-            AddClickFunc(Btn_Cancel, onClickClose, CancelAction);
+            AddClickFunc(Btn_Confirm, onClickClose);
+            AddClickFunc(Btn_Cancel, onClickClose);
 
-            if(strBtns.Length == 1 )
+            if (strBtns.Length == 1 )
             {
                 UIManager.GetInstance().SetUIXPosition(Btn_Confirm.transform,0);
             }
@@ -87,9 +87,11 @@ namespace Scripts.UI
                 UIManager.GetInstance().RegisterClickEvent(node, defaultAction);
                 return;
             }
-            defaultAction += delegate ()
+            UIManager.GetInstance().RemoveAllClickListener(node);
+            defaultAction = delegate ()
             {
                 Action(node.name);
+                onClickClose();
             };
             UIManager.GetInstance().RegisterClickEvent(node, defaultAction);
         }
@@ -99,6 +101,16 @@ namespace Scripts.UI
             if (index >= array.Length) return;
             btn.name = array[index];
             btn.SetActive(true);
+        }
+
+        public void AddConfrimBtnCallBack(UnityAction<string> Action)
+        {
+            AddClickFunc(Btn_Confirm, onClickClose, Action);
+        }
+
+        public void AddCancelBtnCallBack(UnityAction<string> Action)
+        {
+            AddClickFunc(Btn_Cancel, onClickClose, Action);
         }
     }
 }

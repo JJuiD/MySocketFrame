@@ -44,9 +44,12 @@ namespace Scripts.UI
             {
                 case UIConfig.LobbyScene:
                     CurScene = new LobbyScene();
-                    CurScene.name = UIConfig.LobbyScene;
+                    break;
+                case UIConfig.PVPGameScene:
+                    CurScene = new PVPGameSceen();
                     break;
             }
+            CurScene.name = name;
             CurScene.onEnter();
         }
         public void RealseScene()
@@ -70,6 +73,7 @@ namespace Scripts.UI
             if(UINodeList.ContainsKey(name)) name = name + "_" + zOrder.ToString();
             node.transform.name = name;
             UINodeList.Add(name, node.GetComponent<BaseUI>());
+            node.GetComponent<BaseUI>().Init();
             node.GetComponent<BaseUI>().Open(_params);
             return node.GetComponent<T>();
         }
@@ -103,15 +107,25 @@ namespace Scripts.UI
             }
             else Debug.LogError(tempBtn.name + "Button控件不存在");
         }
-        public void RegisterClickEvent(GameObject nodeName, UnityAction func)
+        public void RegisterClickEvent(GameObject node, UnityAction func)
         {
-            Button tempBtn = nodeName.GetComponent<Button>();
+            Button tempBtn = node.GetComponent<Button>();
             if (tempBtn != null)
             {
                 tempBtn.onClick.AddListener(func);
             }
             else Debug.LogError(tempBtn.name + "Button控件不存在");
         }
+        public void RemoveAllClickListener(GameObject node)
+        {
+            Button tempBtn = node.GetComponent<Button>();
+            if (tempBtn != null)
+            {
+                tempBtn.onClick.RemoveAllListeners();
+            }
+            else Debug.LogError(tempBtn.name + "Button控件不存在");
+        }
+
         #endregion
 
         /// <summary>

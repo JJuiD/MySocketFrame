@@ -8,11 +8,13 @@ namespace Scripts.UI
     public static class UIConfig
     {
         public const string LobbyScene = "LobbyScene";
-        public const string GameScene  = "GameScene";
+        public const string PVPGameScene = "PVPGameScene";
         public const string TowerDefenseScene = "TowerDefenseScene";
 
         //UI
         public const string UILobby      = "UILobby";          //大厅界面
+        public const string UIPVPGame = "UIPVPGame";              //游戏界面
+
         public const string UISet        = "UISet";          //大厅设置界面
         /// <summary>
         /// (string,string,string,bool)

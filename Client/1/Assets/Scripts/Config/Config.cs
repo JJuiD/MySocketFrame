@@ -16,6 +16,7 @@ namespace Scripts
         //Xml文件
         public const string XML_USERDEFAULT = "UserDefault.xml";
         public const string XML_UIDEFAULT   = "UIDefault.xml";
+        public const string XML_CARDDEFAULT = "CardDefault.xml";
 
 
         //事件名

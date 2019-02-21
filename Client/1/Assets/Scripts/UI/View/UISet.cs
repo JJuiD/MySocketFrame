@@ -53,8 +53,8 @@ namespace Scripts.UI
         {
             UIMessageBox _UIMessageBox = UIManager.GetInstance().OpenNode<UIMessageBox>(
                 UIConfig.UIMessageBox,"是否应用设置", "", "save|save_cancel");
-            _UIMessageBox.ConfirmAction = onClickMessageBoxConfirm;
-            _UIMessageBox.CancelAction = onClickMessageBoxCancel;
+            _UIMessageBox.AddConfrimBtnCallBack(onClickMessageBoxConfirm);
+            _UIMessageBox.AddCancelBtnCallBack(onClickMessageBoxCancel);
         }
 
         private void onClickMessageBoxConfirm(string btnName)

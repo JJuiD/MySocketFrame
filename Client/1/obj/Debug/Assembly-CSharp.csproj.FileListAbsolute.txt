@@ -334,3 +334,7 @@ C:\Users\Administrator\Desktop\我的\MySocketFrame\Client\1\obj\Debug\Assembly-
 C:\Users\Administrator\Desktop\我的\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Administrator\Desktop\我的\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.dll
 C:\Users\Administrator\Desktop\我的\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.pdb
+E:\Projects\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+E:\Projects\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+E:\Projects\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.dll
+E:\Projects\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.pdb
