@@ -91,5 +91,10 @@ namespace Scripts
             FileUtils.SaveCache();
             Debug.Log("DataCenter OnDestroy");
         }
+
+        public void FixedUpdate()
+        {
+            
+        }
     }
 }

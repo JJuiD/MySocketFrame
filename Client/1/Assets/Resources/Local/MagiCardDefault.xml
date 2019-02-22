@@ -4,12 +4,9 @@
     <_XmlCard name="MagiCardDefault">
       <CardInfo>
         <_CardInfo name="CardName">火球术</_CardInfo>
-        <_CardInfo name="MagicType">MAGIC</_CardInfo>
-        <_CardInfo name="UseEndType">ONCE</_CardInfo>
         <_CardInfo name="UseConditionType">00010</_CardInfo>
         <_CardInfo name="LiveTime">10</_CardInfo>
         <_CardInfo name="Damage">2</_CardInfo>
-        <_CardInfo name="info">这是一张默认魔法卡牌,消耗10点法力</_CardInfo>
       </CardInfo>
     </_XmlCard>
   </Card>
