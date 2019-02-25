@@ -43,7 +43,6 @@ E:\MySocketFrame\Client\1\Temp\bin\Debug\UnityEngine.ParticleSystemModule.dll
 E:\MySocketFrame\Client\1\Temp\bin\Debug\UnityEngine.PerformanceReportingModule.dll
 E:\MySocketFrame\Client\1\Temp\bin\Debug\UnityEngine.Physics2DModule.dll
 E:\MySocketFrame\Client\1\Temp\bin\Debug\UnityEngine.PhysicsModule.dll
-E:\MySocketFrame\Client\1\Temp\bin\Debug\UnityEngine.Purchasing.dll
 E:\MySocketFrame\Client\1\Temp\bin\Debug\UnityEngine.ScreenCaptureModule.dll
 E:\MySocketFrame\Client\1\Temp\bin\Debug\UnityEngine.SharedInternalsModule.dll
 E:\MySocketFrame\Client\1\Temp\bin\Debug\UnityEngine.SpatialTracking.dll
@@ -338,3 +337,5 @@ E:\Projects\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.csprojAssemblyRefer
 E:\Projects\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 E:\Projects\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.dll
 E:\Projects\MySocketFrame\Client\1\obj\Debug\Assembly-CSharp.pdb
+E:\MySocketFrame\Client\1\Temp\bin\Debug\Unity.TextMeshPro.dll
+E:\MySocketFrame\Client\1\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll

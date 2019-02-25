@@ -14,14 +14,28 @@ namespace Scripts.Logic
 
     public class GameController : SingletonMono<GameController>
     {
-        public void init()
+        public string GameName {get ; set;}
+
+        private UserDefault gameUserDefault;
+        private BaseLogic Logic;
+
+        public BaseLogic GetLogic() { return Logic; }
+
+        public void Init()
         {
+            Debug.Log("GameController Init " + GameName);
+            switch(GameName)
+            {
+                case Config.PVPGameScene:
+                    gameUserDefault = FileUtils.LoadFromXml<UserDefault>(Config.XML_PVPGAME_USERDEFAULT);
+                    Logic = new PVPGame.PVPGameLogic();
+                    break;
+            }
 
         }
 
-
         //游戏地图
-        private void initMapData(int mapIndex = 0)
+        private void InitMapData(int mapIndex = 0)
         {
             
         }

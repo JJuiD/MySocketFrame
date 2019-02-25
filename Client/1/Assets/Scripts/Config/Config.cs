@@ -16,7 +16,9 @@ namespace Scripts
         //Xml文件
         public const string XML_USERDEFAULT = "UserDefault.xml";
         public const string XML_UIDEFAULT   = "UIDefault.xml";
-        public const string XML_CARDDEFAULT = "CardDefault.xml";
+
+        public const string XML_PVPGAME_USERDEFAULT = "PVPGame/PVPGameUserDefault.xml";
+        //public const string XML_CARDDEFAULT = "CardDefault.xml";
 
 
         //事件名
@@ -27,7 +29,12 @@ namespace Scripts
 
         public const string KEY_ATTACK = "KEY_ATTACK";
 
-        
+        //场景
+        public const string LobbyScene = "LobbyScene";
+        public const string PVPGameScene = "PVPGameScene";
+        public const string TowerDefenseScene = "TowerDefenseScene";
+
+
         #endregion
     }
 }

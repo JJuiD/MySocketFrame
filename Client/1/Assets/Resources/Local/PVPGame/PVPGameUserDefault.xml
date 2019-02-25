@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserDefault xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <STRValueNode>
+    <!--<STRValue name="KEY_UP">W</STRValue>
+    <STRValue name="KEY_LEFT">A</STRValue>
+    <STRValue name="KEY_DOWN">S</STRValue>
+    <STRValue name="KEY_RIGHT">D</STRValue>
+    <STRValue name="KEY_ATTACK">Mouse0</STRValue>-->
+  </STRValueNode>
+  <INTValueNode />
+  <FLTValueNode />
+</UserDefault>

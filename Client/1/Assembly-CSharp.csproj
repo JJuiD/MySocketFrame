@@ -61,10 +61,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Config\Config.cs" />
     <Compile Include="Assets\Scripts\DataCenter.cs" />
+    <Compile Include="Assets\Scripts\Logic\Base\BaseLogic.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
-    <Compile Include="Assets\Scripts\Logic\PVPGame\Card\Card.cs" />
-    <Compile Include="Assets\Scripts\Logic\PVPGame\Card\CardManager.cs" />
     <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGameLogic.cs" />
+    <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGamePlayer.cs" />
     <Compile Include="Assets\Scripts\main.cs" />
     <Compile Include="Assets\Scripts\Module\SkillModule.cs" />
     <Compile Include="Assets\Scripts\Protocol\Game\GameBase.cs" />
@@ -166,22 +166,23 @@
     <Compile Include="Assets\Scripts\UI\Base\BaseScene.cs" />
     <Compile Include="Assets\Scripts\UI\Base\BaseUI.cs" />
     <Compile Include="Assets\Scripts\UI\Scene\LobbyScene.cs" />
-    <Compile Include="Assets\Scripts\UI\Scene\PVPGameSceen.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\PVPGameScene.cs" />
     <Compile Include="Assets\Scripts\UI\Scene\TowerDefenseScene.cs" />
     <Compile Include="Assets\Scripts\UI\UIConfig.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
+    <Compile Include="Assets\Scripts\UI\View\PVPGame\UIPVPGame.cs" />
+    <Compile Include="Assets\Scripts\UI\View\PVPGame\UIPVPGameInit.cs" />
     <Compile Include="Assets\Scripts\UI\View\UILoading.cs" />
     <Compile Include="Assets\Scripts\UI\View\UILobby.cs" />
     <Compile Include="Assets\Scripts\UI\View\UIMessageBox.cs" />
-    <Compile Include="Assets\Scripts\UI\View\UIPVPGame.cs" />
     <Compile Include="Assets\Scripts\UI\View\UISet.cs" />
     <Compile Include="Assets\Scripts\Utils\FileUtils.cs" />
     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utils\XmlClass.cs" />
-    <None Include="Assets\Resources\Local\MagiCardDefault.xml" />
-    <None Include="Assets\Resources\Local\UIPrefabXml.xml" />
+    <None Include="Assets\Resources\Local\PVPGame\PVPGameHeroDefault.xml" />
     <None Include="Assets\Resources\Local\UIDefault.xml" />
     <None Include="Assets\Resources\Local\UserDefault.xml" />
+    <None Include="Assets\Resources\Local\PVPGame\PVPGameUserDefault.xml" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>E:/MySocketFrame/Client/1/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

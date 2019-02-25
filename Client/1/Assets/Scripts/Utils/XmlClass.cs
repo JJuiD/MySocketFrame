@@ -93,25 +93,58 @@ namespace Scripts
     #endregion
 
     #region CardDefault.xml
-    [XmlRootAttribute("_XmlCardRoot", IsNullable = false)]
-    public class _XmlCardRoot
+    //[XmlRootAttribute("_XmlCardRoot", IsNullable = false)]
+    //public class _XmlCardRoot
+    //{
+    //    [XmlArrayAttribute("Card")]
+    //    public _XmlCard[] CardList { get; set; }
+    //}
+
+    //public class _XmlCard
+    //{
+
+    //    [XmlAttribute("name")]
+    //    public string name { get; set; }
+
+    //    [XmlArrayAttribute("CardInfo")]
+
+    //    public _CardInfo[] _CardInfoList { get; set; }
+    //}
+
+    //public class _CardInfo
+    //{
+    //    [XmlAttribute("name")]
+    //    public string name { get; set; }
+
+    //    [XmlText]
+    //    public string value { get; set; }
+    //}
+
+
+    #endregion
+
+    #region PVPGame
+
+    #region PVPGameHeroDefault.xml
+    [XmlRootAttribute("_PVPGameHeroDefault", IsNullable = false)]
+    public class _XmlPVPGameHeroRoot
     {
-        [XmlArrayAttribute("Card")]
-        public _XmlCard[] CardList { get; set; }
+        [XmlArrayAttribute("HeroList")]
+        public _XmlHero[] HeroList { get; set; }
     }
 
-    public class _XmlCard
+    public class _XmlHero
     {
 
         [XmlAttribute("name")]
         public string name { get; set; }
 
-        [XmlArrayAttribute("CardInfo")]
+        [XmlArrayAttribute("HeroInfo")]
 
-        public _CardInfo[] _CardInfoList { get; set; }
+        public _HeroInfo[] _HeroInfoList { get; set; }
     }
 
-    public class _CardInfo
+    public class _HeroInfo
     {
         [XmlAttribute("name")]
         public string name { get; set; }
@@ -119,7 +152,8 @@ namespace Scripts
         [XmlText]
         public string value { get; set; }
     }
-
+    #endregion
 
     #endregion
+
 }

@@ -23,15 +23,16 @@ namespace Scripts.UI
     public class UIManager : SingletonMono<UIManager>
     {
         public GameObject rootNode;
+        public GameObject rootUINode;
         private _XmlRoot rootNodeXml;
         
 
         public UIManager()
         {
-            rootNode = GameObject.Instantiate(Resources.Load<GameObject>("UI/Root"), Vector3.zero, Quaternion.identity);
-            rootNode.name = "UIRoot";
+            rootNode = GameObject.Instantiate(Resources.Load<GameObject>("UI/RootCanvas"), Vector3.zero, Quaternion.identity);
+            rootUINode = rootNode.transform.Find("UIRoot").gameObject;
             DontDestroyOnLoad(rootNode);
-            initUIPrefab();
+            InitUIPrefab();
         }
 
         #region 场景Load Realse
@@ -42,14 +43,21 @@ namespace Scripts.UI
             RealseScene();
             switch (name)
             {
-                case UIConfig.LobbyScene:
+                case Config.LobbyScene:
                     CurScene = new LobbyScene();
                     break;
-                case UIConfig.PVPGameScene:
-                    CurScene = new PVPGameSceen();
+                case Config.PVPGameScene:
+                    CurScene = new PVPGameScene();
                     break;
             }
             CurScene.name = name;
+            //先写这里 2.25
+            if(name != Config.LobbyScene)
+            {
+                Logic.GameController.GetInstance().GameName = name;
+                Logic.GameController.GetInstance().Init();
+            }
+            SceneManager.LoadScene(name);
             CurScene.onEnter();
         }
         public void RealseScene()
@@ -57,6 +65,12 @@ namespace Scripts.UI
             if (CurScene == null) return;
             Debug.Log("Realse " + CurScene.name);
             CurScene.onExit();
+            //清楚上个场景的UI节点
+            foreach(Transform temp in rootUINode.transform)
+            {
+                Destroy(temp.gameObject);
+            }
+            UINodeList.Clear();
         }
         #endregion
 
@@ -65,8 +79,8 @@ namespace Scripts.UI
         public T OpenNode<T>(string name,params object[] _params) where T : BaseUI
         {
             if (!UIPrefabList.ContainsKey(name)) return null;
-            int zOrder = rootNode.transform.childCount;
-            Transform nodeRoot = rootNode.transform;
+            int zOrder = rootUINode.transform.childCount;
+            Transform nodeRoot = rootUINode.transform;
             GameObject node = GameObject.Instantiate(UIPrefabList[name],nodeRoot);
             //node.transform.SetParent(rootNode.transform);
             node.transform.SetSiblingIndex(zOrder);
@@ -132,7 +146,7 @@ namespace Scripts.UI
         /// 初始化UI相关资源路径
         /// </summary>
         private Dictionary<string, GameObject> UIPrefabList;
-        private void initUIPrefab()
+        private void InitUIPrefab()
         {
             rootNodeXml = FileUtils.LoadFromXml<_XmlRoot>(Config.XML_UIDEFAULT);
             UIPrefabList = new Dictionary<string, GameObject>();

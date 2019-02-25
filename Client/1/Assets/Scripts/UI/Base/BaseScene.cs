@@ -12,6 +12,9 @@ namespace Scripts.UI
 
         public abstract void onEnter();
 
-        public abstract void onExit();
+        public virtual void onExit()
+        {
+            UIManager.GetInstance().LoadScene(Config.LobbyScene);
+        }
     }
 }

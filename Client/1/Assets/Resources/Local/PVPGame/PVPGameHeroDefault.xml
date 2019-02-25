@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<_PVPGameHeroDefault>
+  <HeroList>
+    <_XmlHero name="MagiCardDefault">
+      <HeroInfo>
+        <_HeroInfo name="heroName">dadada</_HeroInfo>
+        <_HeroInfo name="heroId">0</_HeroInfo>
+        <_HeroInfo name="heroHead">GameRes/Images/PVPGame/Hero/Hero0.png</_HeroInfo>
+        <_HeroInfo name="heroBody">GameRes/Prefabs/PVPGame/Hero/Hero0</_HeroInfo>
+      </HeroInfo>
+    </_XmlHero>
+  </HeroList>
+</_PVPGameHeroDefault>

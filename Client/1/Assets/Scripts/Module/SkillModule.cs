@@ -169,7 +169,7 @@ namespace Scripts.Module.Skill
         /// <returns></returns>
         public GameObject Use(SkillConfig index,Func<bool> func, GameObject targetObject = null)
         {
-            
+            return new GameObject();
         }
 
         public SkillModule()

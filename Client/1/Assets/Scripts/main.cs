@@ -43,7 +43,7 @@ namespace Scripts
         private void Start()
         {
             DataCenter.GetInstance().Init();
-            UIManager.GetInstance().LoadScene(UIConfig.LobbyScene);
+            UIManager.GetInstance().LoadScene(Config.LobbyScene);
         }
     }
 }
