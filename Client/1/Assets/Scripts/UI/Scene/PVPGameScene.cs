@@ -3,21 +3,24 @@ using UnityEngine.UI;
 using Scripts.Logic;
 using Scripts.Logic.PVPGame;
 using Scripts.UI.PVPGame;
+using System.Collections.Generic;
 
 namespace Scripts.UI
 {
     public class PVPGameScene : BaseScene
     {
-        public override void onEnter()
+        public override void OnEnter()
         {
-            UIManager.GetInstance().OpenNode<UIPVPGame>(UIConfig.UIPVPGame);
+            mainUI = UIManager.GetInstance().OpenNode<UIPVPGame>(UIConfig.UIPVPGame);
             UIManager.GetInstance().OpenNode<UIPVPGameInit>(UIConfig.UIPVPGameInit);
-            GameController.GetInstance().GetLogic().Init();
         }
 
-        public override void onExit()
+        public override void ResetScene()
         {
-
+            GameController.GetInstance().Clear();
         }
+        
+        
     }
 }
+

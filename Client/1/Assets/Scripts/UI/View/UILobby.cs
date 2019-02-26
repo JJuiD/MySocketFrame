@@ -26,7 +26,7 @@ namespace Scripts.UI
         private void onClickSet()
         {
             Debug.Log("onClickSet Start");
-            UIManager.GetInstance().OpenNode<UISet>(UIConfig.UISet);
+            //UIManager.GetInstance().OpenNode<UISet>(UIConfig.UISet);
         }
     }
 }

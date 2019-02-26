@@ -45,5 +45,14 @@ namespace Scripts
             DataCenter.GetInstance().Init();
             UIManager.GetInstance().LoadScene(Config.LobbyScene);
         }
+
+        public void FixedUpdate()
+        {
+            //Debug.Log("-----------Time Start-----------");
+            //Debug.Log("Time.time " + Time.time);
+            //Debug.Log("Time.deltaTime " + Time.deltaTime);
+            //Debug.Log("Time.fixedTime " + Time.fixedTime);
+            //Debug.Log("Time.SmoothDeltaTime " + Time.smoothDeltaTime);
+        }
     }
 }

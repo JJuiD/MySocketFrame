@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<_DictionaryRoot>
+  <ViewList>
+    <_ViewList name="0">
+      <InfoList>
+        <_Info name="skillName">skill_0</_Info>
+        <_Info name="damage">5</_Info>
+        <_Info name="key">KEY_EVENT_DEFENCE|KEY_EVENT_RIGHT|KEY_EVENT_ATTACK</_Info>
+        <_Info name="cost">10</_Info>
+      </InfoList>
+    </_ViewList>
+    <_ViewList name="1">
+      <InfoList>
+        <_Info name="skillName">skill_1</_Info>
+        <_Info name="damage">5</_Info>
+        <_Info name="key">KEY_EVENT_DEFENCE|KEY_EVENT_RIGHT|KEY_EVENT_JUMP</_Info>
+        <_Info name="cost">10</_Info>
+      </InfoList>
+    </_ViewList>
+    <_ViewList name="2">
+      <InfoList>
+        <_Info name="skillName">skill_2</_Info>
+        <_Info name="damage">40</_Info>
+        <_Info name="key">KEY_EVENT_DEFENCE|KEY_EVENT_LEFT|KEY_EVENT_RIGHT|KEY_EVENT_ATTACK</_Info>
+        <_Info name="cost">20</_Info>
+      </InfoList>
+    </_ViewList>
+  </ViewList>
+</_DictionaryRoot>

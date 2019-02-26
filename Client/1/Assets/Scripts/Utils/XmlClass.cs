@@ -126,25 +126,25 @@ namespace Scripts
     #region PVPGame
 
     #region PVPGameHeroDefault.xml
-    [XmlRootAttribute("_PVPGameHeroDefault", IsNullable = false)]
-    public class _XmlPVPGameHeroRoot
+    [XmlRootAttribute("_DictionaryRoot", IsNullable = false)]
+    public class _DictionaryRoot
     {
-        [XmlArrayAttribute("HeroList")]
-        public _XmlHero[] HeroList { get; set; }
+        [XmlArrayAttribute("ViewList")]
+        public _ViewList[] ViewList { get; set; }
     }
 
-    public class _XmlHero
+    public class _ViewList
     {
 
         [XmlAttribute("name")]
         public string name { get; set; }
 
-        [XmlArrayAttribute("HeroInfo")]
+        [XmlArrayAttribute("InfoList")]
 
-        public _HeroInfo[] _HeroInfoList { get; set; }
+        public _Info[] _InfoList { get; set; }
     }
 
-    public class _HeroInfo
+    public class _Info
     {
         [XmlAttribute("name")]
         public string name { get; set; }

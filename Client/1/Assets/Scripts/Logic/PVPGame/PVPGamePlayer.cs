@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scripts.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,21 +8,6 @@ using UnityEngine.UI;
 
 namespace Scripts.Logic.PVPGame
 {
-    public class PlayerInfo
-    {
-        public string name;
-        public Int16 seat;
-        public Int16 localSeat;
-        public PlayerState state;
-
-        public PlayerInfo()
-        {
-            name = "";
-            seat = 0;
-            localSeat = 0;
-            state = PlayerState.FREE;
-        }
-    }
 
     //enum ColliderType
     //{
@@ -78,7 +64,6 @@ namespace Scripts.Logic.PVPGame
     public class PVPGamePlayer : BasePlayerLogic
     {
         private PlayerInfo playerInfo;
-
         public void SetData(PlayerInfo playerinfo)
         {
             this.playerInfo.name = playerinfo.name;
@@ -90,5 +75,100 @@ namespace Scripts.Logic.PVPGame
         public Int16 GetServerSeat() { return playerInfo.seat; }
         public Int16 GetLocalSeat() { return playerInfo.localSeat; }
 
+        private WeanponUnit playerWeapon = new WeanponUnit();
+        public void DealKeyUnit(List<KeyUnit> units)
+        {
+            bool isFowardToRight = false ;
+            bool isDefence = false;
+            bool isJump = false;
+            bool isAttack = false;
+            int dir = 0;
+
+            foreach (var unit in units)
+            {
+                //  2   3   4
+                // -1   0   1
+                // -4  -3  -2
+                switch (unit.eventName)
+                {
+                    case PVPGameConfig.KEY_EVENT_DEFENCE:
+                        if (unit.isDown)
+                        {
+                            isDefence = true;
+                        }
+                        else
+                        {
+                            isDefence = false;
+                        }
+                        break;
+                    case PVPGameConfig.KEY_EVENT_UP:
+                        dir += unit.isDown == true ? 3 : 0;
+                        break;
+                    case PVPGameConfig.KEY_EVENT_LEFT:
+                        dir += unit.isDown == true ? -1 : 0;
+                        break;
+                    case PVPGameConfig.KEY_EVENT_DOWN:
+                        dir += unit.isDown == true ? -3 : 0;
+                        break;
+                    case PVPGameConfig.KEY_EVENT_RIGHT:
+                        dir += unit.isDown == true ? 1 : 0;
+                        break;
+                    case PVPGameConfig.KEY_EVENT_ATTACK:
+                        isAttack = unit.isDown;
+                        break;
+                    case PVPGameConfig.KEY_EVENT_JUMP:
+                        isJump = unit.isDown;
+                        break;
+                }
+            }
+            
+           // int skillId = DealSkillCombo();
+          //  if (skillId >= 0) { gameScene.RunSkillAnimation(skillId); return; }
+            if(isJump) { RunJumpAnimation(); return; }
+            else if (isAttack) { RunAttackAnimation(); return; }
+            else if (isDefence) { RunDefenceAnimation(); return; }
+            else if (dir != 0) { RunWalkAnimaion(isFowardToRight,dir); return; }
+
+            RunIdelAnimation();
+        }
+
+        public void RunIdelAnimation()
+        {
+
+        }
+
+        public void RunWalkAnimaion(bool isTolef, int dir)
+        {
+
+        }
+
+        public void RunDefenceAnimation()
+        {
+
+        }
+
+        public void RunAttackAnimation()
+        {
+
+        }
+
+        public void RunJumpAnimation()
+        {
+
+        }
+
+        public void RunSkillAnimation(int id)
+        {
+
+        }
+
+        //防御键 + 方向 + 攻击 + 攻击(...)
+        Dictionary<int, int> SkillClickKeyCount = new Dictionary<int, int>();
+        public int DealSkillCombo()
+        {
+
+            return -1;
+        }
+        
     }
 }

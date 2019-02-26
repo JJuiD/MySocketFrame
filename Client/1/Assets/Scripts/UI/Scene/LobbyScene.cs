@@ -5,14 +5,14 @@ namespace Scripts.UI
 {
     public class LobbyScene : BaseScene
     {
-        public override void onEnter()
+        public override void OnEnter()
         {
-            UIManager.GetInstance().OpenNode<UILobby>(UIConfig.UILobby);
+            mainUI = UIManager.GetInstance().OpenNode<UILobby>(UIConfig.UILobby);
         }
 
-        public override void onExit()
+        public override void ResetScene()
         {
-
+            throw new System.NotImplementedException();
         }
     }
 }

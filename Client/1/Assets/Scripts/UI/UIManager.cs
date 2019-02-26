@@ -58,19 +58,23 @@ namespace Scripts.UI
                 Logic.GameController.GetInstance().Init();
             }
             SceneManager.LoadScene(name);
-            CurScene.onEnter();
+            CurScene.OnEnter();
         }
         public void RealseScene()
         {
             if (CurScene == null) return;
             Debug.Log("Realse " + CurScene.name);
-            CurScene.onExit();
+            CurScene.OnExit();
             //清楚上个场景的UI节点
             foreach(Transform temp in rootUINode.transform)
             {
                 Destroy(temp.gameObject);
             }
             UINodeList.Clear();
+        }
+        public T GetCurrentScene<T>() where T : BaseScene
+        {
+            return (T)CurScene;
         }
         #endregion
 

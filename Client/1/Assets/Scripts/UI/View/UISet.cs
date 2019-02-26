@@ -23,12 +23,12 @@ namespace Scripts.UI
             Transform KeyListNode = GetWMNode(WN_PNL_KeyList);
             foreach (Transform temp in KeyListNode)
             {
-                string KeyName = temp.name;
-                string _KeyCode = DataCenter.GetInstance().GetKeyValue(KeyName);
+                //string KeyName = temp.name;
+                //string _KeyCode = DataCenter.GetInstance().GetKeyValue(KeyName);
 
-                //修改显示的按键
-                Text holder = temp.Find("holder").GetComponent<Text>();
-                holder.text = _KeyCode;
+                ////修改显示的按键
+                //Text holder = temp.Find("holder").GetComponent<Text>();
+                //holder.text = _KeyCode;
             }
         }
 
@@ -45,7 +45,7 @@ namespace Scripts.UI
                 string KeyName = temp.name;
                 Text holder = temp.Find("holder").GetComponent<Text>();
                 KeyCode _KeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), holder.text);
-                DataCenter.GetInstance().SetKeyEvent(KeyName, _KeyCode);
+                //DataCenter.GetInstance().SetKeyEvent(KeyName, _KeyCode);
             }
         }
 

@@ -10,7 +10,7 @@ namespace Scripts.UI.PVPGame
     {
         public override void Open(params object[] _params)
         {
-
+            
         }
     }
 }

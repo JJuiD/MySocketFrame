@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\DataCenter.cs" />
     <Compile Include="Assets\Scripts\Logic\Base\BaseLogic.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
+    <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGameConfig.cs" />
     <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGameLogic.cs" />
     <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGamePlayer.cs" />
     <Compile Include="Assets\Scripts\main.cs" />
@@ -179,7 +180,11 @@
     <Compile Include="Assets\Scripts\Utils\FileUtils.cs" />
     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utils\XmlClass.cs" />
-    <None Include="Assets\Resources\Local\PVPGame\PVPGameHeroDefault.xml" />
+    <None Include="Assets\Resources\Local\PVPGame\PVPGameSkillDefault.xml" />
+    <None Include="Assets\Resources\Local\PVPGame\PVPGameWeaponDefault.xml" />
+    <None Include="Assets\Resources\Local\PVPGame\PVPGameHeroDefault.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Assets\Resources\Local\UIDefault.xml" />
     <None Include="Assets\Resources\Local\UserDefault.xml" />
     <None Include="Assets\Resources\Local\PVPGame\PVPGameUserDefault.xml" />

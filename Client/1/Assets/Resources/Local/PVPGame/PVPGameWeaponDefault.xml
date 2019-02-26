@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<_DictionaryRoot>
+  <ViewList>
+    <_ViewList name="0">
+      <InfoList>
+        <_Info name="weaponName">11111</_Info>
+        <_Info name="damage">3</_Info>
+        <_Info name="skill_0">0</_Info>
+        <_Info name="skill_1">1</_Info>
+        <_Info name="skill_2">2</_Info>
+      </InfoList>
+    </_ViewList>
+  </ViewList>
+</_DictionaryRoot>

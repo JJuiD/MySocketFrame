@@ -19,7 +19,8 @@ namespace Scripts.Logic
         private UserDefault gameUserDefault;
         private BaseLogic Logic;
 
-        public BaseLogic GetLogic() { return Logic; }
+        public T GetLogic<T>() where T : BaseLogic { return (T)Logic; }
+        public UserDefault GetGameUserDefault() { return gameUserDefault; }
 
         public void Init()
         {
@@ -31,7 +32,8 @@ namespace Scripts.Logic
                     Logic = new PVPGame.PVPGameLogic();
                     break;
             }
-
+            Logic.Init();
+            Logic.LoadKeyEventDic(gameUserDefault);
         }
 
         //游戏地图
@@ -40,31 +42,17 @@ namespace Scripts.Logic
             
         }
 
-        private KeyCode GetKeyDown()
+
+        public void Clear()
         {
-            if (Input.anyKeyDown)
-            {
-                foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
-                {
-                    if (Input.GetKeyDown(keyCode))
-                    {
-                        return keyCode;
-                    }
-
-                    if(Input.GetKeyUp(keyCode))
-                    {
-
-                    }
-
-                }
-            }
-            return KeyCode.None;
+            gameUserDefault = null;
+            Logic = null;
         }
 
-        public void FixedUpdate()
+        private void FixedUpdate()
         {
-            Debug.Log(GetKeyDown().ToString());
+            Logic.LogicFixedUpdate();
         }
-
     }
 }
+

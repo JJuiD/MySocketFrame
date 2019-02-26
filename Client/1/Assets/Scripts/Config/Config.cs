@@ -6,6 +6,29 @@ using UnityEngine;
 
 namespace Scripts
 {
+    public enum PlayerGameState
+    {
+        FREE,
+        READY,
+        INGAME,
+    }
+
+    public class PlayerInfo
+    {
+        public string name;
+        public Int16 seat;
+        public Int16 localSeat;
+        public PlayerGameState state;
+
+        public PlayerInfo()
+        {
+            name = "";
+            seat = 0;
+            localSeat = 0;
+            state = PlayerGameState.FREE;
+        }
+    }
+
     public static class Config
     {
 
@@ -18,16 +41,13 @@ namespace Scripts
         public const string XML_UIDEFAULT   = "UIDefault.xml";
 
         public const string XML_PVPGAME_USERDEFAULT = "PVPGame/PVPGameUserDefault.xml";
+        public const string XML_PVPGAME_HERODEFAULT = "PVPGame/PVPGameHeroDefault.xml";
+        public const string XML_PVPGAME_WEAPONDEFAULT = "PVPGame/PVPGameWeaponDefault.xml";
+        public const string XML_PVPGAME_SKILLDEFAULT = "PVPGame/PVPGameSkillDefault.xml";
         //public const string XML_CARDDEFAULT = "CardDefault.xml";
 
 
-        //事件名
-        public const string KEY_UP = "KEY_UP";
-        public const string KEY_LEFT = "KEY_LEFT";
-        public const string KEY_DOWN = "KEY_DOWN";
-        public const string KEY_RIGHT = "KEY_RIGHT";
 
-        public const string KEY_ATTACK = "KEY_ATTACK";
 
         //场景
         public const string LobbyScene = "LobbyScene";

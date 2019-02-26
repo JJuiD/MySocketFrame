@@ -5,14 +5,14 @@ namespace Scripts.UI
 {
     public class TowerDefenseScene : BaseScene
     {
-        public override void onEnter()
+        public override void OnEnter()
         {
             //UIManager.GetInstance().OpenNode("UITowerDefense");
         }
 
-        public override void onExit()
+        public override void ResetScene()
         {
-
+            throw new System.NotImplementedException();
         }
     }
 }
