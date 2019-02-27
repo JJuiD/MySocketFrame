@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scripts.UI;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,6 @@ namespace Scripts.Logic.PVPGame
     public class PVPGameLogic : BaseLogic
     {
         private Dictionary<Int16, PVPGamePlayer> playerList = new Dictionary<Int16, PVPGamePlayer>();
-        
         private int maxPlayer = 4;
 
         public override void Init()
@@ -22,9 +22,15 @@ namespace Scripts.Logic.PVPGame
             EventToActionDic.Add(PVPGameConfig.KEY_EVENT_JUMP, KeyCode.None);
             EventToActionDic.Add(PVPGameConfig.KEY_EVENT_DEFENCE, KeyCode.None);
 
-            AnalysisHeroDefault();
-            AnalysisWeaponDefault();
+
             AnalysisSkillDefault();
+            AnalysisWeaponDefault();
+            AnalysisHeroDefault();
+        }
+
+        public int GetMaxPlayer()
+        {
+            return maxPlayer;
         }
 
         public override void AddPlayer(BasePlayerLogic player)
@@ -138,75 +144,78 @@ namespace Scripts.Logic.PVPGame
         }
 
         #region 英雄本地数据解析,获取
-        DictionaryXml HeroLocalData;
+        Dictionary<int, HeroUnit> HeroLocalData;
         private void AnalysisHeroDefault()
         {
-            HeroLocalData = new DictionaryXml();
+            HeroLocalData = new Dictionary<int, HeroUnit>();
             _DictionaryRoot root = FileUtils.LoadFromXml<_DictionaryRoot>(Config.XML_PVPGAME_HERODEFAULT);
-            HeroLocalData = SwitchToDictionaryXml(root);
+            DictionaryXml data = SwitchToDictionaryXml(root);
+            foreach(var temp in data)
+            {
+                int id = 0;
+                int.TryParse(temp.Key, out id);
+                HeroUnit unit = new HeroUnit();
+                unit.ReadStream(temp.Value,id);
+                HeroLocalData.Add(id, unit);
+            }
         }
-        public Dictionary<string,string> GetHeroInfo(int index)
+        public HeroUnit GetHeroInfo(int index)
         {
-            if (!HeroLocalData.ContainsKey(index.ToString())) return null;
-            return HeroLocalData[index.ToString()];
+            if (!HeroLocalData.ContainsKey(index)) return null;
+            return HeroLocalData[index];
         }
         #endregion
 
         #region 武器解析,获取
-        DictionaryXml WeaponLocalData;
+        Dictionary<int, WeanponUnit> WeaponLocalData;
         private void AnalysisWeaponDefault()
         {
-            WeaponLocalData = new DictionaryXml();
+            WeaponLocalData = new Dictionary<int, WeanponUnit>();
             _DictionaryRoot root = FileUtils.LoadFromXml<_DictionaryRoot>(Config.XML_PVPGAME_WEAPONDEFAULT);
-            WeaponLocalData = SwitchToDictionaryXml(root);
-        }
-        public Dictionary<string, string> GetWeaponXmlInfo(int index)
-        {
-            if (!WeaponLocalData.ContainsKey(index.ToString())) return null;
-            return WeaponLocalData[index.ToString()];
-        }
-        public WeanponUnit GetWeaponInfo(int id)
-        {
-            Dictionary<string, string> weaponXmlInfo = GetWeaponXmlInfo(id);
-            if(weaponXmlInfo == null)
+            DictionaryXml data = SwitchToDictionaryXml(root);
+            foreach (var temp in data)
             {
-                Debug.LogError("武器id : " + id.ToString() + " 不存在");
-                return null;
+                int id = 0;
+                int.TryParse(temp.Key, out id);
+                WeanponUnit unit = new WeanponUnit();
+                unit.ReadStream(temp.Value, id);
+                for (int i = 0; ; ++i)
+                {
+                    string dic_key = "skill_" + i.ToString();
+                    if (!temp.Value.ContainsKey(dic_key)) break;
+                    SkillUnit skillUnit = GetSkillInfo(i);
+                    unit.skills.Add(i,skillUnit);
+                }
+                WeaponLocalData.Add(id, unit);
             }
-            WeanponUnit weanpon = new WeanponUnit();
-            weanpon.id = id;
-            float.TryParse(weaponXmlInfo["damage"], out weanpon.damage);
-            for (int i = 0; ; ++i)
-            {
-                string dic_key = "skill_" + i.ToString();
-                if (!weaponXmlInfo.ContainsKey(dic_key)) break;
-                SkillUnit skillUnit = new SkillUnit();
-                Dictionary<string, string> skillXmlInfo = GameController.GetInstance().GetLogic<PVPGameLogic>().GetSkillInfo(skillUnit.id);
-
-                int.TryParse(weaponXmlInfo[dic_key], out skillUnit.id);
-                int.TryParse(skillXmlInfo["cost"], out skillUnit.cost);
-                float.TryParse(skillXmlInfo["damage"], out skillUnit.damage);
-                skillUnit.skillName = skillXmlInfo["skillName"];
-                skillUnit.keys = new List<string>(skillXmlInfo["key"].Split('|'));
-                weanpon.skills.Add(skillUnit);
-            }
-
-            return weanpon;
+        }
+        public WeanponUnit GetWeaponInfo(int index)
+        {
+            if (!WeaponLocalData.ContainsKey(index)) return null;
+            return WeaponLocalData[index];
         }
         #endregion
 
         #region 技能解析,获取
-        DictionaryXml SkillLocalData;
+        Dictionary<int, SkillUnit> SkillLocalData;
         private void AnalysisSkillDefault()
         {
-            SkillLocalData = new DictionaryXml();
+            SkillLocalData = new Dictionary<int, SkillUnit>();
             _DictionaryRoot root = FileUtils.LoadFromXml<_DictionaryRoot>(Config.XML_PVPGAME_SKILLDEFAULT);
-            SkillLocalData = SwitchToDictionaryXml(root);
+            DictionaryXml data = SwitchToDictionaryXml(root);
+            foreach(var temp in data)
+            {
+                int id = 0;
+                int.TryParse(temp.Key, out id);
+                SkillUnit unit = new SkillUnit();
+                unit.ReadStream(temp.Value, id);
+                SkillLocalData.Add(id, unit);
+            }
         }
-        public Dictionary<string, string> GetSkillInfo(int index)
+        public SkillUnit GetSkillInfo(int index)
         {
-            if (!SkillLocalData.ContainsKey(index.ToString())) return null;
-            return SkillLocalData[index.ToString()];
+            if (!SkillLocalData.ContainsKey(index)) return null;
+            return SkillLocalData[index];
         }
         #endregion
 
@@ -225,12 +234,15 @@ namespace Scripts.Logic.PVPGame
             return _DictionaryXml;
         }
 
-        //private Dictionary<string, string> GetXmlInfoById(DictionaryXml dic,int id)
-        //{
-        //    foreach(var temp in dic)
-        //    {
+        public override void JoinGame()
+        {
+            UIManager.GetInstance().GetCurrentScene<PVPGameScene>().OnEnterGame();
+        }
 
-        //    }
-        //}
+        public override void InitMapData(int mapindex)
+        {
+            UIManager.GetInstance().GetCurrentScene<PVPGameScene>().InitMapData(mapindex);
+        }
+
     }
 }

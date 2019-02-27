@@ -10,10 +10,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{77BB0C59-6EDF-441D-78FC-8511ED0AC6CC}</ProjectGuid>
+    <ProjectGuid>{9E448358-421A-2E3A-3503-C1E1B44EC21D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -46,7 +46,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2018.1.1f1</UnityVersion>
   </PropertyGroup>
@@ -59,133 +59,74 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Config\Config.cs" />
-    <Compile Include="Assets\Scripts\DataCenter.cs" />
-    <Compile Include="Assets\Scripts\Logic\Base\BaseLogic.cs" />
-    <Compile Include="Assets\Scripts\Logic\GameController.cs" />
-    <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGameConfig.cs" />
-    <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGameLogic.cs" />
-    <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGamePlayer.cs" />
-    <Compile Include="Assets\Scripts\main.cs" />
-    <Compile Include="Assets\Scripts\Module\SkillModule.cs" />
-    <Compile Include="Assets\Scripts\Protocol\Game\GameBase.cs" />
-    <Compile Include="Assets\Scripts\Protocol\Game\GameProto.cs" />
-    <Compile Include="Assets\Scripts\Protocol\ProtoBase.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\BclHelpers.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\BufferExtension.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\BufferPool.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\CallbackAttributes.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Compiler\CompilerContext.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Compiler\CompilerDelegates.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Compiler\Local.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\DataFormat.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Extensible.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ExtensibleUtil.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\GlobalSuppressions.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Helpers.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\IExtensible.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\IExtension.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ImplicitFields.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\KeyValuePairProxy.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Meta\AttributeMap.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Meta\BasicList.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Meta\CallbackSet.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Meta\MetaType.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Meta\RuntimeTypeModel.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Meta\SubType.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Meta\TypeFormatEventArgs.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Meta\TypeModel.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Meta\ValueMember.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\NetObjectCache.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\PrefixStyle.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ProtoContractAttribute.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ProtoEnumAttribute.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ProtoException.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ProtoIgnoreAttribute.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ProtoIncludeAttribute.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ProtoMemberAttribute.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ProtoReader.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ProtoWriter.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\SerializationContext.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\ArrayDecorator.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\BlobSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\BooleanSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\ByteSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\CharSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\CompiledSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\DateTimeSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\DecimalSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\DefaultValueDecorator.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\DoubleSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\EnumSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\FieldDecorator.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\GuidSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\Int16Serializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\Int32Serializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\Int64Serializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\IProtoSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\IProtoTypeSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\ISerializerProxy.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\KeyValuePairDecorator.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\ListDecorator.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\MemberSpecifiedDecorator.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\NetObjectSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\NullDecorator.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\ParseableSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\PropertyDecorator.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\ProtoDecoratorBase.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\SByteSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\SingleSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\StringSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\SubItemSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\SurrogateSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\SystemTypeSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\TagDecorator.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\TimeSpanSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\TupleSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\TypeSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\UInt16Serializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\UInt32Serializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\UInt64Serializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\Serializers\UriDecorator.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ServiceModel\ProtoBehaviorAttribute.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ServiceModel\ProtoBehaviorExtensionElement.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ServiceModel\ProtoEndpointBehavior.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ServiceModel\ProtoOperationBehavior.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\ServiceModel\XmlProtoSerializer.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\SubItemToken.cs" />
-    <Compile Include="Assets\Scripts\Protocol\protobuf\WireType.cs" />
-    <Compile Include="Assets\Scripts\Protocol\Room\RoomBase.cs" />
-    <Compile Include="Assets\Scripts\Protocol\Room\RoomProto.cs" />
-    <Compile Include="Assets\Scripts\Protocol\Room\UserProto.cs" />
-    <Compile Include="Assets\Scripts\Socket\Cell\Cell.cs" />
-    <Compile Include="Assets\Scripts\Socket\Cell\Room\CellReqCreateUser.cs" />
-    <Compile Include="Assets\Scripts\Socket\ProtoConfig.cs" />
-    <Compile Include="Assets\Scripts\Socket\SocketManager.cs" />
-    <Compile Include="Assets\Scripts\test.cs" />
-    <Compile Include="Assets\Scripts\UI\Base\BaseScene.cs" />
-    <Compile Include="Assets\Scripts\UI\Base\BaseUI.cs" />
-    <Compile Include="Assets\Scripts\UI\Scene\LobbyScene.cs" />
-    <Compile Include="Assets\Scripts\UI\Scene\PVPGameScene.cs" />
-    <Compile Include="Assets\Scripts\UI\Scene\TowerDefenseScene.cs" />
-    <Compile Include="Assets\Scripts\UI\UIConfig.cs" />
-    <Compile Include="Assets\Scripts\UI\UIManager.cs" />
-    <Compile Include="Assets\Scripts\UI\View\PVPGame\UIPVPGame.cs" />
-    <Compile Include="Assets\Scripts\UI\View\PVPGame\UIPVPGameInit.cs" />
-    <Compile Include="Assets\Scripts\UI\View\UILoading.cs" />
-    <Compile Include="Assets\Scripts\UI\View\UILobby.cs" />
-    <Compile Include="Assets\Scripts\UI\View\UIMessageBox.cs" />
-    <Compile Include="Assets\Scripts\UI\View\UISet.cs" />
-    <Compile Include="Assets\Scripts\Utils\FileUtils.cs" />
-    <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
-    <Compile Include="Assets\Scripts\Utils\XmlClass.cs" />
-    <None Include="Assets\Resources\Local\PVPGame\PVPGameSkillDefault.xml" />
-    <None Include="Assets\Resources\Local\PVPGame\PVPGameWeaponDefault.xml" />
-    <None Include="Assets\Resources\Local\PVPGame\PVPGameHeroDefault.xml" />
-    <None Include="Assets\Resources\Local\UIDefault.xml" />
-    <None Include="Assets\Resources\Local\UserDefault.xml" />
-    <None Include="Assets\Resources\Local\PVPGame\PVPGameUserDefault.xml" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\TimeLine\TimeArea.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\TimeLine\TimeLine.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\TimeLine\ZoomableArea.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Algorithm\Dwyer.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Algorithm\Incremental.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Algorithm\ITriangulator.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Algorithm\SweepLine.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\BadTriQueue.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Behavior.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Carver.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Data\BadSubseg.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Data\BadTriangle.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Data\Osub.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Data\Otri.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Data\Segment.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Data\Triangle.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Data\Vertex.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Enums.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Geometry\BoundingBox.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Geometry\Edge.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Geometry\EdgeEnumerator.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Geometry\InputGeometry.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Geometry\ISegment.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Geometry\ITriangle.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Geometry\Point.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Geometry\RegionPointer.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\IO\DataReader.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\IO\DebugWriter.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\IO\FileReader.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\IO\FileWriter.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\IO\IGeometryFormat.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\IO\IMeshFormat.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\IO\InputTriangle.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\IO\TriangleFormat.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Log\ILog.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Log\ILogItem.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Log\SimpleLog.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Log\SimpleLogItem.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Mesh.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\NewLocation.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Primitives.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Quality.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Sampler.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Smoothing\ISmoother.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Smoothing\SimpleSmoother.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Tools\AdjacencyMatrix.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Tools\BoundedVoronoi.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Tools\CuthillMcKee.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Tools\IVoronoi.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Tools\QuadTree.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Tools\QualityMeasure.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Tools\RegionIterator.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Tools\Statistic.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Tools\Voronoi.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\Tools\VoronoiRegion.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\Triangle\TriangleLocator.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexAnimation\BakedMesh.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexAnimation\SpriteMeshInstanceTracker.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexAnimation\TransformTracker.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexAnimation\VertexSelection.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexManipulator\IVertexManipulable.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexManipulator\IVertexManipulator.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexManipulator\RectManipulator\IRectManipulable.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexManipulator\RectManipulator\IRectManipulatorData.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexManipulator\RectManipulator\RectManipulator.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexManipulator\RectManipulator\RectManipulatorData.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexManipulator\RectManipulator\RectManipulatorParams.cs" />
+    <Compile Include="Assets\Anima2D\Scripts\Editor\VertexManipulator\VertexManipulator.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>E:/MySocketFrame/Client/1/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
@@ -375,57 +316,117 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Networking">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TestRunner">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Timeline">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.Timeline">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Timeline/Editor/UnityEditor.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TreeEditor">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UIAutomation">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UIAutomation">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UIAutomation/Editor/UnityEditor.UIAutomation.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.GoogleAudioSpatializer">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/Editor/UnityEditor.GoogleAudioSpatializer.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GoogleAudioSpatializer">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.HoloLens">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SpatialTracking">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/Editor/UnityEditor.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.VR">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Advertisements">
+      <HintPath>C:/Users/zhengyuhang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/zhengyuhang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Analytics">
+      <HintPath>C:/Users/zhengyuhang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/Editor/UnityEditor.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Purchasing">
+      <HintPath>C:/Users/zhengyuhang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/zhengyuhang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
-      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/System.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.dll</HintPath>
     </Reference>
     <Reference Include="System.Core">
-      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/System.Core.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
-      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/System.Runtime.Serialization.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Runtime.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml">
-      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/System.Xml.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
-      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/System.Xml.Linq.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.Linq.dll</HintPath>
     </Reference>
     <Reference Include="UnityScript">
-      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/UnityScript.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/UnityScript.dll</HintPath>
     </Reference>
     <Reference Include="UnityScript.Lang">
-      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/UnityScript.Lang.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/UnityScript.Lang.dll</HintPath>
     </Reference>
     <Reference Include="Boo.Lang">
-      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{77BB0C59-6EDF-441D-78FC-8511ED0AC6CC}</Project>
+      <Name>Assembly-CSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

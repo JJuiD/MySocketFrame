@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using Scripts.UI;
-using UnityEngine.UI;
 
 namespace Scripts
 {
@@ -37,13 +32,14 @@ namespace Scripts
     {
         private void Awake()
         {
-            DontDestroyOnLoad(transform.gameObject);
+           // 
         }
 
         private void Start()
         {
             DataCenter.GetInstance().Init();
             UIManager.GetInstance().LoadScene(Config.LobbyScene);
+            DontDestroyOnLoad(this.gameObject);
         }
 
         public void FixedUpdate()

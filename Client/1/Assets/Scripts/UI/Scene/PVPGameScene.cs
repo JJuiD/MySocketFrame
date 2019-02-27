@@ -15,6 +15,16 @@ namespace Scripts.UI
             UIManager.GetInstance().OpenNode<UIPVPGameInit>(UIConfig.UIPVPGameInit);
         }
 
+        public void OnEnterGame()
+        {
+            
+        }
+
+        public void InitMapData(int mapindex)
+        {
+
+        }
+
         public override void ResetScene()
         {
             GameController.GetInstance().Clear();

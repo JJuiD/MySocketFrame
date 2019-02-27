@@ -12,7 +12,7 @@ namespace Scripts.UI
 
         public override void ResetScene()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

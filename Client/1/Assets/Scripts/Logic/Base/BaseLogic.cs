@@ -18,9 +18,15 @@ namespace Scripts.Logic
         ~BaseLogic() { RemoveDataListener(); }
         public virtual void Init() { }
         public virtual void AddPlayer(BasePlayerLogic player) { }
+
         public abstract void AddDataListener();
         public abstract void RemoveDataListener();
+
         public abstract void LogicFixedUpdate();
+
+        public abstract void JoinGame();
+
+        public abstract void InitMapData(int mapindex);
 
         public Dictionary<string, KeyCode> EventToActionDic = new Dictionary<string, KeyCode>();
         public Dictionary<KeyCode, string> KeyToEventDic = new Dictionary<KeyCode, string>();

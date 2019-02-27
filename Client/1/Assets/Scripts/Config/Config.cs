@@ -18,7 +18,7 @@ namespace Scripts
         public string name;
         public Int16 seat;
         public Int16 localSeat;
-        public PlayerGameState state;
+        private PlayerGameState state;
 
         public PlayerInfo()
         {
@@ -26,6 +26,11 @@ namespace Scripts
             seat = 0;
             localSeat = 0;
             state = PlayerGameState.FREE;
+        }
+
+        public void SetPlayerState(PlayerGameState state)
+        {
+            this.state = state;
         }
     }
 

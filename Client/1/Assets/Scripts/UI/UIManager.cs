@@ -58,6 +58,8 @@ namespace Scripts.UI
                 Logic.GameController.GetInstance().Init();
             }
             SceneManager.LoadScene(name);
+            //Camera camera = GameObject.Find("MainCamera").GetComponent<Camera>();
+            //rootNode.GetComponent<Canvas>().worldCamera = camera;
             CurScene.OnEnter();
         }
         public void RealseScene()

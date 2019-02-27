@@ -20,6 +20,7 @@ namespace Scripts.Logic.PVPGame
         public const string KEY_EVENT_DEFENCE = "KEY_EVENT_DEFENCE";
         public const string KEY_EVENT_END = "KEY_EVENT_END";
 
+        public const int HERO_EMOTICONS_MAX_COUNT = 6;
     }
 
     public enum AniType
@@ -29,6 +30,16 @@ namespace Scripts.Logic.PVPGame
         RUN,
         ATTACK,
         JUMP,
+    }
+
+    public enum EmoticonType
+    {
+        pain,
+        happy,
+        bored,
+        idel,
+        greet,
+        angry,
     }
 
     public class KeyUnit
@@ -42,9 +53,18 @@ namespace Scripts.Logic.PVPGame
     {
         public string skillName = "";
         public float damage = 0;
+        public float cost = 0;
         public int id = 0;
-        public int cost = 0;
         public List<string> keys = new List<string>();
+
+        public void ReadStream(Dictionary<string, string> data, int id)
+        {
+            this.id = id;
+            skillName = data["skillName"];
+            float.TryParse(data["damage"], out this.damage);
+            keys = new List<string>(data["key"].Split('|'));
+            float.TryParse(data["cost"], out this.cost);
+        }
     }
 
     public class WeanponUnit
@@ -52,6 +72,43 @@ namespace Scripts.Logic.PVPGame
         public string weaponName = "";
         public float damage = 3;
         public int id = 0;
-        public List<SkillUnit> skills = new List<SkillUnit>();
+        public Sprite sprite;
+        public Dictionary<int,SkillUnit> skills = new Dictionary<int, SkillUnit>();
+
+        public void ReadStream(Dictionary<string, string> data, int id)
+        {
+            this.id = id;
+            weaponName = data["weaponName"];
+            float.TryParse(data["damage"], out this.damage);
+            sprite = Resources.Load<Sprite>(data["path"]);
+        }
+    }
+
+    public class HeroUnit
+    {
+        public string heroName = "";
+        public float hp = 0;
+        public float mp = 0;
+        public GameObject body;
+        public int id = 0;
+        public Dictionary<EmoticonType, Sprite> emoticons;
+        public Sprite headImage;
+
+        public void ReadStream(Dictionary<string,string> data,int id)
+        {
+            this.id = id;
+            body = Resources.Load<GameObject>(data["heroBodyPath"]);
+            heroName = data["heroName"];
+            float.TryParse(data["hp"], out this.hp);
+            float.TryParse(data["mp"], out this.mp);
+            Sprite[] sprites = Resources.LoadAll<Sprite>(data["heroSpritePath"]);
+            emoticons = new Dictionary<EmoticonType, Sprite>();
+            for (int i = 0;i < PVPGameConfig.HERO_EMOTICONS_MAX_COUNT;++i)
+            {
+                emoticons.Add((EmoticonType)i, sprites[i]);
+            }
+            headImage = sprites[6];
+            
+        }
     }
 }
