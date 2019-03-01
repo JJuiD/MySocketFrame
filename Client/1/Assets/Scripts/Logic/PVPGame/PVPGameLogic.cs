@@ -8,7 +8,7 @@ namespace Scripts.Logic.PVPGame
     using DictionaryXml = Dictionary<string, Dictionary<string, string>>;
     public class PVPGameLogic : BaseLogic
     {
-        private Dictionary<Int16, PVPGamePlayer> playerList = new Dictionary<Int16, PVPGamePlayer>();
+        //private Dictionary<Int16, PVPGamePlayer> playerList = new Dictionary<Int16, PVPGamePlayer>();
         private int maxPlayer = 4;
 
         public override void Init()
@@ -28,50 +28,36 @@ namespace Scripts.Logic.PVPGame
             AnalysisHeroDefault();
         }
 
+        public override void LoadKeyEventDic(UserDefault userDefault)
+        {
+            bool bLoad = false;
+            foreach (var temp in userDefault._STRValues)
+            {
+                if (temp.name == PVPGameConfig.KEY_EVENT_START)
+                {
+                    bLoad = true;
+                    continue;
+                }
+                else if (temp.name == PVPGameConfig.KEY_EVENT_END) return;
+
+                if (bLoad && EventToActionDic.ContainsKey(temp.name))
+                {
+                    KeyCode key = (KeyCode)Enum.Parse(typeof(KeyCode), temp.value);
+                    KeyToEventDic.Add(key, temp.name);
+                }
+            }
+        }
+
         public int GetMaxPlayer()
         {
             return maxPlayer;
         }
 
-        public override void AddPlayer(BasePlayerLogic player)
+        
+
+        public override void JoinGame()
         {
-            PVPGamePlayer itemPlayer = (PVPGamePlayer)player;
-            if (playerList.Count == 0 )
-            {
-                playerList.Add(itemPlayer.GetServerSeat(), itemPlayer);
-                return;
-            }
-
-            foreach(var temp in playerList)
-            {
-                if(temp.Value.GetServerSeat() == itemPlayer.GetServerSeat())
-                {
-                    Debug.LogError("[ERROR] 存在同样的用户");
-                    return;
-                }
-            }
-        }
-
-        public PVPGamePlayer GetPlayerBySeat(Int16 seat)
-        {
-            if (playerList.Count == 0) { return null; }
-            if (playerList.ContainsKey(seat)) return playerList[seat];
-            Debug.LogError("[ERROR] GetPlayerBySeat : " + seat.ToString() + " 不存在");
-            return null;
-        }
-
-        public PVPGamePlayer GetPlayerByLocalSeat(Int16 localseat)
-        {
-            if (playerList.Count == 0) { return null; }
-            foreach (var temp in playerList)
-            {
-                if (temp.Value.GetLocalSeat() == localseat)
-                {
-                    return temp.Value;
-                }
-            }
-
-            return null;
+            UIManager.GetInstance().GetCurrentScene<PVPGameScene>().OnEnterGame();
         }
 
         public override void AddDataListener()
@@ -96,25 +82,7 @@ namespace Scripts.Logic.PVPGame
             //KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), args[0].ToString());
         }
 
-        public override void LoadKeyEventDic(UserDefault userDefault)
-        {
-            bool bLoad = false;
-            foreach(var temp in userDefault._STRValues)
-            {
-                if (temp.name == PVPGameConfig.KEY_EVENT_START)
-                {
-                    bLoad = true;
-                    continue;
-                }
-                else if (temp.name == PVPGameConfig.KEY_EVENT_END) return;
-
-                if(bLoad && EventToActionDic.ContainsKey(temp.name))
-                {
-                    KeyCode key = (KeyCode)Enum.Parse(typeof(KeyCode), temp.value);
-                    KeyToEventDic.Add(key, temp.name);
-                }
-            }
-        }
+        
 
         public override void LogicFixedUpdate()
         {
@@ -138,8 +106,8 @@ namespace Scripts.Logic.PVPGame
 
             if(units.Count > 0)
             {
-                PVPGamePlayer player = GetPlayerBySeat(0);
-                player.DealKeyUnit(units);
+                //PVPGamePlayer player = GetPlayerBySeat(0);
+                //player.DealKeyUnit(units);
             }
         }
 
@@ -232,11 +200,6 @@ namespace Scripts.Logic.PVPGame
             }
 
             return _DictionaryXml;
-        }
-
-        public override void JoinGame()
-        {
-            UIManager.GetInstance().GetCurrentScene<PVPGameScene>().OnEnterGame();
         }
 
         public override void InitMapData(int mapindex)

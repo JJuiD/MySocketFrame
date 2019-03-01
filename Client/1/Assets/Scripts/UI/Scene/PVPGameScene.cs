@@ -9,8 +9,10 @@ namespace Scripts.UI
 {
     public class PVPGameScene : BaseScene
     {
+        private GameObject MapGrid;
         public override void OnEnter()
         {
+            MapGrid = GameObject.Find("Grid");
             mainUI = UIManager.GetInstance().OpenNode<UIPVPGame>(UIConfig.UIPVPGame);
             UIManager.GetInstance().OpenNode<UIPVPGameInit>(UIConfig.UIPVPGameInit);
         }

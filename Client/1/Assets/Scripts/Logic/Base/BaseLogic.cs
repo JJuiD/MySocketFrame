@@ -7,9 +7,18 @@ using UnityEngine;
 namespace Scripts.Logic
 {
      
-    public abstract class BasePlayerLogic
+    public abstract class BasePlayer : MonoBehaviour
     {
-        
+        protected PlayerInfo playerInfo = new PlayerInfo();
+        public void SetServerPlayerData(PlayerInfo playerinfo)
+        {
+            this.playerInfo.name = playerinfo.name;
+            this.playerInfo.seat = playerinfo.seat;
+            this.playerInfo.localSeat = playerinfo.localSeat;
+            this.playerInfo.SetPlayerState(PlayerGameState.FREE);
+        }
+        public Int16 GetServerSeat() { return playerInfo.seat; }
+        public Int16 GetLocalSeat() { return playerInfo.localSeat; }
     }
 
     public abstract class BaseLogic
@@ -17,7 +26,6 @@ namespace Scripts.Logic
         public BaseLogic() { AddDataListener(); }
         ~BaseLogic() { RemoveDataListener(); }
         public virtual void Init() { }
-        public virtual void AddPlayer(BasePlayerLogic player) { }
 
         public abstract void AddDataListener();
         public abstract void RemoveDataListener();

@@ -51,7 +51,8 @@ namespace Scripts
         public const string XML_PVPGAME_SKILLDEFAULT = "PVPGame/PVPGameSkillDefault.xml";
         //public const string XML_CARDDEFAULT = "CardDefault.xml";
 
-
+        //Prefabs
+        public const string PVPGame_PlayerObject = "GameRes/PVPGame/Prefabs/Player";
 
 
         //场景

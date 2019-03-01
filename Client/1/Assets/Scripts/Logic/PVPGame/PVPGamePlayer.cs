@@ -61,29 +61,63 @@ namespace Scripts.Logic.PVPGame
     //    }
     //}
 
-    public class PVPGamePlayer : BasePlayerLogic
+    public class PVPGamePlayer : BasePlayer
     {
-        private PlayerInfo playerInfo = new PlayerInfo();
+        public void ResetData()
+        {
+            isDestory = true;
+            playerWeapon = new WeanponUnit();
+            playerHero = new HeroUnit();
+            SkillClickKeyCount = new Dictionary<int, int>();
+        }
+
+        private bool isDestory = true;
+        public void Create(Vector3 pos)
+        {
+            if (isDestory) return;
+            GameObject.Instantiate(this.gameObject, pos, Quaternion.identity);
+            isDestory = false;
+        }
+
+        #region 玩家游戏数据
         private WeanponUnit playerWeapon = new WeanponUnit();
         private HeroUnit playerHero = new HeroUnit();
-
-        public void SetServerPlayerData(PlayerInfo playerinfo)
-        {
-            this.playerInfo.name = playerinfo.name;
-            this.playerInfo.seat = playerinfo.seat;
-            this.playerInfo.localSeat = playerinfo.localSeat;
-            this.playerInfo.SetPlayerState(PlayerGameState.FREE);
-        }
         public void SetLocalPlayerData(int heroId,int weaponId)
         {
             playerWeapon = GameController.GetInstance().GetLogic<PVPGameLogic>().GetWeaponInfo(weaponId);
             playerHero = GameController.GetInstance().GetLogic<PVPGameLogic>().GetHeroInfo(heroId);
         }
+        #endregion
 
-        public Int16 GetServerSeat() { return playerInfo.seat; }
-        public Int16 GetLocalSeat() { return playerInfo.localSeat; }
 
-        
+        public bool IsAllowSkillCost(CostType type,float value)
+        {
+            switch(type)
+            {
+                case CostType.mp:
+                    if (playerHero.mp >= value) return true;
+                    break;
+                case CostType.hp:
+                    if (playerHero.hp >= value) return true;
+                    break;
+            }
+
+            return false;
+        }
+
+        public void SetSkillCost(CostType type,float value)
+        {
+            if (!IsAllowSkillCost(type, value)) return;
+            switch (type)
+            {
+                case CostType.mp:
+                    playerHero.mp -= value;
+                    break;
+                case CostType.hp:
+                    playerHero.hp -= value;
+                    break;
+            }
+        }
 
         public void DealKeyUnit(List<KeyUnit> units)
         {
@@ -95,9 +129,7 @@ namespace Scripts.Logic.PVPGame
 
             foreach (var unit in units)
             {
-                //  2   3   4
-                // -1   0   1
-                // -4  -3  -2
+                
                 switch (unit.eventName)
                 {
                     case PVPGameConfig.KEY_EVENT_DEFENCE:
@@ -130,12 +162,12 @@ namespace Scripts.Logic.PVPGame
                         break;
                 }
             }
-            
-           // int skillId = DealSkillCombo();
-          //  if (skillId >= 0) { gameScene.RunSkillAnimation(skillId); return; }
-            if(isJump) { RunJumpAnimation(); return; }
+
+            // int skillId = DealSkillCombo();
+            //  if (skillId >= 0) { gameScene.RunSkillAnimation(skillId); return; }
+            if (isDefence) { RunDefenceAnimation(); return; }
             else if (isAttack) { RunAttackAnimation(); return; }
-            else if (isDefence) { RunDefenceAnimation(); return; }
+            else if (isJump) { RunJumpAnimation(); return; }
             else if (dir != 0) { RunWalkAnimaion(isFowardToRight,dir); return; }
 
             RunIdelAnimation();
@@ -143,41 +175,104 @@ namespace Scripts.Logic.PVPGame
 
         public void RunIdelAnimation()
         {
-
+            SkillClickKeyCount.Clear();
         }
 
-        public void RunWalkAnimaion(bool isTolef, int dir)
+        public void RunWalkAnimaion(bool isFowardToRight, int dir)
         {
-
+            //  2   3   4
+            // -1   0   1
+            // -4  -3  -2
+            string dirEventType = "";
+            if(dir == 3 || dir == 2 || dir == 4 )
+            {
+                dirEventType = PVPGameConfig.KEY_EVENT_UP;
+            }else if(dir == 1 || dir == -2 )
+            {
+                dirEventType = isFowardToRight ? PVPGameConfig.KEY_EVENT_RIGHT: PVPGameConfig.KEY_EVENT_LEFT;
+            }else if(dir == -1 || dir == -4)
+            {
+                dirEventType = isFowardToRight ? PVPGameConfig.KEY_EVENT_LEFT : PVPGameConfig.KEY_EVENT_RIGHT;
+            }
+            else if(dir == -3)
+            {
+                dirEventType = PVPGameConfig.KEY_EVENT_DOWN;
+            }
+            if(DealSkillCombo(dirEventType)) return;
         }
 
         public void RunDefenceAnimation()
         {
-
+            if (DealSkillCombo(PVPGameConfig.KEY_EVENT_DEFENCE)) return;
         }
 
         public void RunAttackAnimation()
         {
-
+            if (DealSkillCombo(PVPGameConfig.KEY_EVENT_DEFENCE)) return;
         }
 
         public void RunJumpAnimation()
         {
-
+            if (DealSkillCombo(PVPGameConfig.KEY_EVENT_DEFENCE)) return;
         }
 
         public void RunSkillAnimation(int id)
         {
-
+            SkillClickKeyCount.Clear();
         }
 
         //防御键 + 方向 + 攻击 + 攻击(...)
+        //连招id,符合个数
         Dictionary<int, int> SkillClickKeyCount = new Dictionary<int, int>();
-        public int DealSkillCombo()
+        public bool DealSkillCombo(string keyEventType)
         {
-
-            return -1;
+            if(SkillClickKeyCount.Count == 0)
+            {
+                foreach (var temp in playerWeapon.skills)
+                {
+                    SkillClickKeyCount.Add(temp.Key,0);
+                    //if (SkillClickKeyCount.ContainsKey(temp.Key))
+                    //{
+                    //    int index = SkillClickKeyCount[temp.Key];
+                    //    if (keyEventType == temp.Value.keys[index]
+                    //        && index == temp.Value.keys.Count
+                    //        && IsAllowSkillCost(temp.Value.costType, temp.Value.cost))
+                    //    {
+                    //        //释放技能成功
+                    //    }
+                    //}
+                }
+            }
+            else
+            {
+                List<int> addList = new List<int>();
+                List<int> delList = new List<int>();
+                foreach(var temp in SkillClickKeyCount)
+                {
+                    SkillUnit skill = playerWeapon.skills[temp.Key];
+                    if (keyEventType == skill.keys[temp.Value])
+                    {
+                        if(temp.Value == skill.keys.Count
+                            && IsAllowSkillCost(skill.costType,skill.cost))
+                        {
+                            RunSkillAnimation(skill.id);
+                            return true;
+                        }
+                        else addList.Add(temp.Key);
+                    }
+                    else
+                    {
+                        delList.Add(temp.Key);
+                    }
+                }
+                for(int i = 0;;++i)
+                {
+                    if (delList.Count + addList.Count == 0) break;
+                    ++SkillClickKeyCount[addList[i]];
+                    SkillClickKeyCount.Remove(delList[i]);
+                }
+            }
+            return false;
         }
-        
     }
 }

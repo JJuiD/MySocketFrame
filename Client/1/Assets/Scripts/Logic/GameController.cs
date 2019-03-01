@@ -18,6 +18,7 @@ namespace Scripts.Logic
         public string GameName {get ; set;}
 
         private UserDefault gameUserDefault;
+        
         private Dictionary<string, int> IntUesrDefault;
         private Dictionary<string, float> FltUserDefault;
         private Dictionary<string, string> StrUserDefault;
@@ -34,6 +35,7 @@ namespace Scripts.Logic
                 case Config.PVPGameScene:
                     gameUserDefault = FileUtils.LoadFromXml<UserDefault>(Config.XML_PVPGAME_USERDEFAULT);
                     Logic = new PVPGame.PVPGameLogic();
+                    playerObject = Resources.Load<GameObject>(Config.PVPGame_PlayerObject);
                     break;
             }
             SaveUserDefault();
@@ -100,6 +102,46 @@ namespace Scripts.Logic
         {
             Logic.LogicFixedUpdate();
         }
+
+        #region 玩家相关
+        private GameObject playerObject;
+        private Dictionary<int, BasePlayer> playerList = new Dictionary<int, BasePlayer>();
+        public void AddPlayer(BasePlayer player)
+        {
+            if (playerList.Count == 0)
+            {
+                playerList.Add(player.GetServerSeat(),player);
+                return;
+            }
+
+            if(GetPlayerBySeat<BasePlayer>(player.GetServerSeat()))
+            {
+                Debug.LogError("[ERROR] 存在同样的用户");
+                return;
+            }
+        }
+
+        public T GetPlayerBySeat<T>(Int16 seat) where T : BasePlayer
+        {
+            if (playerList.Count == 0) { return null; }
+            if (playerList.ContainsKey(seat)) return (T)playerList[seat];
+            Debug.LogError("[ERROR] GetPlayerBySeat : " + seat.ToString() + " 不存在");
+            return null;
+        }
+
+        public T GetPlayerByLocalSeat<T>(Int16 localseat) where T : BasePlayer
+        {
+            if (playerList.Count == 0) { return null; }
+            foreach (var temp in playerList)
+            {
+                if (temp.Value.GetLocalSeat() == localseat)
+                {
+                    return (T)temp.Value;
+                }
+            }
+            return null;
+        }
+        #endregion
     }
 }
 

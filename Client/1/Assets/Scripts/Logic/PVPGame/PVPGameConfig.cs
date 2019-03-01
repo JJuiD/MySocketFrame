@@ -42,6 +42,12 @@ namespace Scripts.Logic.PVPGame
         angry,
     }
 
+    public enum CostType
+    {
+        hp,
+        mp,
+    }
+
     public class KeyUnit
     {
         public string eventName = "";
@@ -54,6 +60,7 @@ namespace Scripts.Logic.PVPGame
         public string skillName = "";
         public float damage = 0;
         public float cost = 0;
+        public CostType costType;
         public int id = 0;
         public List<string> keys = new List<string>();
 
@@ -64,6 +71,7 @@ namespace Scripts.Logic.PVPGame
             float.TryParse(data["damage"], out this.damage);
             keys = new List<string>(data["key"].Split('|'));
             float.TryParse(data["cost"], out this.cost);
+            this.costType = (CostType)Enum.Parse(typeof(CostType), data["costType"]);
         }
     }
 
