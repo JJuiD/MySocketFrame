@@ -63,21 +63,22 @@ namespace Scripts.Logic.PVPGame
 
     public class PVPGamePlayer : BasePlayer
     {
-        public void ResetData()
-        {
-            isDestory = true;
-            playerWeapon = new WeanponUnit();
-            playerHero = new HeroUnit();
-            SkillClickKeyCount = new Dictionary<int, int>();
-        }
-
         private bool isDestory = true;
         public void Create(Vector3 pos)
         {
             if (isDestory) return;
+            ResetData();
             GameObject.Instantiate(this.gameObject, pos, Quaternion.identity);
+            playerCollider = this.GetComponent<PVPGamePlayerCollider>();
+            playerBodyTrans = this.transform.Find("Body");
+            playerAnimation = this.GetComponent<Animation>();
             isDestory = false;
         }
+
+        #region 碰撞相关
+        private PVPGamePlayerCollider playerCollider;
+
+        #endregion
 
         #region 玩家游戏数据
         private WeanponUnit playerWeapon = new WeanponUnit();
@@ -88,7 +89,6 @@ namespace Scripts.Logic.PVPGame
             playerHero = GameController.GetInstance().GetLogic<PVPGameLogic>().GetHeroInfo(heroId);
         }
         #endregion
-
 
         public bool IsAllowSkillCost(CostType type,float value)
         {
@@ -104,7 +104,6 @@ namespace Scripts.Logic.PVPGame
 
             return false;
         }
-
         public void SetSkillCost(CostType type,float value)
         {
             if (!IsAllowSkillCost(type, value)) return;
@@ -119,13 +118,27 @@ namespace Scripts.Logic.PVPGame
             }
         }
 
+        public void TickUpdate()
+        {
+            if (isDestory)
+            {
+
+            }
+            else
+            {
+                if (Time.time - beginReadySkillTime > PVPGameConfig.SKILL_OUTTIME)
+                {
+                    skillClickKeyCount.Clear();
+                }
+            }
+        }
+
         public void DealKeyUnit(List<KeyUnit> units)
         {
-            bool isFowardToRight = false ;
             bool isDefence = false;
             bool isJump = false;
             bool isAttack = false;
-            int dir = 0;
+            Vector2 moveDirection = Vector2.zero;
 
             foreach (var unit in units)
             {
@@ -143,16 +156,16 @@ namespace Scripts.Logic.PVPGame
                         }
                         break;
                     case PVPGameConfig.KEY_EVENT_UP:
-                        dir += unit.isDown == true ? 3 : 0;
+                        moveDirection.y += unit.isDown == true ? 1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_LEFT:
-                        dir += unit.isDown == true ? -1 : 0;
+                        moveDirection.x += unit.isDown == true ? -1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_DOWN:
-                        dir += unit.isDown == true ? -3 : 0;
+                        moveDirection.y += unit.isDown == true ? -1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_RIGHT:
-                        dir += unit.isDown == true ? 1 : 0;
+                        moveDirection.x += unit.isDown == true ? 1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_ATTACK:
                         isAttack = unit.isDown;
@@ -168,37 +181,46 @@ namespace Scripts.Logic.PVPGame
             if (isDefence) { RunDefenceAnimation(); return; }
             else if (isAttack) { RunAttackAnimation(); return; }
             else if (isJump) { RunJumpAnimation(); return; }
-            else if (dir != 0) { RunWalkAnimaion(isFowardToRight,dir); return; }
+            else if (moveDirection != Vector2.zero) { RunWalkAnimaion(moveDirection); return; }
 
             RunIdelAnimation();
         }
 
         public void RunIdelAnimation()
         {
-            SkillClickKeyCount.Clear();
+            ClearSkillKeyDic();
+            this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
-
-        public void RunWalkAnimaion(bool isFowardToRight, int dir)
+        private Transform playerBodyTrans;
+        private Animation playerAnimation;
+        public void RunWalkAnimaion(Vector2 moveDirection)
         {
             //  2   3   4
             // -1   0   1
             // -4  -3  -2
             string dirEventType = "";
-            if(dir == 3 || dir == 2 || dir == 4 )
+            bool isFowardToRight = playerBodyTrans.rotation.y == 180;
+            if (moveDirection.y == 1)
             {
                 dirEventType = PVPGameConfig.KEY_EVENT_UP;
-            }else if(dir == 1 || dir == -2 )
+            }else if(moveDirection.x == 1)
             {
                 dirEventType = isFowardToRight ? PVPGameConfig.KEY_EVENT_RIGHT: PVPGameConfig.KEY_EVENT_LEFT;
-            }else if(dir == -1 || dir == -4)
+            }else if(moveDirection.x == -1)
             {
                 dirEventType = isFowardToRight ? PVPGameConfig.KEY_EVENT_LEFT : PVPGameConfig.KEY_EVENT_RIGHT;
             }
-            else if(dir == -3)
+            else if(moveDirection.y == -1)
             {
                 dirEventType = PVPGameConfig.KEY_EVENT_DOWN;
             }
             if(DealSkillCombo(dirEventType)) return;
+
+            Vector2 target = moveDirection * playerHero.speed;
+            this.GetComponent<Rigidbody2D>().velocity = target;
+            //this.transform.position = Vector3.Lerp(currentPosition, target, Time.deltaTime);
+
+            SetPlayerGameState(PlayerGameState.walk);
         }
 
         public void RunDefenceAnimation()
@@ -218,36 +240,36 @@ namespace Scripts.Logic.PVPGame
 
         public void RunSkillAnimation(int id)
         {
-            SkillClickKeyCount.Clear();
+            ClearSkillKeyDic();
         }
 
+        #region 技能逻辑判断
         //防御键 + 方向 + 攻击 + 攻击(...)
         //连招id,符合个数
-        Dictionary<int, int> SkillClickKeyCount = new Dictionary<int, int>();
+        Dictionary<int, int> skillClickKeyCount = new Dictionary<int, int>();
+        private float beginReadySkillTime = 0;
         public bool DealSkillCombo(string keyEventType)
         {
-            if(SkillClickKeyCount.Count == 0)
+            if(skillClickKeyCount.Count == 0)
             {
+                if (keyEventType != PVPGameConfig.KEY_EVENT_DEFENCE) return false;
                 foreach (var temp in playerWeapon.skills)
                 {
-                    SkillClickKeyCount.Add(temp.Key,0);
-                    //if (SkillClickKeyCount.ContainsKey(temp.Key))
-                    //{
-                    //    int index = SkillClickKeyCount[temp.Key];
-                    //    if (keyEventType == temp.Value.keys[index]
-                    //        && index == temp.Value.keys.Count
-                    //        && IsAllowSkillCost(temp.Value.costType, temp.Value.cost))
-                    //    {
-                    //        //释放技能成功
-                    //    }
-                    //}
+                    skillClickKeyCount.Add(temp.Key,0);
                 }
+                beginReadySkillTime = Time.time;
             }
             else
             {
+                if(Time.time - beginReadySkillTime > PVPGameConfig.SKILL_OUTTIME)
+                {
+                    ClearSkillKeyDic();
+                    return false;
+                }
+
                 List<int> addList = new List<int>();
                 List<int> delList = new List<int>();
-                foreach(var temp in SkillClickKeyCount)
+                foreach(var temp in skillClickKeyCount)
                 {
                     SkillUnit skill = playerWeapon.skills[temp.Key];
                     if (keyEventType == skill.keys[temp.Value])
@@ -267,12 +289,41 @@ namespace Scripts.Logic.PVPGame
                 }
                 for(int i = 0;;++i)
                 {
-                    if (delList.Count + addList.Count == 0) break;
-                    ++SkillClickKeyCount[addList[i]];
-                    SkillClickKeyCount.Remove(delList[i]);
+                    if (i >= delList.Count && i >= addList.Count) break;
+                    if (addList.Count > i) ++skillClickKeyCount[addList[i]];
+                    if (delList.Count > i) skillClickKeyCount.Remove(delList[i]);
                 }
             }
             return false;
+        }
+        public void ClearSkillKeyDic()
+        {
+            skillClickKeyCount.Clear();
+            beginReadySkillTime = 0;
+        }
+        #endregion
+
+        #region PlayerGameState
+        private PlayerGameState playerGameState;
+        public PlayerGameState GetPlayerGameState()
+        {
+            return playerGameState;
+        }
+        public void SetPlayerGameState(PlayerGameState state)
+        {
+            playerGameState = state;
+        }
+        #endregion
+
+
+        public void ResetData()
+        {
+            isDestory = true;
+            playerWeapon = new WeanponUnit();
+            playerHero = new HeroUnit();
+            skillClickKeyCount = new Dictionary<int, int>();
+            beginReadySkillTime = 0;
+            playerGameState = PlayerGameState.idel;
         }
     }
 }

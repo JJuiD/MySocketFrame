@@ -4,10 +4,10 @@
     <_ViewList name="0">
       <InfoList>
         <_Info name="heroName">dadada</_Info>
-        <_Info name="heroSpritePath">GameRes/Images/PVPGame/Hero/Img_hero_0</_Info>
-        <_Info name="heroBodyPath">GameRes/Prefabs/PVPGame/Hero/hero_0</_Info>
+        <_Info name="heroSpritePath">GameRes/PVPGame/Textures/Texture_hero_0</_Info>
         <_Info name="hp">200</_Info>
         <_Info name="mp">100</_Info>
+        <_Info name="speed">2</_Info>
       </InfoList>
     </_ViewList>
   </ViewList>

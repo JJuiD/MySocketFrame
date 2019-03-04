@@ -21,6 +21,7 @@ namespace Scripts.Logic.PVPGame
         public const string KEY_EVENT_END = "KEY_EVENT_END";
 
         public const int HERO_EMOTICONS_MAX_COUNT = 6;
+        public const float SKILL_OUTTIME = 2.5f;
     }
 
     public enum AniType
@@ -30,6 +31,17 @@ namespace Scripts.Logic.PVPGame
         RUN,
         ATTACK,
         JUMP,
+    }
+
+    public enum PlayerGameState
+    {
+        idel,
+        attack,
+        jump,
+        run,
+        walk,
+        defence,
+        bHint,
     }
 
     public enum EmoticonType
@@ -97,7 +109,7 @@ namespace Scripts.Logic.PVPGame
         public string heroName = "";
         public float hp = 0;
         public float mp = 0;
-        public GameObject body;
+        public float speed = 0;
         public int id = 0;
         public Dictionary<EmoticonType, Sprite> emoticons;
         public Sprite headImage;
@@ -105,10 +117,10 @@ namespace Scripts.Logic.PVPGame
         public void ReadStream(Dictionary<string,string> data,int id)
         {
             this.id = id;
-            body = Resources.Load<GameObject>(data["heroBodyPath"]);
             heroName = data["heroName"];
             float.TryParse(data["hp"], out this.hp);
             float.TryParse(data["mp"], out this.mp);
+            float.TryParse(data["speed"], out this.mp);
             Sprite[] sprites = Resources.LoadAll<Sprite>(data["heroSpritePath"]);
             emoticons = new Dictionary<EmoticonType, Sprite>();
             for (int i = 0;i < PVPGameConfig.HERO_EMOTICONS_MAX_COUNT;++i)
@@ -116,7 +128,6 @@ namespace Scripts.Logic.PVPGame
                 emoticons.Add((EmoticonType)i, sprites[i]);
             }
             headImage = sprites[6];
-            
         }
     }
 }

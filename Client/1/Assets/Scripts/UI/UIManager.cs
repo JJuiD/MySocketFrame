@@ -81,7 +81,7 @@ namespace Scripts.UI
         #endregion
 
         #region UI 相关操作 LoadNode RealseNode
-        private Dictionary<string, BaseUI> UINodeList = new Dictionary<string, BaseUI>();
+        private Dictionary<string, BaseUI> UINodeList;
         public T OpenNode<T>(string name,params object[] _params) where T : BaseUI
         {
             if (!UIPrefabList.ContainsKey(name)) return null;

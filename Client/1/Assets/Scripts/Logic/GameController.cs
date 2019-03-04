@@ -24,6 +24,10 @@ namespace Scripts.Logic
         private Dictionary<string, string> StrUserDefault;
         private BaseLogic Logic;
 
+        private int maxPlayer = 4;
+        public void SetMaxPlayer(int n ) { maxPlayer = n; }
+        public int GetMaxPlayer() { return maxPlayer; }
+
         public T GetLogic<T>() where T : BaseLogic { return (T)Logic; }
         public UserDefault GetGameUserDefault() { return gameUserDefault; }
 
@@ -36,6 +40,7 @@ namespace Scripts.Logic
                     gameUserDefault = FileUtils.LoadFromXml<UserDefault>(Config.XML_PVPGAME_USERDEFAULT);
                     Logic = new PVPGame.PVPGameLogic();
                     playerObject = Resources.Load<GameObject>(Config.PVPGame_PlayerObject);
+                    SetMaxPlayer(4);
                     break;
             }
             SaveUserDefault();
@@ -49,6 +54,7 @@ namespace Scripts.Logic
             Logic.InitMapData(mapIndex);
         }
 
+        #region UserDefault
         private void SaveUserDefault()
         {
             FltUserDefault = new Dictionary<string, float>();
@@ -86,6 +92,7 @@ namespace Scripts.Logic
 
             throw new NotImplementedException();
         }
+        #endregion
 
         public void JoinGame()
         {
@@ -105,7 +112,7 @@ namespace Scripts.Logic
 
         #region 玩家相关
         private GameObject playerObject;
-        private Dictionary<int, BasePlayer> playerList = new Dictionary<int, BasePlayer>();
+        private Dictionary<int, BasePlayer> playerList;
         public void AddPlayer(BasePlayer player)
         {
             if (playerList.Count == 0)

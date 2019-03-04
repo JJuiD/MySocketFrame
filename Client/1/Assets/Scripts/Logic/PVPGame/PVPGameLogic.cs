@@ -9,7 +9,7 @@ namespace Scripts.Logic.PVPGame
     public class PVPGameLogic : BaseLogic
     {
         //private Dictionary<Int16, PVPGamePlayer> playerList = new Dictionary<Int16, PVPGamePlayer>();
-        private int maxPlayer = 4;
+        
 
         public override void Init()
         {
@@ -48,12 +48,6 @@ namespace Scripts.Logic.PVPGame
             }
         }
 
-        public int GetMaxPlayer()
-        {
-            return maxPlayer;
-        }
-
-        
 
         public override void JoinGame()
         {
@@ -104,11 +98,16 @@ namespace Scripts.Logic.PVPGame
                 units.Add(item);
             }
 
-            if(units.Count > 0)
+            for(int i = 0; i < GameController.GetInstance().GetMaxPlayer(); ++i)
             {
-                //PVPGamePlayer player = GetPlayerBySeat(0);
-                //player.DealKeyUnit(units);
+                PVPGamePlayer player = GameController.GetInstance().GetPlayerBySeat<PVPGamePlayer>(0);
+                player.TickUpdate();
+                if (units.Count > 0)
+                {
+                    player.DealKeyUnit(units);
+                }
             }
+            
         }
 
         #region 英雄本地数据解析,获取

@@ -23,7 +23,6 @@ namespace Scripts
             //        DIC_DEFAULT_KEY_VALUE[temp.Key] = (KeyCode)System.Enum.Parse(typeof(KeyCode), KeyStr);
             //    }
             //}
-            listenerList = new Dictionary<DataEventType, Action<object[]>>();
         }
 
         //按键
@@ -122,7 +121,7 @@ namespace Scripts
             //Debug.Log(GetKeyDown().ToString());
         }
 
-        private Dictionary<DataEventType, Action<object[]>> listenerList = new Dictionary<DataEventType, Action<object[]>>();
+        private Dictionary<DataEventType, Action<object[]>> listenerList ;
         public void AddDataListener(DataEventType eventType, Action<object[]> listener)
         {
             if (listenerList.Count == 0 || listenerList.ContainsKey(eventType)) return;

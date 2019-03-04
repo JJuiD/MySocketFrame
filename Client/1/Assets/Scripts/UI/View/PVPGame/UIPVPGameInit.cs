@@ -70,7 +70,8 @@ namespace Scripts.UI.PVPGame
                 playerinfo.seat = 0;
                 player.SetServerPlayerData(playerinfo);
                 player.SetLocalPlayerData(heroId, weaponId);
-                gamelogic.AddPlayer(player);
+                GameController.GetInstance().AddPlayer(player);
+                GameController.GetInstance().JoinGame();
 
                 textNode.text = "Cancel";
                 return;

@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGameConfig.cs" />
     <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGameLogic.cs" />
     <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGamePlayer.cs" />
+    <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGamePlayerCollider.cs" />
     <Compile Include="Assets\Scripts\main.cs" />
     <Compile Include="Assets\Scripts\Module\SkillModule.cs" />
     <Compile Include="Assets\Scripts\Protocol\Game\GameBase.cs" />

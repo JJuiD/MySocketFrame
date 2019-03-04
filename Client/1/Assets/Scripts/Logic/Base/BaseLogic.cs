@@ -9,7 +9,7 @@ namespace Scripts.Logic
      
     public abstract class BasePlayer : MonoBehaviour
     {
-        protected PlayerInfo playerInfo = new PlayerInfo();
+        protected PlayerInfo playerInfo;
         public void SetServerPlayerData(PlayerInfo playerinfo)
         {
             this.playerInfo.name = playerinfo.name;

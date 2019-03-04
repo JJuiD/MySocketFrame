@@ -8,7 +8,7 @@
         <_Info name="skill_0">0</_Info>
         <_Info name="skill_1">1</_Info>
         <_Info name="skill_2">2</_Info>
-        <_Info name="path">>GameRes/Images/PVPGame/Weapon/Img_weapon_0</_Info>
+        <_Info name="path">>GameRes/PVPGame/Textures/Texture_weapon_0</_Info>
       </InfoList>
     </_ViewList>
   </ViewList>
