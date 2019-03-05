@@ -18,7 +18,7 @@ namespace Scripts.UI
         {
             ResetScene();
             
-            UIManager.GetInstance().LoadScene(Config.LobbyScene);
+            UIManager.GetInstance().LoadScene(Config.Lobby);
         }
     }
 }

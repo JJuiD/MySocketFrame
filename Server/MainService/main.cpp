@@ -9,9 +9,9 @@
 int main()
 {
 	std::cout << "MySocketFrame\n";
-	/*logic::LogicManager::StartAnalysisNetPacket();
-	socketframe::SocketManager::StartListenNetPacket(NET_TYPE_UDP);*/
-	RedisModel::geInstance().Connect();
+	logic::LogicManager::StartAnalysisNetPacket();
+	socketframe::SocketManager::StartListenNetPacket(NET_TYPE_UDP);
+	//RedisModel::geInstance().Connect();
 }
 
 

@@ -27,8 +27,9 @@ namespace Scripts.UI
         private _XmlRoot rootNodeXml;
         
 
-        public UIManager()
+        void Awake()
         {
+            UINodeList = new Dictionary<string, BaseUI>();
             rootNode = GameObject.Instantiate(Resources.Load<GameObject>("UI/RootCanvas"), Vector3.zero, Quaternion.identity);
             rootUINode = rootNode.transform.Find("UIRoot").gameObject;
             DontDestroyOnLoad(rootNode);
@@ -43,21 +44,16 @@ namespace Scripts.UI
             RealseScene();
             switch (name)
             {
-                case Config.LobbyScene:
+                case Config.Lobby:
                     CurScene = new LobbyScene();
                     break;
-                case Config.PVPGameScene:
+                case Config.PVPGame:
                     CurScene = new PVPGameScene();
                     break;
             }
             CurScene.name = name;
             //先写这里 2.25
-            if(name != Config.LobbyScene)
-            {
-                Logic.GameController.GetInstance().GameName = name;
-                Logic.GameController.GetInstance().Init();
-            }
-            SceneManager.LoadScene(name);
+            SceneManager.LoadScene(name + "Scene");
             //Camera camera = GameObject.Find("MainCamera").GetComponent<Camera>();
             //rootNode.GetComponent<Canvas>().worldCamera = camera;
             CurScene.OnEnter();
@@ -77,6 +73,10 @@ namespace Scripts.UI
         public T GetCurrentScene<T>() where T : BaseScene
         {
             return (T)CurScene;
+        }
+        public string GetSceneName() {
+            if (CurScene == null) return Config.Lobby;
+            return CurScene.name;
         }
         #endregion
 

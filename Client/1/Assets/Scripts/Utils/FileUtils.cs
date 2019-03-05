@@ -22,7 +22,7 @@ namespace Scripts
             return isExist;
         }
 
-        #region UserDefault.xml 表的相关操作(类型有float int string)
+        /*#region UserDefault.xml 表的相关操作(类型有float int string)
         private static UserDefault userDefault = new UserDefault();
         public static string GetSTRValueForKey(string Key, string value = "")
         {
@@ -105,12 +105,12 @@ namespace Scripts
                 if (temp.name == Key) temp.value = value;
             }
         }
-        #endregion
+        #endregion*/
 
 
-        public static void SaveCache()
+        public static void SaveCache<T>(T data,string path)
         {
-            SaveToXml<UserDefault>("UserDefault.xml", userDefault, "UserDefault");
+            SaveToXml<T>(path, data, "UserDefault");
         }
 
         public static void SaveToXml<T>(string filePath, object sourceObj, string xmlRootName)

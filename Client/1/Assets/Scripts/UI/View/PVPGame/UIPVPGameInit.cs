@@ -18,8 +18,8 @@ namespace Scripts.UI.PVPGame
 
         public override void Open(params object[] _params)
         {
-            heroId = GameController.GetInstance().GetUserDefault<int>("DEFAULT_HERO");
-            weaponId = GameController.GetInstance().GetUserDefault<int>("DEFAULT_WEAPON");
+            heroId = DataCenter.GetInstance().GetUserDefault().GetUserDefaultValue<int>("DEFAULT_HERO");
+            weaponId = DataCenter.GetInstance().GetUserDefault().GetUserDefaultValue<int>("DEFAULT_WEAPON");
             gamelogic = GameController.GetInstance().GetLogic<PVPGameLogic>();
             SetSelfHeroUI(heroId);
             SetSelfWeaponUI(weaponId);
@@ -59,20 +59,14 @@ namespace Scripts.UI.PVPGame
         private void OnClickUpdateReadyState()
         {
             Text textNode = GetWMNode(WN_BTN_UpdateReadyState).Find("Text").GetComponent<Text>();
-            if(textNode.text == "Ready")
+            if (textNode.text == "Ready")
             {
-                this.Close();
-                //TODO:暂时这么写
-                PVPGamePlayer player = new PVPGamePlayer();
-                PlayerInfo playerinfo = new PlayerInfo();
-                playerinfo.localSeat = 0;
-                playerinfo.name = "aaaaaaaa";
-                playerinfo.seat = 0;
-                player.SetServerPlayerData(playerinfo);
-                player.SetLocalPlayerData(heroId, weaponId);
-                GameController.GetInstance().AddPlayer(player);
-                GameController.GetInstance().JoinGame();
-
+                if (!GameController.GetInstance().GetLineNetState())
+                {
+                    this.Close();
+                    GameController.GetInstance().GetLogic<PVPGameLogic>().StartGame();
+                    return;
+                }
                 textNode.text = "Cancel";
                 return;
             }

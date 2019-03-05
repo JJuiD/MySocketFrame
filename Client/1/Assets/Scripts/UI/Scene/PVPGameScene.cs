@@ -19,13 +19,8 @@ namespace Scripts.UI
 
         public void OnEnterGame()
         {
-            for(int i = 0;i<GameController.GetInstance().GetMaxPlayer();++i)
-            {
-                PVPGamePlayer player = GameController.GetInstance().GetPlayerBySeat<PVPGamePlayer>(i);
-                if(player != null)
-                    player.Create(Vector3.zero);
-            }
-        }
+            
+         }
 
         public void InitMapData(int mapindex)
         {
@@ -34,7 +29,7 @@ namespace Scripts.UI
 
         public override void ResetScene()
         {
-            GameController.GetInstance().Clear();
+            
         }
         
         

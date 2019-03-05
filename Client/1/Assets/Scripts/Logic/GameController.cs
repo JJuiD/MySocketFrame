@@ -15,119 +15,70 @@ namespace Scripts.Logic
 
     public class GameController : SingletonMono<GameController>
     {
-        public string GameName {get ; set;}
-
-        private UserDefault gameUserDefault;
-        
-        private Dictionary<string, int> IntUesrDefault;
-        private Dictionary<string, float> FltUserDefault;
-        private Dictionary<string, string> StrUserDefault;
-        private BaseLogic Logic;
-
-        private int maxPlayer = 4;
-        public void SetMaxPlayer(int n ) { maxPlayer = n; }
-        public int GetMaxPlayer() { return maxPlayer; }
-
-        public T GetLogic<T>() where T : BaseLogic { return (T)Logic; }
-        public UserDefault GetGameUserDefault() { return gameUserDefault; }
-
-        public void Init()
+        public void StartGame(string GameName,bool isLineNet = false)
         {
             Debug.Log("GameController Init " + GameName);
-            switch(GameName)
+            ResetData();
+            SetLineNetState(isLineNet);
+            switch (GameName)
             {
-                case Config.PVPGameScene:
-                    gameUserDefault = FileUtils.LoadFromXml<UserDefault>(Config.XML_PVPGAME_USERDEFAULT);
+                case Config.PVPGame:
+                    DataCenter.GetInstance().InsertUserDefault(GameName,Config.XML_PVPGAME_USERDEFAULT);
                     Logic = new PVPGame.PVPGameLogic();
-                    playerObject = Resources.Load<GameObject>(Config.PVPGame_PlayerObject);
-                    SetMaxPlayer(4);
+                    //SetPlayerCount(1);
                     break;
             }
-            SaveUserDefault();
-            Logic.Init();
-            Logic.LoadKeyEventDic(gameUserDefault);
+
+            Logic.InitData();
+            UIManager.GetInstance().LoadScene(GameName);
         }
 
-        //游戏地图
-        private void InitMapData(int mapIndex = 0)
+        public void ExitGame()
         {
-            Logic.InitMapData(mapIndex);
+            Logic.ExitGame();
+            ResetData();
+            UIManager.GetInstance().LoadScene(Config.Lobby);
         }
 
-        #region UserDefault
-        private void SaveUserDefault()
+        private void ResetData()
         {
-            FltUserDefault = new Dictionary<string, float>();
-            foreach (var temp in gameUserDefault._FLTValues)
-            {
-                FltUserDefault.Add(temp.name, temp.value);
-            }
-
-            IntUesrDefault = new Dictionary<string, int>();
-            foreach (var temp in gameUserDefault._INTValues)
-            {
-                IntUesrDefault.Add(temp.name, temp.value);
-            }
-
-            StrUserDefault = new Dictionary<string, string>();
-            foreach (var temp in gameUserDefault._STRValues)
-            {
-                StrUserDefault.Add(temp.name, temp.value);
-            }
+            Logic = null;
+            playerList = new Dictionary<int, BasePlayer>();
+            isLineNet = false;
         }
-        public T GetUserDefault<T>(string index) 
-        {
-            if(typeof(T) == typeof(int) && IntUesrDefault.ContainsKey(index))
-            {
-                return (T)((object)IntUesrDefault[index]);
-            }
-            else if (typeof(T) == typeof(float) && FltUserDefault.ContainsKey(index))
-            {
-                return (T)((object)FltUserDefault[index]);
-            }
-            else if (typeof(T) == typeof(string) && StrUserDefault.ContainsKey(index))
-            {
-                return (T)((object)StrUserDefault[index]);
-            }
 
-            throw new NotImplementedException();
-        }
+        #region Logic
+        private BaseLogic Logic;
+        public T GetLogic<T>() where T : BaseLogic { return (T)Logic; }
+
+        //private int maxPlayer = 0;
+        //public void SetPlayerCount(int n) { maxPlayer = n; }
+        //public int GetPlayerCount() { return maxPlayer; }
         #endregion
 
-        public void JoinGame()
-        {
-            this.Logic.JoinGame();
-        }
-
-        public void Clear()
-        {
-            gameUserDefault = null;
-            Logic = null;
-        }
-
-        private void FixedUpdate()
-        {
-            Logic.LogicFixedUpdate();
-        }
+        #region 网络状态
+        private bool isLineNet = false;
+        public bool GetLineNetState() { return isLineNet; }
+        private void SetLineNetState(bool isLineNet) { this.isLineNet = isLineNet; }
+        #endregion
 
         #region 玩家相关
-        private GameObject playerObject;
         private Dictionary<int, BasePlayer> playerList;
+        public int GetPlayerCount() { return playerList.Count; }
         public void AddPlayer(BasePlayer player)
         {
             if (playerList.Count == 0)
             {
-                playerList.Add(player.GetServerSeat(),player);
+                playerList.Add(player.GetServerSeat(), player);
                 return;
             }
 
-            if(GetPlayerBySeat<BasePlayer>(player.GetServerSeat()))
+            if (GetPlayerBySeat<BasePlayer>(player.GetServerSeat()) != null)
             {
                 Debug.LogError("[ERROR] 存在同样的用户");
                 return;
             }
         }
-
         public T GetPlayerBySeat<T>(Int16 seat) where T : BasePlayer
         {
             if (playerList.Count == 0) { return null; }
@@ -135,7 +86,6 @@ namespace Scripts.Logic
             Debug.LogError("[ERROR] GetPlayerBySeat : " + seat.ToString() + " 不存在");
             return null;
         }
-
         public T GetPlayerByLocalSeat<T>(Int16 localseat) where T : BasePlayer
         {
             if (playerList.Count == 0) { return null; }
@@ -149,6 +99,16 @@ namespace Scripts.Logic
             return null;
         }
         #endregion
+
+
+        //游戏地图
+
+        private void FixedUpdate()
+        {
+            Logic.LogicFixedUpdate();
+        }
+
+        
     }
 }
 

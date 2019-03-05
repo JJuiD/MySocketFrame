@@ -1,10 +1,5 @@
-﻿using Scripts.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Scripts.Logic.PVPGame
 {
@@ -61,14 +56,13 @@ namespace Scripts.Logic.PVPGame
     //    }
     //}
 
-    public class PVPGamePlayer : BasePlayer
+    public class PVPGamePlayer : MonoBehaviour
     {
         private bool isDestory = true;
-        public void Create(Vector3 pos)
+        public void Create()
         {
-            if (isDestory) return;
             ResetData();
-            GameObject.Instantiate(this.gameObject, pos, Quaternion.identity);
+            //GameObject.Instantiate(this.gameObject, pos, Quaternion.identity);
             playerCollider = this.GetComponent<PVPGamePlayerCollider>();
             playerBodyTrans = this.transform.Find("Body");
             playerAnimation = this.GetComponent<Animation>();
@@ -88,35 +82,43 @@ namespace Scripts.Logic.PVPGame
             playerWeapon = GameController.GetInstance().GetLogic<PVPGameLogic>().GetWeaponInfo(weaponId);
             playerHero = GameController.GetInstance().GetLogic<PVPGameLogic>().GetHeroInfo(heroId);
         }
-        #endregion
-
-        public bool IsAllowSkillCost(CostType type,float value)
+        public bool IsAllowCost(CostType type, float value)
         {
-            switch(type)
+            switch (type)
             {
                 case CostType.mp:
-                    if (playerHero.mp >= value) return true;
+                    if (playerHero.mp >= value + playerHero.costMp) return true;
                     break;
                 case CostType.hp:
-                    if (playerHero.hp >= value) return true;
+                    if (playerHero.hp > value + playerHero.costHp) return true;
                     break;
             }
 
             return false;
         }
-        public void SetSkillCost(CostType type,float value)
+        public void SetCost(CostType type, float value)
         {
-            if (!IsAllowSkillCost(type, value)) return;
+            if (!IsAllowCost(type, value)) return;
             switch (type)
             {
                 case CostType.mp:
-                    playerHero.mp -= value;
+                    playerHero.costMp += value;
                     break;
                 case CostType.hp:
-                    playerHero.hp -= value;
+                    playerHero.costHp += value;
                     break;
             }
         }
+        public bool IsDied()
+        {
+            return (playerHero.hp > playerHero.costHp);
+        }
+        public void ResetCost()
+        {
+            playerHero.costHp = 0;
+            playerHero.costMp = 0;
+        }
+        #endregion
 
         public void TickUpdate()
         {
@@ -142,7 +144,6 @@ namespace Scripts.Logic.PVPGame
 
             foreach (var unit in units)
             {
-                
                 switch (unit.eventName)
                 {
                     case PVPGameConfig.KEY_EVENT_DEFENCE:
@@ -156,16 +157,16 @@ namespace Scripts.Logic.PVPGame
                         }
                         break;
                     case PVPGameConfig.KEY_EVENT_UP:
-                        moveDirection.y += unit.isDown == true ? 1 : 0;
+                        moveDirection.y += unit.isDown ? 1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_LEFT:
-                        moveDirection.x += unit.isDown == true ? -1 : 0;
+                        moveDirection.x += unit.isDown ? -1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_DOWN:
-                        moveDirection.y += unit.isDown == true ? -1 : 0;
+                        moveDirection.y += unit.isDown ? -1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_RIGHT:
-                        moveDirection.x += unit.isDown == true ? 1 : 0;
+                        moveDirection.x += unit.isDown ? 1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_ATTACK:
                         isAttack = unit.isDown;
@@ -216,8 +217,9 @@ namespace Scripts.Logic.PVPGame
             }
             if(DealSkillCombo(dirEventType)) return;
 
-            Vector2 target = moveDirection * playerHero.speed;
-            this.GetComponent<Rigidbody2D>().velocity = target;
+            Vector3 dir = moveDirection * playerHero.speed ;
+            Debug.Log("RunWalkAnimaion");
+            this.GetComponent<Rigidbody2D>().MovePosition(transform.position + dir);
             //this.transform.position = Vector3.Lerp(currentPosition, target, Time.deltaTime);
 
             SetPlayerGameState(PlayerGameState.walk);
@@ -275,7 +277,7 @@ namespace Scripts.Logic.PVPGame
                     if (keyEventType == skill.keys[temp.Value])
                     {
                         if(temp.Value == skill.keys.Count
-                            && IsAllowSkillCost(skill.costType,skill.cost))
+                            && IsAllowCost(skill.costType,skill.cost))
                         {
                             RunSkillAnimation(skill.id);
                             return true;

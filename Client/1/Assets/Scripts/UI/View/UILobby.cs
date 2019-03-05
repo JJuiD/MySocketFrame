@@ -8,24 +8,33 @@ namespace Scripts.UI
 {
     public class UILobby : BaseUI
     {
-        private string WN_BTN_START = "WN_BTN_START";
-        private string WN_BTN_SET = "WN_BTN_SET";
+        private string WN_BTN_GameList = "WN_BTN_GameList";
+        private string WN_BTN_Set = "WN_BTN_Set";
+        private string WN_BTN_PVPGame = "WN_BTN_PVPGame";
 
         public override void Open(params object[] _params)
         {
-            UIManager.GetInstance().RegisterClickEvent(WN_BTN_SET, this, onClickSet);
-            UIManager.GetInstance().RegisterClickEvent(WN_BTN_START, this, onClickStart);
+            UIManager.GetInstance().RegisterClickEvent(WN_BTN_Set, this, onClickSet);
+            UIManager.GetInstance().RegisterClickEvent(WN_BTN_PVPGame, this, onClickPVPGameStart);
+            UIManager.GetInstance().RegisterClickEvent(WN_BTN_GameList, this, onClickShowGameList);
         }
 
-        private void onClickStart()
+        private void onClickShowGameList()
         {
-            Debug.Log("onClickStart Start");
-            UIManager.GetInstance().LoadScene(Config.PVPGameScene);
+            Transform gameListPnl = GetWMNode(WN_BTN_GameList).Find("PNL_GameList");
+            Debug.Log("onClickStart onClickShowGameList");
+            //UIManager.GetInstance().LoadScene(Config.PVPGame);
+            gameListPnl.gameObject.SetActive(!gameListPnl.gameObject.activeSelf);
+        }
+
+        private void onClickPVPGameStart()
+        {
+            Logic.GameController.GetInstance().StartGame(Config.PVPGame);
         }
 
         private void onClickSet()
         {
-            Debug.Log("onClickSet Start");
+            Debug.Log("onClickSet Set");
             //UIManager.GetInstance().OpenNode<UISet>(UIConfig.UISet);
         }
     }

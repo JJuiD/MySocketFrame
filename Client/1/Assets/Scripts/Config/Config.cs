@@ -56,9 +56,9 @@ namespace Scripts
 
 
         //场景
-        public const string LobbyScene = "LobbyScene";
-        public const string PVPGameScene = "PVPGameScene";
-        public const string TowerDefenseScene = "TowerDefenseScene";
+        public const string Lobby = "Lobby";
+        public const string PVPGame = "PVPGame";
+        public const string TowerDefense = "TowerDefense";
 
 
         #endregion

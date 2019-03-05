@@ -11,8 +11,9 @@ namespace Scripts.Logic.PVPGame
         //private Dictionary<Int16, PVPGamePlayer> playerList = new Dictionary<Int16, PVPGamePlayer>();
         
 
-        public override void Init()
+        public override void InitData()
         {
+            ResetData();
             EventToActionDic.Add(PVPGameConfig.KEY_EVENT_UP, KeyCode.None);
             EventToActionDic.Add(PVPGameConfig.KEY_EVENT_LEFT, KeyCode.None);
             EventToActionDic.Add(PVPGameConfig.KEY_EVENT_DOWN, KeyCode.None);
@@ -21,94 +22,70 @@ namespace Scripts.Logic.PVPGame
             EventToActionDic.Add(PVPGameConfig.KEY_EVENT_ATTACK, KeyCode.None);
             EventToActionDic.Add(PVPGameConfig.KEY_EVENT_JUMP, KeyCode.None);
             EventToActionDic.Add(PVPGameConfig.KEY_EVENT_DEFENCE, KeyCode.None);
-
+            InitKeyEventDic();
 
             AnalysisSkillDefault();
             AnalysisWeaponDefault();
             AnalysisHeroDefault();
-        }
 
-        public override void LoadKeyEventDic(UserDefault userDefault)
-        {
-            bool bLoad = false;
-            foreach (var temp in userDefault._STRValues)
+            InitPlayerPrefab();
+
+            if(!GameController.GetInstance().GetLineNetState())
             {
-                if (temp.name == PVPGameConfig.KEY_EVENT_START)
-                {
-                    bLoad = true;
-                    continue;
-                }
-                else if (temp.name == PVPGameConfig.KEY_EVENT_END) return;
+                PVPGamePlayerLogic selfplayer = new PVPGamePlayerLogic();
+                PlayerInfo playerInfo = new PlayerInfo();
+                playerInfo.name = DataCenter.GetInstance().LocalName;
 
-                if (bLoad && EventToActionDic.ContainsKey(temp.name))
-                {
-                    KeyCode key = (KeyCode)Enum.Parse(typeof(KeyCode), temp.value);
-                    KeyToEventDic.Add(key, temp.name);
-                }
+                selfplayer.SetServerPlayerData(playerInfo);
+                GameController.GetInstance().AddPlayer(selfplayer);
             }
         }
 
-
-        public override void JoinGame()
+        public override void ResetData()
         {
-            UIManager.GetInstance().GetCurrentScene<PVPGameScene>().OnEnterGame();
+            EventToActionDic = new Dictionary<string, KeyCode>();
+            KeyToEventDic = new Dictionary<KeyCode, string>();
+            HeroLocalData = new Dictionary<int, HeroUnit>();
+            WeaponLocalData = new Dictionary<int, WeanponUnit>();
+            SkillLocalData = new Dictionary<int, SkillUnit>();
+            step = GameStep.GAME_STEP_NULL;
         }
 
-        public override void AddDataListener()
-        {
-            DataCenter.GetInstance().AddDataListener(DataEventType.EVENT_KEY_DOWN, GetKeyDown);
-            DataCenter.GetInstance().AddDataListener(DataEventType.EVENT_KEY_UP, GetKeyUp);
-        }
-
-        public override void RemoveDataListener()
-        {
-            DataCenter.GetInstance().AddDataListener(DataEventType.EVENT_KEY_DOWN, GetKeyDown);
-            DataCenter.GetInstance().AddDataListener(DataEventType.EVENT_KEY_UP, GetKeyUp);
-        }
-
-        public void GetKeyDown(params object[] args)
-        {
-            //KeyCode key = (KeyCode)Enum.Parse(typeof(KeyCode), args[0].ToString());
-        }
-
-        public void GetKeyUp(params object[] args)
-        {
-            //KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), args[0].ToString());
-        }
-
-        
-
+        private GameStep step = GameStep.GAME_STEP_NULL;
         public override void LogicFixedUpdate()
         {
             List<KeyUnit> units = new List<KeyUnit>();
             foreach (var temp in KeyToEventDic)
             {
                 KeyUnit item = new KeyUnit();
-                if (Input.GetKeyDown(temp.Key))
-                {
-                    item.eventName = temp.Value;
-                    item.isDown = true;
-                }
-                else if (Input.GetKeyUp(temp.Key))
-                {
-                    item.eventName = temp.Value;
-                    item.isDown = false;
-                }
+                item.eventName = temp.Value;
+                item.isDown = Input.GetKey(temp.Key);
                 if (item.eventName == "") continue;
                 units.Add(item);
             }
 
-            for(int i = 0; i < GameController.GetInstance().GetMaxPlayer(); ++i)
+            for(int i = 0; i < GameController.GetInstance().GetPlayerCount(); ++i)
             {
-                PVPGamePlayer player = GameController.GetInstance().GetPlayerBySeat<PVPGamePlayer>(0);
-                player.TickUpdate();
+                PVPGamePlayerLogic player = GameController.GetInstance().GetPlayerBySeat<PVPGamePlayerLogic>(0);
+                if (player == null || player.GetView() == null || player.GetLocalSeat() != 0) continue;
+                player.GetView().TickUpdate();
                 if (units.Count > 0)
                 {
-                    player.DealKeyUnit(units);
+                    player.ReqDealKeyUnit(units);
                 }
             }
             
         }
+
+        #region 玩家预制件
+        private GameObject playerPrefab;
+        public GameObject GetPlayerPrefab() { return playerPrefab; }
+        private void InitPlayerPrefab()
+        {
+            playerPrefab = Resources.Load<GameObject>(Config.PVPGame_PlayerObject);
+            
+        }
+        #endregion
 
         #region 英雄本地数据解析,获取
         Dictionary<int, HeroUnit> HeroLocalData;
@@ -201,10 +178,66 @@ namespace Scripts.Logic.PVPGame
             return _DictionaryXml;
         }
 
-        public override void InitMapData(int mapindex)
+        public override void StartGame()
         {
-            UIManager.GetInstance().GetCurrentScene<PVPGameScene>().InitMapData(mapindex);
+            Debug.Log("PVPGameLogic StartGame");
+            for(short i = 0;i<GameController.GetInstance().GetPlayerCount(); ++i)
+            {
+                GameController.GetInstance().GetPlayerByLocalSeat<PVPGamePlayerLogic>(i).Create(Vector3.zero);
+            }
         }
 
+        public override void ExitGame()
+        {
+            Debug.Log("PVPGameLogic ExitGame");
+            ResetData();
+        }
+
+        public override void InitKeyEventDic()
+        {
+            UserDefault userDefault = DataCenter.GetInstance().GetUserDefault(Config.PVPGame).GetData();
+            if (userDefault == null) return;
+            bool bLoad = false;
+            foreach (var temp in userDefault._STRValues)
+            {
+                if (temp.name == PVPGameConfig.KEY_EVENT_START)
+                {
+                    bLoad = true;
+                    continue;
+                }
+                else if (temp.name == PVPGameConfig.KEY_EVENT_END) return;
+
+                if (bLoad && EventToActionDic.ContainsKey(temp.name))
+                {
+                    KeyCode key = (KeyCode)Enum.Parse(typeof(KeyCode), temp.value);
+                    KeyToEventDic.Add(key, temp.name);
+                }
+            }
+        }
     }
+
+    public class PVPGamePlayerLogic : BasePlayer
+    {
+        PVPGamePlayer playerView;
+
+        public PVPGamePlayer GetView()
+        {
+            return playerView;
+        }
+
+        public void Create(Vector3 pos)
+        {
+            GameObject defaultObject = GameController.GetInstance().GetLogic<PVPGameLogic>().GetPlayerPrefab();
+            playerView = defaultObject.GetComponent<PVPGamePlayer>();
+            playerView.Create();
+            GameObject.Instantiate(defaultObject, pos, Quaternion.identity);
+        }
+
+        public void ReqDealKeyUnit(List<KeyUnit> unit)
+        {
+            playerView.DealKeyUnit(unit);
+        }
+    }
+
+    
 }

@@ -24,6 +24,13 @@ namespace Scripts.Logic.PVPGame
         public const float SKILL_OUTTIME = 2.5f;
     }
 
+    public enum GameStep
+    {
+        GAME_STEP_NULL,
+        GAME_STEP_START,
+        GAME_STEP_END,
+    }
+
     public enum AniType
     {
         IDEL,
@@ -108,6 +115,8 @@ namespace Scripts.Logic.PVPGame
     {
         public string heroName = "";
         public float hp = 0;
+        public float costHp = 0;
+        public float costMp = 0;
         public float mp = 0;
         public float speed = 0;
         public int id = 0;

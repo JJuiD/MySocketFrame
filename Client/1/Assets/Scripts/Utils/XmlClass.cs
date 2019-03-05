@@ -89,7 +89,63 @@ namespace Scripts
         public float value { get; set; }
     }
 
+    public class UserDefaultData
+    {
+        UserDefault data;
+        string path;
+        string name;
+        Dictionary<string, float> FltUserDefault ;
+        Dictionary<string, int> IntUesrDefault;
+        Dictionary<string, string> StrUserDefault;
+        public void Init(string name, string path)
+        {
+            this.name = name;
+            this.path = path;
+            data = FileUtils.LoadFromXml<UserDefault>(path);
+            ClassifyData();
+        }
+        private void ClassifyData()
+        {
+            FltUserDefault = new Dictionary<string, float>();
+            foreach (var temp in data._FLTValues)
+            {
+                FltUserDefault.Add(temp.name, temp.value);
+            }
 
+            IntUesrDefault = new Dictionary<string, int>();
+            foreach (var temp in data._INTValues)
+            {
+                IntUesrDefault.Add(temp.name, temp.value);
+            }
+
+            StrUserDefault = new Dictionary<string, string>();
+            foreach (var temp in data._STRValues)
+            {
+                StrUserDefault.Add(temp.name, temp.value);
+            }
+        }
+        public T GetUserDefaultValue<T>(string index)
+        {
+            string name = UI.UIManager.GetInstance().GetSceneName();
+            if (typeof(T) == typeof(int) && IntUesrDefault.ContainsKey(index))
+            {
+                return (T)((object)IntUesrDefault[index]);
+            }
+            else if (typeof(T) == typeof(float) && FltUserDefault.ContainsKey(index))
+            {
+                return (T)((object)FltUserDefault[index]);
+            }
+            else if (typeof(T) == typeof(string) && StrUserDefault.ContainsKey(index))
+            {
+                return (T)((object)StrUserDefault[index]);
+            }
+
+            throw new NotImplementedException();
+        }
+        public string GetName() { return name; }
+        public string GetPath() { return path; }
+        public UserDefault GetData() { return data; }
+    }
     #endregion
 
     #region CardDefault.xml
