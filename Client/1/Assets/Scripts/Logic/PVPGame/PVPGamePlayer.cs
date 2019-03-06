@@ -189,9 +189,11 @@ namespace Scripts.Logic.PVPGame
 
         public void RunIdelAnimation()
         {
+            Debug.Log("RunIdelAnimation");
             ClearSkillKeyDic();
             this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
+
         private Transform playerBodyTrans;
         private Animation playerAnimation;
         public void RunWalkAnimaion(Vector2 moveDirection)
@@ -200,7 +202,7 @@ namespace Scripts.Logic.PVPGame
             // -1   0   1
             // -4  -3  -2
             string dirEventType = "";
-            bool isFowardToRight = playerBodyTrans.rotation.y == 180;
+            bool isFowardToRight = playerBodyTrans.rotation.y != 180;
             if (moveDirection.y == 1)
             {
                 dirEventType = PVPGameConfig.KEY_EVENT_UP;
@@ -215,11 +217,13 @@ namespace Scripts.Logic.PVPGame
             {
                 dirEventType = PVPGameConfig.KEY_EVENT_DOWN;
             }
-            if(DealSkillCombo(dirEventType)) return;
+            Debug.Log(dirEventType);
+            if (DealSkillCombo(dirEventType)) return;
 
-            Vector3 dir = moveDirection * playerHero.speed ;
-            Debug.Log("RunWalkAnimaion");
-            this.GetComponent<Rigidbody2D>().MovePosition(transform.position + dir);
+            Vector2 targetPos = new Vector2(moveDirection.x + transform.position.x
+                , moveDirection.y + transform.position.y) * playerHero.speed;
+            this.GetComponent<Rigidbody2D>().velocity = moveDirection * playerHero.speed;
+            //this.GetComponent<Rigidbody2D>().MovePosition(targetPos);
             //this.transform.position = Vector3.Lerp(currentPosition, target, Time.deltaTime);
 
             SetPlayerGameState(PlayerGameState.walk);

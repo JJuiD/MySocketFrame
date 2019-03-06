@@ -65,6 +65,8 @@ namespace Scripts.UI.PVPGame
                 {
                     this.Close();
                     GameController.GetInstance().GetLogic<PVPGameLogic>().StartGame();
+                    PVPGamePlayerLogic selfplayerlogic = GameController.GetInstance().GetPlayerByLocalSeat<PVPGamePlayerLogic>(0);
+                    selfplayerlogic.GetView().SetLocalPlayerData(heroId, weaponId);
                     return;
                 }
                 textNode.text = "Cancel";

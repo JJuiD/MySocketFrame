@@ -9,8 +9,7 @@ namespace Scripts.Logic.PVPGame
     public static class PVPGameConfig
     {
         //事件名
-        public const string KEY_EVENT_START = "KEY_EVENT_START";
-        public const string KEY_EVENT_UP = "KEY_EVENT_UPKEY_UP";
+        public const string KEY_EVENT_UP = "KEY_EVENT_UP";
         public const string KEY_EVENT_LEFT = "KEY_EVENT_LEFT";
         public const string KEY_EVENT_DOWN = "KEY_EVENT_DOWN";
         public const string KEY_EVENT_RIGHT = "KEY_EVENT_RIGHT";
@@ -18,7 +17,6 @@ namespace Scripts.Logic.PVPGame
         public const string KEY_EVENT_ATTACK = "KEY_EVENT_ATTACK";
         public const string KEY_EVENT_JUMP = "KEY_EVENT_JUMP";
         public const string KEY_EVENT_DEFENCE = "KEY_EVENT_DEFENCE";
-        public const string KEY_EVENT_END = "KEY_EVENT_END";
 
         public const int HERO_EMOTICONS_MAX_COUNT = 6;
         public const float SKILL_OUTTIME = 2.5f;
@@ -129,7 +127,7 @@ namespace Scripts.Logic.PVPGame
             heroName = data["heroName"];
             float.TryParse(data["hp"], out this.hp);
             float.TryParse(data["mp"], out this.mp);
-            float.TryParse(data["speed"], out this.mp);
+            float.TryParse(data["speed"], out this.speed);
             Sprite[] sprites = Resources.LoadAll<Sprite>(data["heroSpritePath"]);
             emoticons = new Dictionary<EmoticonType, Sprite>();
             for (int i = 0;i < PVPGameConfig.HERO_EMOTICONS_MAX_COUNT;++i)

@@ -197,18 +197,12 @@ namespace Scripts.Logic.PVPGame
         {
             UserDefault userDefault = DataCenter.GetInstance().GetUserDefault(Config.PVPGame).GetData();
             if (userDefault == null) return;
-            bool bLoad = false;
             foreach (var temp in userDefault._STRValues)
             {
-                if (temp.name == PVPGameConfig.KEY_EVENT_START)
+                if (EventToActionDic.ContainsKey(temp.name)
+                    && temp.name.Contains("KEY_EVENT_"))
                 {
-                    bLoad = true;
-                    continue;
-                }
-                else if (temp.name == PVPGameConfig.KEY_EVENT_END) return;
-
-                if (bLoad && EventToActionDic.ContainsKey(temp.name))
-                {
+                    Debug.Log(temp.name + " bind key " + temp.value);
                     KeyCode key = (KeyCode)Enum.Parse(typeof(KeyCode), temp.value);
                     KeyToEventDic.Add(key, temp.name);
                 }
@@ -228,9 +222,10 @@ namespace Scripts.Logic.PVPGame
         public void Create(Vector3 pos)
         {
             GameObject defaultObject = GameController.GetInstance().GetLogic<PVPGameLogic>().GetPlayerPrefab();
-            playerView = defaultObject.GetComponent<PVPGamePlayer>();
+            GameObject createPlayer = GameObject.Instantiate(defaultObject, pos, Quaternion.identity);
+
+            playerView = createPlayer.GetComponent<PVPGamePlayer>();
             playerView.Create();
-            GameObject.Instantiate(defaultObject, pos, Quaternion.identity);
         }
 
         public void ReqDealKeyUnit(List<KeyUnit> unit)
