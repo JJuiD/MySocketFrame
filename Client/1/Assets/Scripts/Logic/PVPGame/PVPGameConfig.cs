@@ -19,7 +19,7 @@ namespace Scripts.Logic.PVPGame
         public const string KEY_EVENT_DEFENCE = "KEY_EVENT_DEFENCE";
 
         public const int HERO_EMOTICONS_MAX_COUNT = 6;
-        public const float SKILL_OUTTIME = 2.5f;
+        public const float SKILL_OUTTIME = 5f;
     }
 
     public enum GameStep
@@ -65,12 +65,9 @@ namespace Scripts.Logic.PVPGame
         mp,
     }
 
-    public class KeyUnit
-    {
-        public string eventName = "";
-        public bool isDown = false;
-        public float time = 0;
-    }
+    
+
+    
 
     public class SkillUnit
     {

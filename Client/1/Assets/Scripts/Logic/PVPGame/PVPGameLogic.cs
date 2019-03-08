@@ -14,14 +14,6 @@ namespace Scripts.Logic.PVPGame
         public override void InitData()
         {
             ResetData();
-            EventToActionDic.Add(PVPGameConfig.KEY_EVENT_UP, KeyCode.None);
-            EventToActionDic.Add(PVPGameConfig.KEY_EVENT_LEFT, KeyCode.None);
-            EventToActionDic.Add(PVPGameConfig.KEY_EVENT_DOWN, KeyCode.None);
-            EventToActionDic.Add(PVPGameConfig.KEY_EVENT_RIGHT, KeyCode.None);
-
-            EventToActionDic.Add(PVPGameConfig.KEY_EVENT_ATTACK, KeyCode.None);
-            EventToActionDic.Add(PVPGameConfig.KEY_EVENT_JUMP, KeyCode.None);
-            EventToActionDic.Add(PVPGameConfig.KEY_EVENT_DEFENCE, KeyCode.None);
             InitKeyEventDic();
 
             AnalysisSkillDefault();
@@ -43,38 +35,18 @@ namespace Scripts.Logic.PVPGame
 
         public override void ResetData()
         {
-            EventToActionDic = new Dictionary<string, KeyCode>();
-            KeyToEventDic = new Dictionary<KeyCode, string>();
-            HeroLocalData = new Dictionary<int, HeroUnit>();
-            WeaponLocalData = new Dictionary<int, WeanponUnit>();
-            SkillLocalData = new Dictionary<int, SkillUnit>();
             step = GameStep.GAME_STEP_NULL;
         }
 
         private GameStep step = GameStep.GAME_STEP_NULL;
         public override void LogicFixedUpdate()
         {
-            List<KeyUnit> units = new List<KeyUnit>();
-            foreach (var temp in KeyToEventDic)
-            {
-                KeyUnit item = new KeyUnit();
-                item.eventName = temp.Value;
-                item.isDown = Input.GetKey(temp.Key);
-                if (item.eventName == "") continue;
-                units.Add(item);
-            }
-
             for(int i = 0; i < GameController.GetInstance().GetPlayerCount(); ++i)
             {
                 PVPGamePlayerLogic player = GameController.GetInstance().GetPlayerBySeat<PVPGamePlayerLogic>(0);
                 if (player == null || player.GetView() == null || player.GetLocalSeat() != 0) continue;
                 player.GetView().TickUpdate();
-                if (units.Count > 0)
-                {
-                    player.ReqDealKeyUnit(units);
-                }
             }
-            
         }
 
         #region 玩家预制件
@@ -197,14 +169,15 @@ namespace Scripts.Logic.PVPGame
         {
             UserDefault userDefault = DataCenter.GetInstance().GetUserDefault(Config.PVPGame).GetData();
             if (userDefault == null) return;
+            DataCenter.GetInstance().ClearKeyList();
             foreach (var temp in userDefault._STRValues)
             {
-                if (EventToActionDic.ContainsKey(temp.name)
-                    && temp.name.Contains("KEY_EVENT_"))
+                if (temp.name.Contains("KEY_EVENT_"))
                 {
-                    Debug.Log(temp.name + " bind key " + temp.value);
-                    KeyCode key = (KeyCode)Enum.Parse(typeof(KeyCode), temp.value);
-                    KeyToEventDic.Add(key, temp.name);
+                    Debug.Log(temp.name + " bind " + temp.value);
+                    KeyUnit keyUnit = new KeyUnit();
+                    keyUnit.InitData(temp.name, temp.value);
+                    DataCenter.GetInstance().AddKeyListener(keyUnit);
                 }
             }
         }
@@ -225,12 +198,16 @@ namespace Scripts.Logic.PVPGame
             GameObject createPlayer = GameObject.Instantiate(defaultObject, pos, Quaternion.identity);
 
             playerView = createPlayer.GetComponent<PVPGamePlayer>();
+            if(GetLocalSeat() == 0)
+            {
+                DataCenter.GetInstance().SetKeyEventAction(ReqDealKeyUnit);
+            }
             playerView.Create();
         }
 
-        public void ReqDealKeyUnit(List<KeyUnit> unit)
+        public void ReqDealKeyUnit(List<KeyUnit> units)
         {
-            playerView.DealKeyUnit(unit);
+            playerView.DealKeyUnit(units);
         }
     }
 

@@ -100,12 +100,12 @@ TextureImporter:
       name: Img_hero_0_0
       rect:
         serializedVersion: 2
-        x: 162
-        y: 226
-        width: 42
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 157
+        y: 221
+        width: 52
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5285714}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -120,12 +120,12 @@ TextureImporter:
       name: Img_hero_0_1
       rect:
         serializedVersion: 2
-        x: 209
-        y: 226
-        width: 42
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 204
+        y: 221
+        width: 52
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5285714}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -140,11 +140,11 @@ TextureImporter:
       name: Img_hero_0_2
       rect:
         serializedVersion: 2
-        x: 162
-        y: 195
-        width: 42
-        height: 27
-      alignment: 0
+        x: 157
+        y: 190
+        width: 52
+        height: 37
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -160,11 +160,11 @@ TextureImporter:
       name: Img_hero_0_3
       rect:
         serializedVersion: 2
-        x: 209
-        y: 195
-        width: 42
-        height: 27
-      alignment: 0
+        x: 204
+        y: 190
+        width: 52
+        height: 37
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -180,11 +180,11 @@ TextureImporter:
       name: Img_hero_0_4
       rect:
         serializedVersion: 2
-        x: 162
-        y: 163
-        width: 42
-        height: 27
-      alignment: 0
+        x: 157
+        y: 158
+        width: 52
+        height: 37
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -200,11 +200,11 @@ TextureImporter:
       name: Img_hero_0_5
       rect:
         serializedVersion: 2
-        x: 209
-        y: 163
-        width: 42
-        height: 27
-      alignment: 0
+        x: 204
+        y: 158
+        width: 52
+        height: 37
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -220,12 +220,12 @@ TextureImporter:
       name: Img_hero_0_6
       rect:
         serializedVersion: 2
-        x: 72
-        y: 67
-        width: 84
-        height: 72
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 67
+        y: 62
+        width: 94
+        height: 82
+      alignment: 9
+      pivot: {x: 0.49999997, y: 0.49999997}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -240,12 +240,12 @@ TextureImporter:
       name: Img_hero_0_7
       rect:
         serializedVersion: 2
-        x: 9
-        y: 16
-        width: 12
-        height: 9
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        x: 4
+        y: 11
+        width: 22
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7368421}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -260,12 +260,12 @@ TextureImporter:
       name: Img_hero_0_8
       rect:
         serializedVersion: 2
-        x: 43
-        y: 16
-        width: 9
-        height: 12
-      alignment: 3
-      pivot: {x: 1, y: 1}
+        x: 38
+        y: 11
+        width: 19
+        height: 22
+      alignment: 9
+      pivot: {x: 0.7368421, y: 0.7727273}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -280,11 +280,11 @@ TextureImporter:
       name: Img_hero_0_9
       rect:
         serializedVersion: 2
-        x: 140
-        y: 12
-        width: 30
-        height: 30
-      alignment: 0
+        x: 135
+        y: 6.999999
+        width: 40
+        height: 40
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -300,12 +300,12 @@ TextureImporter:
       name: Img_hero_0_10
       rect:
         serializedVersion: 2
-        x: 194
-        y: 16
-        width: 9
-        height: 12
-      alignment: 1
-      pivot: {x: 0, y: 1}
+        x: 189
+        y: 11
+        width: 19
+        height: 22
+      alignment: 9
+      pivot: {x: 0.2631579, y: 0.7727273}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -320,12 +320,12 @@ TextureImporter:
       name: Img_hero_0_11
       rect:
         serializedVersion: 2
-        x: 217
-        y: 19
-        width: 12
-        height: 9
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        x: 212
+        y: 14
+        width: 22
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7368421}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -340,12 +340,12 @@ TextureImporter:
       name: Img_hero_0_12
       rect:
         serializedVersion: 2
-        x: 242
-        y: 16
-        width: 6
-        height: 15
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        x: 237
+        y: 10.999998
+        width: 16
+        height: 25.000002
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7999998}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -367,6 +367,6 @@ TextureImporter:
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
-  userData: 
+  userData: 636875556875261255
   assetBundleName: 
   assetBundleVariant: 

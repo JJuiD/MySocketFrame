@@ -28,7 +28,6 @@ namespace Scripts.Logic
                     //SetPlayerCount(1);
                     break;
             }
-
             Logic.InitData();
             UIManager.GetInstance().LoadScene(GameName);
         }
@@ -42,6 +41,7 @@ namespace Scripts.Logic
 
         private void ResetData()
         {
+            DataCenter.GetInstance().ClearKeyList();
             Logic = null;
             playerList = new Dictionary<int, BasePlayer>();
             isLineNet = false;
@@ -97,6 +97,10 @@ namespace Scripts.Logic
                 }
             }
             return null;
+        }
+        public T GetHero<T>() where T : BasePlayer
+        {
+            return (T)GetPlayerByLocalSeat<T>(0);
         }
         #endregion
 

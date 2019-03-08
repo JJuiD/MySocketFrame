@@ -64,7 +64,7 @@ namespace Scripts.Logic.PVPGame
             ResetData();
             //GameObject.Instantiate(this.gameObject, pos, Quaternion.identity);
             playerCollider = this.GetComponent<PVPGamePlayerCollider>();
-            playerBodyTrans = this.transform.Find("Body");
+            playerBodyTrans = this.transform.Find("Bone_Body");
             playerAnimation = this.GetComponent<Animation>();
             isDestory = false;
         }
@@ -128,9 +128,10 @@ namespace Scripts.Logic.PVPGame
             }
             else
             {
-                if (Time.time - beginReadySkillTime > PVPGameConfig.SKILL_OUTTIME)
+                if (beginReadySkillTime != 0 
+                    && Time.time - beginReadySkillTime > PVPGameConfig.SKILL_OUTTIME)
                 {
-                    skillClickKeyCount.Clear();
+                    ClearSkillKeyDic();
                 }
             }
         }
@@ -147,26 +148,21 @@ namespace Scripts.Logic.PVPGame
                 switch (unit.eventName)
                 {
                     case PVPGameConfig.KEY_EVENT_DEFENCE:
-                        if (unit.isDown)
-                        {
-                            isDefence = true;
-                        }
-                        else
-                        {
-                            isDefence = false;
-                        }
+                        isDefence = unit.isDown;
                         break;
                     case PVPGameConfig.KEY_EVENT_UP:
                         moveDirection.y += unit.isDown ? 1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_LEFT:
                         moveDirection.x += unit.isDown ? -1 : 0;
+                        moveDirection.x += unit.IsClickDouble() ? -1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_DOWN:
                         moveDirection.y += unit.isDown ? -1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_RIGHT:
                         moveDirection.x += unit.isDown ? 1 : 0;
+                        moveDirection.x += unit.IsClickDouble() ? 1 : 0;
                         break;
                     case PVPGameConfig.KEY_EVENT_ATTACK:
                         isAttack = unit.isDown;
@@ -178,77 +174,92 @@ namespace Scripts.Logic.PVPGame
             }
 
             // int skillId = DealSkillCombo();
-            //  if (skillId >= 0) { gameScene.RunSkillAnimation(skillId); return; }
-            if (isDefence) { RunDefenceAnimation(); return; }
-            else if (isAttack) { RunAttackAnimation(); return; }
-            else if (isJump) { RunJumpAnimation(); return; }
-            else if (moveDirection != Vector2.zero) { RunWalkAnimaion(moveDirection); return; }
+            //  if (skillId >= 0) { gameScene.ExcuteSkillAnimation(skillId); return; }
+            if (isDefence) { ExcuteDefenceAnimation(); return; }
+            else if (isAttack) { ExcuteAttackAnimation(); return; }
+            else if (isJump) { ExcuteJumpAnimation(); return; }
+            else if (moveDirection != Vector2.zero)
+            {
+                ExcuteWalkAnimaion(moveDirection);
+                return;
+            }
 
-            RunIdelAnimation();
+            ExcuteIdelAnimation();
         }
 
-        public void RunIdelAnimation()
+        public void ExcuteIdelAnimation()
         {
-            Debug.Log("RunIdelAnimation");
-            ClearSkillKeyDic();
             this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            SetPlayerGameState(PlayerGameState.idel);
         }
 
         private Transform playerBodyTrans;
         private Animation playerAnimation;
-        public void RunWalkAnimaion(Vector2 moveDirection)
+        public void ExcuteWalkAnimaion(Vector2 moveDirection)
         {
             //  2   3   4
             // -1   0   1
             // -4  -3  -2
             string dirEventType = "";
-            bool isFowardToRight = playerBodyTrans.rotation.y != 180;
-            if (moveDirection.y == 1)
+            bool isRun = false;
+            bool isFowardToRight = playerBodyTrans.eulerAngles.x != 180;
+            if (moveDirection.y > 0)
             {
                 dirEventType = PVPGameConfig.KEY_EVENT_UP;
-            }else if(moveDirection.x == 1)
+            }else if(moveDirection.x > 0)
             {
                 dirEventType = isFowardToRight ? PVPGameConfig.KEY_EVENT_RIGHT: PVPGameConfig.KEY_EVENT_LEFT;
-            }else if(moveDirection.x == -1)
+                isRun = moveDirection.x > 1;
+                playerBodyTrans.rotation = Quaternion.Euler(0, 0, 90);
+            }
+            else if(moveDirection.x < 0)
             {
                 dirEventType = isFowardToRight ? PVPGameConfig.KEY_EVENT_LEFT : PVPGameConfig.KEY_EVENT_RIGHT;
+                isRun = moveDirection.x < -1;
+                playerBodyTrans.rotation = Quaternion.Euler(0,180,90);
             }
-            else if(moveDirection.y == -1)
+            else if(moveDirection.y < 0)
             {
                 dirEventType = PVPGameConfig.KEY_EVENT_DOWN;
             }
-            Debug.Log(dirEventType);
             if (DealSkillCombo(dirEventType)) return;
-
             Vector2 targetPos = new Vector2(moveDirection.x + transform.position.x
                 , moveDirection.y + transform.position.y) * playerHero.speed;
             this.GetComponent<Rigidbody2D>().velocity = moveDirection * playerHero.speed;
             //this.GetComponent<Rigidbody2D>().MovePosition(targetPos);
             //this.transform.position = Vector3.Lerp(currentPosition, target, Time.deltaTime);
 
-            SetPlayerGameState(PlayerGameState.walk);
+            if (isRun)
+            {
+                SetPlayerGameState(PlayerGameState.run);
+            }
+            else
+            {
+                SetPlayerGameState(PlayerGameState.walk);
+            }
         }
-
-        public void RunDefenceAnimation()
+        public void ExcuteDefenceAnimation()
         {
             if (DealSkillCombo(PVPGameConfig.KEY_EVENT_DEFENCE)) return;
+            SetPlayerGameState(PlayerGameState.defence);
         }
-
-        public void RunAttackAnimation()
+        public void ExcuteAttackAnimation()
         {
-            if (DealSkillCombo(PVPGameConfig.KEY_EVENT_DEFENCE)) return;
+            if (DealSkillCombo(PVPGameConfig.KEY_EVENT_ATTACK)) return;
+
+            SetPlayerGameState(PlayerGameState.attack);
         }
-
-        public void RunJumpAnimation()
+        public void ExcuteJumpAnimation()
         {
-            if (DealSkillCombo(PVPGameConfig.KEY_EVENT_DEFENCE)) return;
+            if (DealSkillCombo(PVPGameConfig.KEY_EVENT_JUMP)) return;
+
+            SetPlayerGameState(PlayerGameState.jump);
         }
-
-        public void RunSkillAnimation(int id)
+        public void ExcuteSkillAnimation(int id)
         {
+            Debug.Log("ExcuteSkillAnimation " + id);
             ClearSkillKeyDic();
         }
-
         #region 技能逻辑判断
         //防御键 + 方向 + 攻击 + 攻击(...)
         //连招id,符合个数
@@ -278,15 +289,17 @@ namespace Scripts.Logic.PVPGame
                 foreach(var temp in skillClickKeyCount)
                 {
                     SkillUnit skill = playerWeapon.skills[temp.Key];
+                    if (temp.Value >= 1 && keyEventType == skill.keys[temp.Value - 1]) continue;
                     if (keyEventType == skill.keys[temp.Value])
                     {
                         if(temp.Value == skill.keys.Count
                             && IsAllowCost(skill.costType,skill.cost))
                         {
-                            RunSkillAnimation(skill.id);
+                            ExcuteSkillAnimation(skill.id);
                             return true;
                         }
                         else addList.Add(temp.Key);
+                        Debug.Log(temp.Key + " add " + keyEventType);
                     }
                     else
                     {

@@ -65,7 +65,7 @@ namespace Scripts.UI.PVPGame
                 {
                     this.Close();
                     GameController.GetInstance().GetLogic<PVPGameLogic>().StartGame();
-                    PVPGamePlayerLogic selfplayerlogic = GameController.GetInstance().GetPlayerByLocalSeat<PVPGamePlayerLogic>(0);
+                    PVPGamePlayerLogic selfplayerlogic = GameController.GetInstance().GetHero<PVPGamePlayerLogic>();
                     selfplayerlogic.GetView().SetLocalPlayerData(heroId, weaponId);
                     return;
                 }

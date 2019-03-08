@@ -35,8 +35,6 @@ namespace Scripts.Logic
         //本地更新
         public abstract void LogicFixedUpdate();
         //按键绑定
-        public Dictionary<string, KeyCode> EventToActionDic = new Dictionary<string, KeyCode>();
-        public Dictionary<KeyCode, string> KeyToEventDic = new Dictionary<KeyCode, string>();
         public abstract void InitKeyEventDic();
     }
 }
