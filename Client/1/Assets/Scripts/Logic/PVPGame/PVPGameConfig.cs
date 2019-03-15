@@ -9,46 +9,36 @@ namespace Scripts.Logic.PVPGame
     public static class PVPGameConfig
     {
         //事件名
-        public const string KEY_EVENT_UP = "KEY_EVENT_UP";
-        public const string KEY_EVENT_LEFT = "KEY_EVENT_LEFT";
-        public const string KEY_EVENT_DOWN = "KEY_EVENT_DOWN";
-        public const string KEY_EVENT_RIGHT = "KEY_EVENT_RIGHT";
+        public const string KEY_UP = "KEY_UP";
+        public const string KEY_RIGHT = "KEY_RIGHT";
+        public const string KEY_LEFT = "KEY_LEFT";
+        public const string KEY_DOWN = "KEY_DOWN";
 
-        public const string KEY_EVENT_ATTACK = "KEY_EVENT_ATTACK";
-        public const string KEY_EVENT_JUMP = "KEY_EVENT_JUMP";
-        public const string KEY_EVENT_DEFENCE = "KEY_EVENT_DEFENCE";
+        public const string KEY_ATTACK = "KEY_ATTACK";
+        public const string KEY_JUMP = "KEY_JUMP";
+        public const string KEY_DEFENCE = "KEY_DEFENCE";
 
         public const int HERO_EMOTICONS_MAX_COUNT = 6;
         public const float SKILL_OUTTIME = 5f;
+        public const float GAME_GRAVITY = 10f;
+        public const float JUMP_FORCE = 12f;
     }
 
-    public enum GameStep
+    public enum KeyByte : byte
     {
-        GAME_STEP_NULL,
-        GAME_STEP_START,
-        GAME_STEP_END,
+        KEY_NULL = 0,
+        KEY_UP = 1,
+        KEY_RIGHT = 2,
+        KEY_LEFT = 4,
+        KEY_DOWN = 8,
+
+        KEY_ATTACK = 16,
+        KEY_JUMP = 32,
+        KEY_DEFENCE = 64,
     }
 
-    public enum AniType
-    {
-        IDEL,
-        WALK,
-        RUN,
-        ATTACK,
-        JUMP,
-    }
 
-    public enum PlayerGameState
-    {
-        idel,
-        attack,
-        jump,
-        run,
-        walk,
-        defence,
-        bHint,
-    }
-
+    //表情
     public enum EmoticonType
     {
         pain,
@@ -65,9 +55,56 @@ namespace Scripts.Logic.PVPGame
         mp,
     }
 
-    
+    public class ClickKey
+    {
+        private byte lastKey;
+        private byte curKey;
+        private byte topKey;
 
-    
+        public ClickKey() { ResetData(); }
+
+        public void ResetData()
+        {
+            lastKey = (byte)KeyByte.KEY_NULL;
+            curKey = (byte)KeyByte.KEY_NULL;
+            topKey = (byte)KeyByte.KEY_NULL;
+            doubleLastKey = (byte)KeyByte.KEY_NULL;
+            lerpTime = 0;
+            downtime = 0;
+        }
+
+        public void StartSetKey() { lastKey = topKey; topKey = 0; curKey = 0; }
+        public void SetKey(bool isDown, KeyByte keyByte, bool isAdd = false)
+        {
+            if (isDown)
+            {
+                topKey = (byte)keyByte;
+                if (isAdd) curKey += (byte)keyByte;
+                else curKey = (byte)keyByte;
+            }
+        }
+        public void EndSetKey()
+        {
+            if(lastKey == 0 && topKey != 0)
+            {
+                doubleLastKey = topKey;
+                lerpTime = Time.time - downtime;
+                downtime = Time.time;
+            }
+        }
+
+        public byte GetKey() { return curKey; }
+        public byte GetLastKey() { return lastKey; }
+        public byte GetTopKey() { return topKey; }
+
+        private byte doubleLastKey = 0;
+        private float lerpTime = 0;
+        private float downtime = 0;
+        public bool IsClickDouble()
+        {
+            return lerpTime > 0 && lerpTime < 0.5f && ((curKey & doubleLastKey) == doubleLastKey) ;
+        }
+    }
 
     public class SkillUnit
     {

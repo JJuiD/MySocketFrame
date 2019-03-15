@@ -6,11 +6,11 @@ using UnityEngine;
 namespace Scripts.Logic.PVPGame
 {
     using DictionaryXml = Dictionary<string, Dictionary<string, string>>;
+    
     public class PVPGameLogic : BaseLogic
     {
+        ClickKey key = new ClickKey();
         //private Dictionary<Int16, PVPGamePlayer> playerList = new Dictionary<Int16, PVPGamePlayer>();
-        
-
         public override void InitData()
         {
             ResetData();
@@ -35,17 +35,29 @@ namespace Scripts.Logic.PVPGame
 
         public override void ResetData()
         {
-            step = GameStep.GAME_STEP_NULL;
+            key.ResetData();
         }
 
-        private GameStep step = GameStep.GAME_STEP_NULL;
         public override void LogicFixedUpdate()
         {
-            for(int i = 0; i < GameController.GetInstance().GetPlayerCount(); ++i)
+            key.StartSetKey();
+            key.SetKey(Input.GetKey(KeyPairs[PVPGameConfig.KEY_UP]), KeyByte.KEY_UP, true);
+            key.SetKey(Input.GetKey(KeyPairs[PVPGameConfig.KEY_RIGHT]), KeyByte.KEY_RIGHT, true);
+            key.SetKey(Input.GetKey(KeyPairs[PVPGameConfig.KEY_LEFT]), KeyByte.KEY_LEFT, true);
+            key.SetKey(Input.GetKey(KeyPairs[PVPGameConfig.KEY_DOWN]), KeyByte.KEY_DOWN, true);
+
+            key.SetKey(Input.GetKey(KeyPairs[PVPGameConfig.KEY_ATTACK]), KeyByte.KEY_ATTACK);
+            key.SetKey(Input.GetKey(KeyPairs[PVPGameConfig.KEY_JUMP]), KeyByte.KEY_JUMP);
+            key.SetKey(Input.GetKey(KeyPairs[PVPGameConfig.KEY_DEFENCE]), KeyByte.KEY_DEFENCE);
+            key.EndSetKey();
+
+            for (int i = 0; i < GameController.GetInstance().GetPlayerCount(); ++i)
             {
                 PVPGamePlayerLogic player = GameController.GetInstance().GetPlayerBySeat<PVPGamePlayerLogic>(0);
                 if (player == null || player.GetView() == null || player.GetLocalSeat() != 0) continue;
+                player.ReqDealKey(key);
                 player.GetView().TickUpdate();
+                
             }
         }
 
@@ -165,19 +177,17 @@ namespace Scripts.Logic.PVPGame
             ResetData();
         }
 
+        Dictionary<string, KeyCode> KeyPairs = new Dictionary<string, KeyCode>();
         public override void InitKeyEventDic()
         {
             UserDefault userDefault = DataCenter.GetInstance().GetUserDefault(Config.PVPGame).GetData();
             if (userDefault == null) return;
-            DataCenter.GetInstance().ClearKeyList();
             foreach (var temp in userDefault._STRValues)
             {
-                if (temp.name.Contains("KEY_EVENT_"))
+                if (temp.name.Contains("KEY_"))
                 {
                     Debug.Log(temp.name + " bind " + temp.value);
-                    KeyUnit keyUnit = new KeyUnit();
-                    keyUnit.InitData(temp.name, temp.value);
-                    DataCenter.GetInstance().AddKeyListener(keyUnit);
+                    KeyPairs.Add(temp.name, (KeyCode)Enum.Parse(typeof(KeyCode), temp.value));
                 }
             }
         }
@@ -198,16 +208,19 @@ namespace Scripts.Logic.PVPGame
             GameObject createPlayer = GameObject.Instantiate(defaultObject, pos, Quaternion.identity);
 
             playerView = createPlayer.GetComponent<PVPGamePlayer>();
-            if(GetLocalSeat() == 0)
-            {
-                DataCenter.GetInstance().SetKeyEventAction(ReqDealKeyUnit);
-            }
             playerView.Create();
         }
 
-        public void ReqDealKeyUnit(List<KeyUnit> units)
+        
+        public void ReqDealKey(ClickKey key)
         {
-            playerView.DealKeyUnit(units);
+            if (key.GetKey() == 0)
+            {
+                playerView.ExcuteIdelAnimation();
+                return;
+            }
+                
+            playerView.DealKey(key);
         }
     }
 

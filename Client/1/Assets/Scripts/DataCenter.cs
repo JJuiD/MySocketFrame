@@ -17,11 +17,6 @@ namespace Scripts
         #region 键值 与 事件名
         KeyCode key;
         public string eventName = "";
-        public void InitData(string eventname, string keyname)
-        {
-            this.eventName = eventname;
-            this.key = (KeyCode)Enum.Parse(typeof(KeyCode), keyname);
-        }
         public void ResetData()
         {
             upTime = 0;
@@ -75,15 +70,15 @@ namespace Scripts
         public void InitData()
         {
             tUserDefault = new List<UserDefaultData>();
-            KeyEventList = new List<KeyUnit>();
-            EventAction = delegate (List<KeyUnit> units) { };
+            //KeyEventList = new List<KeyUnit>();
+            //EventAction = delegate (List<KeyUnit> units) { };
             InsertUserDefault(Config.Lobby, Config.XML_USERDEFAULT);
             LocalName = GetUserDefault().GetUserDefaultValue<string>("localName");
         }
 
         protected override void OnDestroy()
         {
-            //FileUtils.SetValueForKey(Config.KEY_EVENT_TAG, 1);
+            //FileUtils.SetValueForKey(Config.KEY_TAG, 1);
             //foreach (var temp in DIC_DEFAULT_KEY_VALUE)
             //{
             //    FileUtils.SetValueForKey(temp.Key, temp.Value.ToString());
@@ -120,35 +115,35 @@ namespace Scripts
         #endregion
 
         #region KeyEvent
-        List<KeyUnit> KeyEventList;
-        Action<List<KeyUnit>> EventAction;
-        public void AddKeyListener(KeyUnit unit,int index = 0)
-        {
-            KeyEventList.Add(unit);
-        }
-        public void SetKeyEventAction(Action<List<KeyUnit>> action)
-        {
-            if (KeyEventList == null || KeyEventList.Count == 0) return;
-            EventAction = action;
-        }
-        public void ClearKeyList()
-        {
-            if (KeyEventList != null) KeyEventList.Clear();
-        }
-        public void UpdateKeyState()
-        {
-            if (KeyEventList == null || KeyEventList.Count == 0) return;
-            foreach (var temp in KeyEventList)
-            {
-                temp.Update();
-            }
-            EventAction(KeyEventList);
-        }
+        //List<KeyUnit> KeyEventList;
+        //Action<List<KeyUnit>> EventAction;
+        //public void AddKeyListener(KeyUnit unit,int index = 0)
+        //{
+        //    KeyEventList.Add(unit);
+        //}
+        //public void SetKeyEventAction(Action<List<KeyUnit>> action)
+        //{
+        //    if (KeyEventList == null || KeyEventList.Count == 0) return;
+        //    EventAction = action;
+        //}
+        //public void ClearKeyList()
+        //{
+        //    if (KeyEventList != null) KeyEventList.Clear();
+        //}
+        //public void UpdateKeyState()
+        //{
+        //    if (KeyEventList == null || KeyEventList.Count == 0) return;
+        //    foreach (var temp in KeyEventList)
+        //    {
+        //        temp.Update();
+        //    }
+        //    EventAction(KeyEventList);
+        //}
         #endregion
 
         public void FixedUpdate()
         {
-            UpdateKeyState();
+            //UpdateKeyState();
         }
     }
 }

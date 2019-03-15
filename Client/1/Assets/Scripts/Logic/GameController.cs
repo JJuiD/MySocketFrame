@@ -41,7 +41,6 @@ namespace Scripts.Logic
 
         private void ResetData()
         {
-            DataCenter.GetInstance().ClearKeyList();
             Logic = null;
             playerList = new Dictionary<int, BasePlayer>();
             isLineNet = false;

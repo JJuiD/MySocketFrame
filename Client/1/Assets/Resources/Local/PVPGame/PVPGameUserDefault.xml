@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <UserDefault xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <STRValueNode>
-    <STRValue name="KEY_EVENT_UP">W</STRValue>
-    <STRValue name="KEY_EVENT_LEFT">A</STRValue>
-    <STRValue name="KEY_EVENT_DOWN">S</STRValue>
-    <STRValue name="KEY_EVENT_RIGHT">D</STRValue>
-    <STRValue name="KEY_EVENT_ATTACK">J</STRValue>
-    <STRValue name="KEY_EVENT_JUMP">K</STRValue>
-    <STRValue name="KEY_EVENT_DEFENCE">L</STRValue>
+    <STRValue name="KEY_UP">W</STRValue>
+    <STRValue name="KEY_RIGHT">D</STRValue>
+    <STRValue name="KEY_LEFT">A</STRValue>
+    <STRValue name="KEY_DOWN">S</STRValue>
+    <STRValue name="KEY_ATTACK">J</STRValue>
+    <STRValue name="KEY_JUMP">K</STRValue>
+    <STRValue name="KEY_DEFENCE">L</STRValue>
   </STRValueNode>
   <INTValueNode>
     <INTValue name="DEFAULT_HERO">0</INTValue>

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Scripts
 {
-    public enum PlayerGameState
+    public enum PlayerServerState
     {
         FREE,
         READY,
@@ -18,17 +18,17 @@ namespace Scripts
         public string name;
         public Int16 seat;
         public Int16 localSeat;
-        private PlayerGameState state;
+        private PlayerServerState state;
 
         public PlayerInfo()
         {
             name = "";
             seat = 0;
             localSeat = 0;
-            state = PlayerGameState.FREE;
+            state = PlayerServerState.FREE;
         }
 
-        public void SetPlayerState(PlayerGameState state)
+        public void SetPlayerState(PlayerServerState state)
         {
             this.state = state;
         }
@@ -39,7 +39,7 @@ namespace Scripts
 
         #region LocalCmd
         //事件类型
-        public const string KEY_EVENT_TAG = "KEY_EVENT_TAG"; //默认按键
+        public const string KEY_TAG = "KEY_TAG"; //默认按键
 
         //Xml文件
         public const string XML_USERDEFAULT = "UserDefault.xml";
@@ -60,6 +60,7 @@ namespace Scripts
         public const string PVPGame = "PVPGame";
         public const string TowerDefense = "TowerDefense";
 
+         
 
         #endregion
     }

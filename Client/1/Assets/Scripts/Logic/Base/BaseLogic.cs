@@ -16,7 +16,7 @@ namespace Scripts.Logic
             playerInfo.name = playerinfo.name;
             playerInfo.seat = playerinfo.seat;
             playerInfo.localSeat = playerinfo.localSeat;
-            playerInfo.SetPlayerState(PlayerGameState.FREE);
+            playerInfo.SetPlayerState(PlayerServerState.FREE);
         }
         public Int16 GetServerSeat() { return playerInfo.seat; }
         public Int16 GetLocalSeat() { return playerInfo.localSeat; }
