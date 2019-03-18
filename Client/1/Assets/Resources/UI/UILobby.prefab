@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 7952852236324321380}
   - component: {fileID: 3721502833236590581}
   m_Layer: 5
-  m_Name: WN_BTN_PVPGame
+  m_Name: WN_BTN_GP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -680,7 +680,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PVPGame
+  m_Text: GP
 --- !u!1 &4144159950969149817
 GameObject:
   m_ObjectHideFlags: 0

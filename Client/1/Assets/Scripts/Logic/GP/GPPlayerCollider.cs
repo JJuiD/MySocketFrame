@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Scripts.Logic.PVPGame
+namespace Scripts.Logic.GP
 {
-    public class PVPGamePlayerCollider : MonoBehaviour
+    public class GPPlayerCollider : MonoBehaviour
     {
         private List<Collision2D> enterCollisions = new List<Collision2D>();
         private List<Collision2D> stayCollisions = new List<Collision2D>();

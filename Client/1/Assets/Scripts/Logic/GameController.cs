@@ -22,9 +22,9 @@ namespace Scripts.Logic
             SetLineNetState(isLineNet);
             switch (GameName)
             {
-                case Config.PVPGame:
-                    DataCenter.GetInstance().InsertUserDefault(GameName,Config.XML_PVPGAME_USERDEFAULT);
-                    Logic = new PVPGame.PVPGameLogic();
+                case Config.GP:
+                    DataCenter.GetInstance().InsertUserDefault(GameName,Config.XML_GP_USERDEFAULT);
+                    Logic = new GP.GPLogic();
                     //SetPlayerCount(1);
                     break;
             }

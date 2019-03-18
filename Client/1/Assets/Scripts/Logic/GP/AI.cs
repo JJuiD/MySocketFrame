@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Scripts.Logic.PVPGame
+namespace Scripts.Logic.GP
 {
     public class AI : MonoBehaviour
     {

@@ -47,8 +47,8 @@ namespace Scripts.UI
                 case Config.Lobby:
                     CurScene = new LobbyScene();
                     break;
-                case Config.PVPGame:
-                    CurScene = new PVPGameScene();
+                case Config.GP:
+                    CurScene = new GPScene();
                     break;
             }
             CurScene.name = name;

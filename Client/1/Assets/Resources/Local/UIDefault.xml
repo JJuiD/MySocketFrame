@@ -11,7 +11,7 @@
     <ViewToPath name="UISet">UI/UISet</ViewToPath>
     <ViewToPath name="UIMessageBox">UI/UIMessageBox</ViewToPath>
 
-    <ViewToPath name="UIPVPGame">UI/PVPGame/UIPVPGame</ViewToPath>
-    <ViewToPath name="UIPVPGameInit">UI/PVPGame/UIPVPGameInit</ViewToPath>
+    <ViewToPath name="UIGP">UI/GP/UIGP</ViewToPath>
+    <ViewToPath name="UIGPInit">UI/GP/UIGPInit</ViewToPath>
   </View>
 </_XmlRoot>

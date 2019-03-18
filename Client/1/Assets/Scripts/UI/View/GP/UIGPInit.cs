@@ -1,18 +1,18 @@
 ﻿using Scripts.Logic;
-using Scripts.Logic.PVPGame;
+using Scripts.Logic.GP;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scripts.UI.PVPGame
+namespace Scripts.UI.GP
 {
-    public class UIPVPGameInit : BaseUI
+    public class UIGPInit : BaseUI
     {
         private string WN_PNL_UISelfPlayer = "WN_PNL_UISelfPlayer";
         private string WN_BTN_UpdateReadyState = "WN_BTN_UpdateReadyState";
         private string WN_PNL_Weapon_Info = "WN_PNL_Weapon_Info";
 
-        private PVPGameLogic gamelogic;
+        private GPLogic gamelogic;
         private int heroId = 0;
         private int weaponId = 0;
 
@@ -20,7 +20,7 @@ namespace Scripts.UI.PVPGame
         {
             heroId = DataCenter.GetInstance().GetUserDefault().GetUserDefaultValue<int>("DEFAULT_HERO");
             weaponId = DataCenter.GetInstance().GetUserDefault().GetUserDefaultValue<int>("DEFAULT_WEAPON");
-            gamelogic = GameController.GetInstance().GetLogic<PVPGameLogic>();
+            gamelogic = GameController.GetInstance().GetLogic<GPLogic>();
             SetSelfHeroUI(heroId);
             SetSelfWeaponUI(weaponId);
             UIManager.GetInstance().RegisterClickEvent(WN_BTN_UpdateReadyState, this, OnClickUpdateReadyState);
@@ -64,9 +64,9 @@ namespace Scripts.UI.PVPGame
                 if (!GameController.GetInstance().GetLineNetState())
                 {
                     this.Close();
-                    GameController.GetInstance().GetLogic<PVPGameLogic>().StartGame();
-                    PVPGamePlayerLogic selfplayerlogic = GameController.GetInstance().GetHero<PVPGamePlayerLogic>();
-                    selfplayerlogic.GetView().SetLocalPlayerData(heroId, weaponId);
+                    GameController.GetInstance().GetLogic<GPLogic>().StartGame();
+                    GPPlayerLogic selfplayerlogic = GameController.GetInstance().GetHero<GPPlayerLogic>();
+                    selfplayerlogic.SetLocalPlayerData(heroId, weaponId);
                     return;
                 }
                 textNode.text = "Cancel";

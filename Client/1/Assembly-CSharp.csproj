@@ -79,13 +79,15 @@
     <Compile Include="Assets\Anima2D\Scripts\SpriteMeshInstance.cs" />
     <Compile Include="Assets\Scripts\Config\Config.cs" />
     <Compile Include="Assets\Scripts\DataCenter.cs" />
+    <Compile Include="Assets\Scripts\Logic\2D_Base\PhysicalEngineWord.cs" />
     <Compile Include="Assets\Scripts\Logic\Base\BaseLogic.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
-    <Compile Include="Assets\Scripts\Logic\PVPGame\AI.cs" />
-    <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGameConfig.cs" />
-    <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGameLogic.cs" />
-    <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGamePlayer.cs" />
-    <Compile Include="Assets\Scripts\Logic\PVPGame\PVPGamePlayerCollider.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\AI.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\GPConfig.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\GPLogic.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\GPPhysicalGlobal.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\GPPlayer.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\GPPlayerCollider.cs" />
     <Compile Include="Assets\Scripts\main.cs" />
     <Compile Include="Assets\Scripts\Module\SkillModule.cs" />
     <Compile Include="Assets\Scripts\Protocol\Game\GameBase.cs" />
@@ -186,13 +188,13 @@
     <Compile Include="Assets\Scripts\test.cs" />
     <Compile Include="Assets\Scripts\UI\Base\BaseScene.cs" />
     <Compile Include="Assets\Scripts\UI\Base\BaseUI.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\GPScene.cs" />
     <Compile Include="Assets\Scripts\UI\Scene\LobbyScene.cs" />
-    <Compile Include="Assets\Scripts\UI\Scene\PVPGameScene.cs" />
     <Compile Include="Assets\Scripts\UI\Scene\TowerDefenseScene.cs" />
     <Compile Include="Assets\Scripts\UI\UIConfig.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
-    <Compile Include="Assets\Scripts\UI\View\PVPGame\UIPVPGame.cs" />
-    <Compile Include="Assets\Scripts\UI\View\PVPGame\UIPVPGameInit.cs" />
+    <Compile Include="Assets\Scripts\UI\View\GP\UIGP.cs" />
+    <Compile Include="Assets\Scripts\UI\View\GP\UIGPInit.cs" />
     <Compile Include="Assets\Scripts\UI\View\UILoading.cs" />
     <Compile Include="Assets\Scripts\UI\View\UILobby.cs" />
     <Compile Include="Assets\Scripts\UI\View\UIMessageBox.cs" />
@@ -200,12 +202,12 @@
     <Compile Include="Assets\Scripts\Utils\FileUtils.cs" />
     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utils\XmlClass.cs" />
-    <None Include="Assets\Resources\Local\PVPGame\PVPGameSkillDefault.xml" />
-    <None Include="Assets\Resources\Local\PVPGame\PVPGameWeaponDefault.xml" />
-    <None Include="Assets\Resources\Local\PVPGame\PVPGameHeroDefault.xml" />
+    <None Include="Assets\Resources\Local\GP\GPSkillDefault.xml" />
+    <None Include="Assets\Resources\Local\GP\GPWeaponDefault.xml" />
+    <None Include="Assets\Resources\Local\GP\GPHeroDefault.xml" />
     <None Include="Assets\Resources\Local\UIDefault.xml" />
     <None Include="Assets\Resources\Local\UserDefault.xml" />
-    <None Include="Assets\Resources\Local\PVPGame\PVPGameUserDefault.xml" />
+    <None Include="Assets\Resources\Local\GP\GPUserDefault.xml" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>E:/MySocketFrame/Client/1/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Scripts.Logic;
-using Scripts.Logic.PVPGame;
-using Scripts.UI.PVPGame;
+using Scripts.Logic.GP;
+using Scripts.UI.GP;
 using System.Collections.Generic;
 
 namespace Scripts.UI
 {
-    public class PVPGameScene : BaseScene
+    public class GPScene : BaseScene
     {
         private GameObject MapGrid;
         public override void OnEnter()
         {
             MapGrid = GameObject.Find("Grid");
-            mainUI = UIManager.GetInstance().OpenNode<UIPVPGame>(UIConfig.UIPVPGame);
-            UIManager.GetInstance().OpenNode<UIPVPGameInit>(UIConfig.UIPVPGameInit);
+            mainUI = UIManager.GetInstance().OpenNode<UIGP>(UIConfig.UIGP);
+            UIManager.GetInstance().OpenNode<UIGPInit>(UIConfig.UIGPInit);
         }
 
         public void OnEnterGame()

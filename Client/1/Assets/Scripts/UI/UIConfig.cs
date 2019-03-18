@@ -13,8 +13,8 @@ namespace Scripts.UI
         public const string UILobby      = "UILobby";          //大厅界面
         public const string UISet = "UISet";          //大厅设置界面
 
-        public const string UIPVPGame    = "UIPVPGame";              //游戏界面
-        public const string UIPVPGameInit = "UIPVPGameInit";      //游戏人物地图设置界面
+        public const string UIGP    = "UIGP";              //游戏界面
+        public const string UIGPInit = "UIGPInit";      //游戏人物地图设置界面
 
         /// <summary>
         /// (string,string,string,bool)

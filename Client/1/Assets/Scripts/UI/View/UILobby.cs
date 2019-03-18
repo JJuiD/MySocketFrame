@@ -10,12 +10,12 @@ namespace Scripts.UI
     {
         private string WN_BTN_GameList = "WN_BTN_GameList";
         private string WN_BTN_Set = "WN_BTN_Set";
-        private string WN_BTN_PVPGame = "WN_BTN_PVPGame";
+        private string WN_BTN_GP = "WN_BTN_GP";
 
         public override void Open(params object[] _params)
         {
             UIManager.GetInstance().RegisterClickEvent(WN_BTN_Set, this, onClickSet);
-            UIManager.GetInstance().RegisterClickEvent(WN_BTN_PVPGame, this, onClickPVPGameStart);
+            UIManager.GetInstance().RegisterClickEvent(WN_BTN_GP, this, onClickGPStart);
             UIManager.GetInstance().RegisterClickEvent(WN_BTN_GameList, this, onClickShowGameList);
         }
 
@@ -23,13 +23,13 @@ namespace Scripts.UI
         {
             Transform gameListPnl = GetWMNode(WN_BTN_GameList).Find("PNL_GameList");
             Debug.Log("onClickStart onClickShowGameList");
-            //UIManager.GetInstance().LoadScene(Config.PVPGame);
+            //UIManager.GetInstance().LoadScene(Config.GP);
             gameListPnl.gameObject.SetActive(!gameListPnl.gameObject.activeSelf);
         }
 
-        private void onClickPVPGameStart()
+        private void onClickGPStart()
         {
-            Logic.GameController.GetInstance().StartGame(Config.PVPGame);
+            Logic.GameController.GetInstance().StartGame(Config.GP);
         }
 
         private void onClickSet()

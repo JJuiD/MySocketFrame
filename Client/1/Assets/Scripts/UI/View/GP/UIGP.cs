@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Scripts.UI.PVPGame
+namespace Scripts.UI.GP
 {
-    public class UIPVPGame : BaseUI
+    public class UIGP : BaseUI
     {
         public override void Open(params object[] _params)
         {

@@ -45,19 +45,19 @@ namespace Scripts
         public const string XML_USERDEFAULT = "UserDefault.xml";
         public const string XML_UIDEFAULT   = "UIDefault.xml";
 
-        public const string XML_PVPGAME_USERDEFAULT = "PVPGame/PVPGameUserDefault.xml";
-        public const string XML_PVPGAME_HERODEFAULT = "PVPGame/PVPGameHeroDefault.xml";
-        public const string XML_PVPGAME_WEAPONDEFAULT = "PVPGame/PVPGameWeaponDefault.xml";
-        public const string XML_PVPGAME_SKILLDEFAULT = "PVPGame/PVPGameSkillDefault.xml";
+        public const string XML_GP_USERDEFAULT = "GP/GPUserDefault.xml";
+        public const string XML_GP_HERODEFAULT = "GP/GPHeroDefault.xml";
+        public const string XML_GP_WEAPONDEFAULT = "GP/GPWeaponDefault.xml";
+        public const string XML_GP_SKILLDEFAULT = "GP/GPSkillDefault.xml";
         //public const string XML_CARDDEFAULT = "CardDefault.xml";
 
         //Prefabs
-        public const string PVPGame_PlayerObject = "GameRes/PVPGame/Prefabs/Player";
+        public const string GP_PlayerObject = "GameRes/GP/Prefabs/Player";
 
 
         //场景
         public const string Lobby = "Lobby";
-        public const string PVPGame = "PVPGame";
+        public const string GP = "GP";
         public const string TowerDefense = "TowerDefense";
 
          

@@ -179,9 +179,9 @@ namespace Scripts
 
     #endregion
 
-    #region PVPGame
+    #region GP
 
-    #region PVPGameHeroDefault.xml
+    #region GPHeroDefault.xml
     [XmlRootAttribute("_DictionaryRoot", IsNullable = false)]
     public class _DictionaryRoot
     {

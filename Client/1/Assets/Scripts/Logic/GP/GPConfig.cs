@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Scripts.Logic.PVPGame
+namespace Scripts.Logic.GP
 {
-    public static class PVPGameConfig
+    // 名字: 
+    // 描述: 类小朋友齐打交游戏 
+    // 标签: 格斗,联机
+    public static class GPConfig
     {
         //事件名
         public const string KEY_UP = "KEY_UP";
@@ -164,7 +167,7 @@ namespace Scripts.Logic.PVPGame
             float.TryParse(data["speed"], out this.speed);
             Sprite[] sprites = Resources.LoadAll<Sprite>(data["heroSpritePath"]);
             emoticons = new Dictionary<EmoticonType, Sprite>();
-            for (int i = 0;i < PVPGameConfig.HERO_EMOTICONS_MAX_COUNT;++i)
+            for (int i = 0;i < GPConfig.HERO_EMOTICONS_MAX_COUNT;++i)
             {
                 emoticons.Add((EmoticonType)i, sprites[i]);
             }
