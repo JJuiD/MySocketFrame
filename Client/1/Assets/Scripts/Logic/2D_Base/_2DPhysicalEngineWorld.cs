@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.TwoDimensiona
+
+namespace Scripts.Logic._2D_Base
 {
     // 自定义Vector3
     public class _Vector3
@@ -62,6 +60,8 @@ namespace Scripts.TwoDimensiona
         }
     }
 
+    
+
     //物理Base(个人)
     public abstract class PhysicalGlobalBase : MonoBehaviour
     {
@@ -72,9 +72,10 @@ namespace Scripts.TwoDimensiona
             velocity = new _Vector3(0, 0, 0);
             position = new _Vector3(0, 0, 0);
         }
-        public void InitRealPos(Vector3 pos)
+        public void Init(Vector3 pos)
         {
             position = new _Vector3(pos);
+            _2DPhysicalEngineWorld.GetInstance().AddPhysicalGlobal(this);
         }
         //移动
         public void SetVelocity(Vector2 vector)
@@ -91,7 +92,7 @@ namespace Scripts.TwoDimensiona
     }
 
     //物理(世界)
-    public class PhysicalEngineWord : Singleton<PhysicalEngineWord>
+    public class _2DPhysicalEngineWorld : Singleton<_2DPhysicalEngineWorld>
     {
         public float gravity = 10f; //重力 10m/s
         private List<PhysicalGlobalBase> list_objects = new List<PhysicalGlobalBase>();
@@ -114,7 +115,6 @@ namespace Scripts.TwoDimensiona
             foreach(var temp in list_objects)
             {
                 temp.FixedUpdateGlobal();
-                
             }
         }
     }

@@ -20,7 +20,7 @@ namespace Scripts.UI
 
         private void InitKeyCode()
         {
-            Transform KeyListNode = GetWMNode(WN_PNL_KeyList);
+            Transform KeyListNode = GetWNode(WN_PNL_KeyList);
             foreach (Transform temp in KeyListNode)
             {
                 //string KeyName = temp.name;
@@ -39,7 +39,7 @@ namespace Scripts.UI
 
         private void SaveToLocal()
         {
-            Transform KeyListNode = GetWMNode(WN_PNL_KeyList);
+            Transform KeyListNode = GetWNode(WN_PNL_KeyList);
             foreach (Transform temp in KeyListNode)
             {
                 string KeyName = temp.name;

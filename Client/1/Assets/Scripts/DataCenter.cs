@@ -101,6 +101,12 @@ namespace Scripts
             data.Init(name, path);
             tUserDefault.Add(data);
         }
+        public void RemoveUserDefault(string name)
+        {
+            UserDefaultData temp = GetUserDefault(name);
+            if (temp == null) return;
+            tUserDefault.Remove(temp);
+        }
         public UserDefaultData GetUserDefault(string name = "")
         {
             name = name == "" ? UI.UIManager.GetInstance().GetSceneName() : name;
@@ -141,9 +147,6 @@ namespace Scripts
         //}
         #endregion
 
-        public void FixedUpdate()
-        {
-            //UpdateKeyState();
-        }
+       
     }
 }

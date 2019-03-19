@@ -10,6 +10,7 @@
     <ViewToPath name="UILobby">UI/UILobby</ViewToPath>
     <ViewToPath name="UISet">UI/UISet</ViewToPath>
     <ViewToPath name="UIMessageBox">UI/UIMessageBox</ViewToPath>
+    <ViewToPath name="UIRoomMenu">UI/UIRoomMenu</ViewToPath>
 
     <ViewToPath name="UIGP">UI/GP/UIGP</ViewToPath>
     <ViewToPath name="UIGPInit">UI/GP/UIGPInit</ViewToPath>

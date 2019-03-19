@@ -26,9 +26,8 @@ namespace Scripts.Logic
     {
         public BaseLogic() { }
         ~BaseLogic() {  }
-        //数据初始化,还原
-        public abstract void InitData();
-        public abstract void ResetData();
+        //数据初始化
+        public abstract void Start();
         //进入,离开游戏
         public abstract void StartGame();
         public abstract void ExitGame();
@@ -36,5 +35,8 @@ namespace Scripts.Logic
         public abstract void LogicFixedUpdate();
         //按键绑定
         public abstract void InitKeyEventDic();
+        //游戏公共包
+        public abstract void RecvGPBuffer(object _object, byte[] buffer);
+        public abstract void RecvGSBuffer(object _object, byte[] buffer);
     }
 }

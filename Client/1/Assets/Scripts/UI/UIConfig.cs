@@ -12,6 +12,7 @@ namespace Scripts.UI
         //UI
         public const string UILobby      = "UILobby";          //大厅界面
         public const string UISet = "UISet";          //大厅设置界面
+        public const string UIRoomMenu = "UIRoomMenu"; //房间选择界面
 
         public const string UIGP    = "UIGP";              //游戏界面
         public const string UIGPInit = "UIGPInit";      //游戏人物地图设置界面

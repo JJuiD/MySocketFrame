@@ -6,6 +6,7 @@ namespace Proto.Cell
     
     public abstract class Cell
     {
+        public abstract void Start(params object[] _params);
         public abstract void OnReceivePacket(object _object,byte[] buffer);
 
         protected T unPacket<T>(byte[] buffer)

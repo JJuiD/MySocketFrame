@@ -21,7 +21,7 @@ namespace Scripts.UI
 
         private void onClickShowGameList()
         {
-            Transform gameListPnl = GetWMNode(WN_BTN_GameList).Find("PNL_GameList");
+            Transform gameListPnl = GetWNode(WN_BTN_GameList).Find("PNL_GameList");
             Debug.Log("onClickStart onClickShowGameList");
             //UIManager.GetInstance().LoadScene(Config.GP);
             gameListPnl.gameObject.SetActive(!gameListPnl.gameObject.activeSelf);
@@ -30,6 +30,7 @@ namespace Scripts.UI
         private void onClickGPStart()
         {
             Logic.GameController.GetInstance().StartGame(Config.GP);
+            UIManager.GetInstance().OpenNode<UIRoomMenu>(UIConfig.UIRoomMenu,Config.GP);
         }
 
         private void onClickSet()

@@ -79,15 +79,16 @@
     <Compile Include="Assets\Anima2D\Scripts\SpriteMeshInstance.cs" />
     <Compile Include="Assets\Scripts\Config\Config.cs" />
     <Compile Include="Assets\Scripts\DataCenter.cs" />
-    <Compile Include="Assets\Scripts\Logic\2D_Base\PhysicalEngineWord.cs" />
+    <Compile Include="Assets\Scripts\Logic\2D_Base\_2DColliderEngineWorld.cs" />
+    <Compile Include="Assets\Scripts\Logic\2D_Base\_2DPhysicalEngineWorld.cs" />
     <Compile Include="Assets\Scripts\Logic\Base\BaseLogic.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
     <Compile Include="Assets\Scripts\Logic\GP\AI.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\GPColliderGlobal.cs" />
     <Compile Include="Assets\Scripts\Logic\GP\GPConfig.cs" />
     <Compile Include="Assets\Scripts\Logic\GP\GPLogic.cs" />
     <Compile Include="Assets\Scripts\Logic\GP\GPPhysicalGlobal.cs" />
-    <Compile Include="Assets\Scripts\Logic\GP\GPPlayer.cs" />
-    <Compile Include="Assets\Scripts\Logic\GP\GPPlayerCollider.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\GPPlayerView.cs" />
     <Compile Include="Assets\Scripts\main.cs" />
     <Compile Include="Assets\Scripts\Module\SkillModule.cs" />
     <Compile Include="Assets\Scripts\Protocol\Game\GameBase.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Assets\Scripts\UI\View\UILoading.cs" />
     <Compile Include="Assets\Scripts\UI\View\UILobby.cs" />
     <Compile Include="Assets\Scripts\UI\View\UIMessageBox.cs" />
+    <Compile Include="Assets\Scripts\UI\View\UIRoomMenu.cs" />
     <Compile Include="Assets\Scripts\UI\View\UISet.cs" />
     <Compile Include="Assets\Scripts\Utils\FileUtils.cs" />
     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />

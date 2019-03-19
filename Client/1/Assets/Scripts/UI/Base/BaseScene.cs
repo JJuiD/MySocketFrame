@@ -17,7 +17,6 @@ namespace Scripts.UI
         public virtual void OnExit()
         {
             ResetScene();
-            
             UIManager.GetInstance().LoadScene(Config.Lobby);
         }
     }

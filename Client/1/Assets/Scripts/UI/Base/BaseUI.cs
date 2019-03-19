@@ -5,9 +5,10 @@ namespace Scripts.UI
 {
     public abstract class BaseUI : MonoBehaviour
     {
+        public string _UIName { get;set; }
         public virtual void Init()
         {
-            InitWMNodes();
+            InitWNodes();
         }
 
         #region BaseUI Operator Open,Close
@@ -20,20 +21,20 @@ namespace Scripts.UI
         }
         #endregion
 
-        #region WMNode Operator
-        private Dictionary<string, Transform> WMNodes;
-        public Transform GetWMNode(string nodename)
+        #region WNode Operator
+        private Dictionary<string, Transform> WNodes;
+        public Transform GetWNode(string nodename)
         {
-            if(WMNodes.ContainsKey(nodename))
+            if(WNodes.ContainsKey(nodename))
             {
-                return WMNodes[nodename];
+                return WNodes[nodename];
             }
             Debug.LogError(nodename + " 节点不存在");
             return null;
         }
-        private void InitWMNodes()
+        private void InitWNodes()
         {
-            WMNodes = new Dictionary<string, Transform>();
+            WNodes = new Dictionary<string, Transform>();
             SearchWNNode(this.transform);
         }
         private void SearchWNNode(Transform transform)
@@ -47,7 +48,7 @@ namespace Scripts.UI
 
                 if (temp.name.Contains("WN"))
                 {
-                    WMNodes.Add(temp.name, temp);
+                    WNodes.Add(temp.name, temp);
                 }
             }
         }

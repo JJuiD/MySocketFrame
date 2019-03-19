@@ -7,6 +7,7 @@ using System.Xml;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Scripts.UI.GP;
 
 /*
 UI命名
@@ -37,32 +38,28 @@ namespace Scripts.UI
         }
 
         #region 场景Load Realse
-        private BaseScene CurScene;
+        private string CurSceneName = "";
+        private BaseUI MainUI;
         public void LoadScene(string name)
         {
-            if (CurScene != null && name == CurScene.name) return;
             RealseScene();
+            CurSceneName = name;
+            //先写这里 2.25
+            SceneManager.LoadScene(name + "Scene");
             switch (name)
             {
                 case Config.Lobby:
-                    CurScene = new LobbyScene();
+                    MainUI = OpenNode<UILobby>(UIConfig.UILobby);
                     break;
                 case Config.GP:
-                    CurScene = new GPScene();
+                    MainUI = OpenNode<UIGP>(UIConfig.UIGP);
                     break;
             }
-            CurScene.name = name;
-            //先写这里 2.25
-            SceneManager.LoadScene(name + "Scene");
-            //Camera camera = GameObject.Find("MainCamera").GetComponent<Camera>();
-            //rootNode.GetComponent<Canvas>().worldCamera = camera;
-            CurScene.OnEnter();
         }
         public void RealseScene()
         {
-            if (CurScene == null) return;
-            Debug.Log("Realse " + CurScene.name);
-            CurScene.OnExit();
+            if (CurSceneName == "") return;
+            Debug.Log("Realse " + CurSceneName);
             //清楚上个场景的UI节点
             foreach(Transform temp in rootUINode.transform)
             {
@@ -70,13 +67,12 @@ namespace Scripts.UI
             }
             UINodeList.Clear();
         }
-        public T GetCurrentScene<T>() where T : BaseScene
-        {
-            return (T)CurScene;
-        }
         public string GetSceneName() {
-            if (CurScene == null) return Config.Lobby;
-            return CurScene.name;
+            return CurSceneName;
+        }
+        public T GetMainUI<T>() where T:BaseUI
+        {
+            return (T)MainUI;
         }
         #endregion
 
@@ -90,9 +86,14 @@ namespace Scripts.UI
             GameObject node = GameObject.Instantiate(UIPrefabList[name],nodeRoot);
             //node.transform.SetParent(rootNode.transform);
             node.transform.SetSiblingIndex(zOrder);
-            if(UINodeList.ContainsKey(name)) name = name + "_" + zOrder.ToString();
+            //设置加载名字
+            node.GetComponent<BaseUI>()._UIName = name;
+            //设置显示名字
+            if (UINodeList.ContainsKey(name)) name = name + "_" + zOrder.ToString();
             node.transform.name = name;
+            //加入节点表
             UINodeList.Add(name, node.GetComponent<BaseUI>());
+            //初始化按键绑定 打开节点
             node.GetComponent<BaseUI>().Init();
             node.GetComponent<BaseUI>().Open(_params);
             return node.GetComponent<T>();
@@ -118,7 +119,7 @@ namespace Scripts.UI
         #region 事件相关 注册
         public void RegisterClickEvent(string nodeName,BaseUI baseUI,UnityAction func)
         {
-            Transform Btn = baseUI.GetWMNode(nodeName);
+            Transform Btn = baseUI.GetWNode(nodeName);
             if (Btn == null) return;
             Button tempBtn = Btn.GetComponent<Button>();
             if (tempBtn != null)

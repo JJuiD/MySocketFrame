@@ -20,13 +20,13 @@ namespace Scripts.UI
         
         public override void Open(params object[] _params)
         {
-            string InfoStr = _params.Length == 1 ? _params[0].ToString() : "";
+            string InfoStr = _params.Length >= 1 ? _params[0].ToString() : "";
             InitInfo(InfoStr);
-            string HeadStr = _params.Length == 2 ? _params[0].ToString() : "";
+            string HeadStr = _params.Length >= 2 ? _params[1].ToString() : "";
             InitHead(HeadStr);
-            string BtnStr = _params.Length == 3 ? _params[0].ToString() : "";
+            string BtnStr = _params.Length >= 3 ? _params[2].ToString() : "";
             InitBtn(BtnStr);
-            bool IsShow = _params.Length == 4 ? (bool)_params[3] : false;
+            bool IsShow = _params.Length >= 4 ? (bool)_params[3] : false;
             InitCloseBtn(IsShow);
         }
 

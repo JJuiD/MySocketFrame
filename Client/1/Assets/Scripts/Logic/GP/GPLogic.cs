@@ -1,4 +1,6 @@
-﻿using Scripts.TwoDimensiona;
+﻿using Scripts.Logic._2D_Base;
+using Scripts.UI;
+using Scripts.UI.GP;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +12,9 @@ namespace Scripts.Logic.GP
     public class GPLogic : BaseLogic
     {
         ClickKey key = new ClickKey();
-        //private Dictionary<Int16, GPPlayer> playerList = new Dictionary<Int16, GPPlayer>();
-        public override void InitData()
+        //private Dictionary<Int16, GPPlayerView> playerList = new Dictionary<Int16, GPPlayerView>();
+        public override void Start()
         {
-            ResetData();
             InitKeyEventDic();
 
             AnalysisSkillDefault();
@@ -33,14 +34,10 @@ namespace Scripts.Logic.GP
             }
         }
 
-        public override void ResetData()
-        {
-            key.ResetData();
-        }
-
         public override void LogicFixedUpdate()
         {
-            PhysicalEngineWord.GetInstance().FixedUpdate();
+            _2DPhysicalEngineWorld.GetInstance().FixedUpdate();
+            _2DColliderEngineWorld.GetInstance().FixedUpdate();
             key.StartSetKey();
             key.SetKey(Input.GetKey(KeyPairs[GPConfig.KEY_UP]), KeyByte.KEY_UP, true);
             key.SetKey(Input.GetKey(KeyPairs[GPConfig.KEY_RIGHT]), KeyByte.KEY_RIGHT, true);
@@ -55,8 +52,8 @@ namespace Scripts.Logic.GP
             for (int i = 0; i < GameController.GetInstance().GetPlayerCount(); ++i)
             {
                 GPPlayerLogic player = GameController.GetInstance().GetPlayerBySeat<GPPlayerLogic>(0);
-                if (player == null || player.GetView() == null || player.GetLocalSeat() != 0) continue;
-                player.ReqDealKey(key);
+                if (player == null || player.GetLocalSeat() != 0) continue;
+                player.DealKey(key);
                 player.TickUpdate();
                 
             }
@@ -175,7 +172,6 @@ namespace Scripts.Logic.GP
         public override void ExitGame()
         {
             Debug.Log("GPLogic ExitGame");
-            ResetData();
         }
 
         Dictionary<string, KeyCode> KeyPairs = new Dictionary<string, KeyCode>();
@@ -192,27 +188,41 @@ namespace Scripts.Logic.GP
                 }
             }
         }
+
+        public override void RecvGPBuffer(object _object, byte[] buffer)
+        {
+            
+        }
+
+        public override void RecvGSBuffer(object _object, byte[] buffer)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class GPPlayerLogic : BasePlayer
     {
-        GPPlayer playerView;
-        
+        GPPlayerView playerView;
+        GPPhysicalGlobal playerPhysical;
+        GPColliderGlobal playerCollider;
+
         bool isDestory = true;
         bool isJump = false;
-        public GPPlayer GetView()
-        {
-            return playerView;
-        }
 
         public void Create(Vector3 pos)
         {
+            isDestory = false;
             GameObject defaultObject = GameController.GetInstance().GetLogic<GPLogic>().GetPlayerPrefab();
             GameObject createPlayer = GameObject.Instantiate(defaultObject, pos, Quaternion.identity);
 
-            playerView = createPlayer.GetComponent<GPPlayer>();
-            playerView.Create();
-            isDestory = false;
+            playerPhysical = createPlayer.AddComponent<GPPhysicalGlobal>();
+            playerView = createPlayer.AddComponent<GPPlayerView>();
+            playerCollider = createPlayer.AddComponent<GPColliderGlobal>();
+            playerPhysical.Init(playerView.transform.position);
+            playerView.Init();
+            playerCollider.Init(new Vector2(0,-0.2f), new Vector2(0.6f, 0.2f));
+            UIManager.GetInstance().GetMainUI<UIGP>().UpdatePlayerHead(playerHero.headImage);
+            
         }
 
         public void TickUpdate()
@@ -228,26 +238,23 @@ namespace Scripts.Logic.GP
                 {
                     ClearSkillKeyDic();
                 }
-                int curPosY = (int)(playerView.GetPhySical().position.z * 100);
+                int curPosY = (int)(playerPhysical.position.z * 100);
                 if (curPosY == 0 && isJump)
                     isJump = false;
+                SetCost(CostType.mp, playerHero.mprcvrate);
             }
         }
 
         #region 按键处理
-        public void ReqDealKey(ClickKey key)
+        public void DealKey(ClickKey key)
         {
             if (key.GetKey() == 0)
             {
+                playerPhysical.SetVelocity(Vector2.zero);
                 playerView.ExcuteIdelAnimation();
                 return;
             }
-                
-            DealKey(key);
-        }
 
-        public void DealKey(ClickKey key)
-        {
             if (key.GetTopKey() != key.GetLastKey())
             {
                 bool isFowardToRight = playerView.transform.eulerAngles.x != 180;
@@ -292,6 +299,7 @@ namespace Scripts.Logic.GP
             {
                 if (isJump == false)
                 {
+                    playerPhysical.AddVelocity(new _Vector3(0, 0, 2.5f));
                     playerView.ExcuteJumpAnimation();
                     isJump = true;
                 }
@@ -306,7 +314,31 @@ namespace Scripts.Logic.GP
 
             if (moveDirection != Vector2.zero)
             {
-                playerView.ExcuteWalkAnimaion(moveDirection, playerHero.speed);
+                bool isRun = false;
+
+                if (moveDirection.y > 0)
+                {
+
+                }
+                else if (moveDirection.x > 0)
+                {
+                    isRun = moveDirection.x > 1;
+                    playerView.transform.rotation = Quaternion.Euler(0, 0, 0);
+                }
+                else if (moveDirection.x < 0)
+                {
+                    isRun = moveDirection.x < -1;
+                    playerView.transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
+                else if (moveDirection.y < 0)
+                {
+
+                }
+
+                Vector2 targetPos = new Vector2(moveDirection.x + playerView.transform.position.x
+                    , moveDirection.y + playerView.transform.position.y) * playerHero.speed;
+                playerPhysical.SetVelocity(moveDirection * playerHero.speed * Time.fixedDeltaTime);
+                playerView.ExcuteMoveAnimaion();
                 return;
             }
         }
@@ -406,15 +438,19 @@ namespace Scripts.Logic.GP
             {
                 case CostType.mp:
                     playerHero.costMp += value;
+                    UIManager.GetInstance().GetMainUI<UIGP>().UpdatePlayerState(
+                        CostType.mp, (playerHero.mp - playerHero.costMp) / playerHero.mp);
                     break;
                 case CostType.hp:
                     playerHero.costHp += value;
+                    UIManager.GetInstance().GetMainUI<UIGP>().UpdatePlayerState(
+                        CostType.hp, (playerHero.hp - playerHero.costHp) / playerHero.hp);
                     break;
             }
         }
         public bool IsDied()
         {
-            return (playerHero.hp > playerHero.costHp);
+            return !(playerHero.hp > playerHero.costHp);
         }
         public void ResetCost()
         {

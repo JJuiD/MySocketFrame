@@ -4,12 +4,12 @@ namespace Proto.Cell.Room
 {
     class CellReqCreateUser : Cell
     {
-        public void Start(string name)
+        public override void Start(params object[] _params)
         {
             UserProto.ReqCreateUser packet = new UserProto.ReqCreateUser();
-            packet.name = name;
+            packet.name = _params[0].ToString();
             byte[] buffer = Packet<UserProto.ReqCreateUser>(packet);
-            SocketManager.GetInstance().addPortocolListen(OnReceivePacket,ProtoCommand.ProtoCommand_Room);
+            SocketManager.GetInstance().addPortocolListen(OnReceivePacket, ProtoCommand.ProtoCommand_Room);
             SocketManager.GetInstance().SendRoomPacket(buffer);
         }
 

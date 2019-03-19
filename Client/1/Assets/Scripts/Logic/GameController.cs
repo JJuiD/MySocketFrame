@@ -18,33 +18,27 @@ namespace Scripts.Logic
         public void StartGame(string GameName,bool isLineNet = false)
         {
             Debug.Log("GameController Init " + GameName);
-            ResetData();
             SetLineNetState(isLineNet);
             switch (GameName)
             {
                 case Config.GP:
                     DataCenter.GetInstance().InsertUserDefault(GameName,Config.XML_GP_USERDEFAULT);
                     Logic = new GP.GPLogic();
-                    //SetPlayerCount(1);
                     break;
             }
-            Logic.InitData();
+            Logic.Start();
+            //SocketManager.GetInstance().addPortocolListen(Logic.RecvGPBuffer, ProtoCommand.ProtoCommand_Game);
+            //SocketManager.GetInstance().addPortocolListen(Logic.RecvGSBuffer, ProtoCommand.ProtoCommand_Game);//ProtoCommand_GameS
             UIManager.GetInstance().LoadScene(GameName);
         }
 
         public void ExitGame()
         {
             Logic.ExitGame();
-            ResetData();
+            DataCenter.GetInstance().RemoveUserDefault(UIManager.GetInstance().GetSceneName());
             UIManager.GetInstance().LoadScene(Config.Lobby);
         }
 
-        private void ResetData()
-        {
-            Logic = null;
-            playerList = new Dictionary<int, BasePlayer>();
-            isLineNet = false;
-        }
 
         #region Logic
         private BaseLogic Logic;
@@ -59,9 +53,10 @@ namespace Scripts.Logic
         private bool isLineNet = false;
         public bool GetLineNetState() { return isLineNet; }
         private void SetLineNetState(bool isLineNet) { this.isLineNet = isLineNet; }
+        //public void SendGamePacket(byte[] buffer) { SocketManager.GetInstance().SendRoomPacket(buffer); }
         #endregion
 
-        #region 玩家相关
+            #region 玩家相关
         private Dictionary<int, BasePlayer> playerList;
         public int GetPlayerCount() { return playerList.Count; }
         public void AddPlayer(BasePlayer player)
@@ -103,11 +98,9 @@ namespace Scripts.Logic
         }
         #endregion
 
-
-        //游戏地图
-
         private void FixedUpdate()
         {
+            if (isLineNet) return;
             Logic.LogicFixedUpdate();
         }
 

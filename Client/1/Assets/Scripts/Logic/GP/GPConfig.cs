@@ -153,8 +153,10 @@ namespace Scripts.Logic.GP
         public float costHp = 0;
         public float costMp = 0;
         public float mp = 0;
+        public float mprcvrate = 0;
         public float speed = 0;
         public int id = 0;
+        public float attack = 0;
         public Dictionary<EmoticonType, Sprite> emoticons;
         public Sprite headImage;
 
@@ -165,6 +167,8 @@ namespace Scripts.Logic.GP
             float.TryParse(data["hp"], out this.hp);
             float.TryParse(data["mp"], out this.mp);
             float.TryParse(data["speed"], out this.speed);
+            float.TryParse(data["attack"], out this.attack);
+            float.TryParse(data["mprcvrate"], out this.mprcvrate);
             Sprite[] sprites = Resources.LoadAll<Sprite>(data["heroSpritePath"]);
             emoticons = new Dictionary<EmoticonType, Sprite>();
             for (int i = 0;i < GPConfig.HERO_EMOTICONS_MAX_COUNT;++i)

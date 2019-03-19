@@ -29,8 +29,8 @@ namespace Scripts.UI.GP
         private void SetSelfHeroUI(int id)
         {
             HeroUnit data = gamelogic.GetHeroInfo(id);
-            Transform ImgHead = GetWMNode(WN_PNL_UISelfPlayer).Find("IMG_HeroHead");
-            Transform TxtName = GetWMNode(WN_PNL_UISelfPlayer).Find("TXT_HeroName");
+            Transform ImgHead = GetWNode(WN_PNL_UISelfPlayer).Find("IMG_HeroHead");
+            Transform TxtName = GetWNode(WN_PNL_UISelfPlayer).Find("TXT_HeroName");
             ImgHead.GetComponent<Image>().sprite = data.headImage;
             TxtName.GetComponent<Text>().text = data.heroName;
         }
@@ -38,8 +38,8 @@ namespace Scripts.UI.GP
         private void SetSelfWeaponUI(int id)
         {
             WeanponUnit data = gamelogic.GetWeaponInfo(id);
-            Transform ImgHead = GetWMNode(WN_PNL_UISelfPlayer).Find("IMG_HeroHead");
-            Transform TxtName = GetWMNode(WN_PNL_UISelfPlayer).Find("TXT_HeroName");
+            Transform ImgHead = GetWNode(WN_PNL_UISelfPlayer).Find("IMG_HeroHead");
+            Transform TxtName = GetWNode(WN_PNL_UISelfPlayer).Find("TXT_HeroName");
             ImgHead.GetComponent<Image>().sprite = data.sprite;
             TxtName.GetComponent<Text>().text = data.weaponName;
 
@@ -47,7 +47,7 @@ namespace Scripts.UI.GP
 
         private void SetWeaponInfo(List<SkillUnit> skillUnits)
         {
-            Transform weaponInfoNode = GetWMNode(WN_PNL_Weapon_Info);
+            Transform weaponInfoNode = GetWNode(WN_PNL_Weapon_Info);
             Transform txtInfoNode = weaponInfoNode.Find("Text");
             weaponInfoNode.gameObject.SetActive(false);
             //foreach(var temp in skillUnits)
@@ -58,7 +58,7 @@ namespace Scripts.UI.GP
 
         private void OnClickUpdateReadyState()
         {
-            Text textNode = GetWMNode(WN_BTN_UpdateReadyState).Find("Text").GetComponent<Text>();
+            Text textNode = GetWNode(WN_BTN_UpdateReadyState).Find("Text").GetComponent<Text>();
             if (textNode.text == "Ready")
             {
                 if (!GameController.GetInstance().GetLineNetState())

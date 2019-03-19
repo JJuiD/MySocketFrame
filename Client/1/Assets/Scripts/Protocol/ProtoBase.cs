@@ -84,6 +84,7 @@ namespace Proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_Room", Value=4)]
       ProtoCommand_Room = 4
+
     }
   
 }
