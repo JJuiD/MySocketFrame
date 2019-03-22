@@ -64,9 +64,10 @@ namespace Scripts.UI.GP
                 if (!GameController.GetInstance().GetLineNetState())
                 {
                     this.Close();
-                    GameController.GetInstance().GetLogic<GPLogic>().StartGame();
-                    GPPlayerLogic selfplayerlogic = GameController.GetInstance().GetHero<GPPlayerLogic>();
-                    selfplayerlogic.SetLocalPlayerData(heroId, weaponId);
+
+                    //GameController.GetInstance().GetLogic<GPLogic>().StartGame();
+                    //GPPlayerLogic selfplayerlogic = GameController.GetInstance().GetHero<GPPlayerLogic>();
+                    //selfplayerlogic.SetLocalPlayerData(heroId, weaponId);
                     return;
                 }
                 textNode.text = "Cancel";

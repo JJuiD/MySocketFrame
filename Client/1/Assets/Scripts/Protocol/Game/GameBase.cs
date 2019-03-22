@@ -49,26 +49,12 @@ namespace Proto.GameBase
   {
     public GameUserInfo() {}
     
-    private string _id;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"id", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public string id
-    {
-      get { return _id; }
-      set { _id = value; }
-    }
     private string _name;
     [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public string name
     {
       get { return _name; }
       set { _name = value; }
-    }
-    private Proto.GameBase.Position _pos;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"pos", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public Proto.GameBase.Position pos
-    {
-      get { return _pos; }
-      set { _pos = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -100,22 +86,5 @@ namespace Proto.GameBase
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
-  
-    [global::ProtoBuf.ProtoContract(Name=@"GameCommand")]
-    public enum GameCommand
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"CMDG_KEY", Value=1)]
-      CMDG_KEY = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"CMDG_MOVE", Value=2)]
-      CMDG_MOVE = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"CMDG_REQSTARTGAME", Value=3)]
-      CMDG_REQSTARTGAME = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"CMDG_RESPSTARTGAME", Value=4)]
-      CMDG_RESPSTARTGAME = 4
-    }
   
 }

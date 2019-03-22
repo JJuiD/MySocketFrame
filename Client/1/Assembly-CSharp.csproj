@@ -28,6 +28,7 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -79,20 +81,31 @@
     <Compile Include="Assets\Anima2D\Scripts\SpriteMeshInstance.cs" />
     <Compile Include="Assets\Scripts\Config\Config.cs" />
     <Compile Include="Assets\Scripts\DataCenter.cs" />
+    <Compile Include="Assets\Scripts\Logic\_GameController.cs" />
+    <Compile Include="Assets\Scripts\Logic\_GP\GPAIGlobal.cs" />
+    <Compile Include="Assets\Scripts\Logic\_GP\GPColliderGlobal.cs" />
+    <Compile Include="Assets\Scripts\Logic\_GP\GPConfig.cs" />
+    <Compile Include="Assets\Scripts\Logic\_GP\GPLogic.cs" />
+    <Compile Include="Assets\Scripts\Logic\_GP\GPPhysicalGlobal.cs" />
+    <Compile Include="Assets\Scripts\Logic\_GP\GPPlayerView.cs" />
+    <Compile Include="Assets\Scripts\Logic\2D_Base\_2DAIEngineWorld.cs" />
     <Compile Include="Assets\Scripts\Logic\2D_Base\_2DColliderEngineWorld.cs" />
     <Compile Include="Assets\Scripts\Logic\2D_Base\_2DPhysicalEngineWorld.cs" />
-    <Compile Include="Assets\Scripts\Logic\Base\BaseLogic.cs" />
+    <Compile Include="Assets\Scripts\Logic\Base\_BaseLogic.cs" />
+    <Compile Include="Assets\Scripts\Logic\Base\LogicBase.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
-    <Compile Include="Assets\Scripts\Logic\GP\AI.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\GPAIGlobal.cs" />
     <Compile Include="Assets\Scripts\Logic\GP\GPColliderGlobal.cs" />
     <Compile Include="Assets\Scripts\Logic\GP\GPConfig.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\GPConsoleServer.cs" />
     <Compile Include="Assets\Scripts\Logic\GP\GPLogic.cs" />
     <Compile Include="Assets\Scripts\Logic\GP\GPPhysicalGlobal.cs" />
     <Compile Include="Assets\Scripts\Logic\GP\GPPlayerView.cs" />
+    <Compile Include="Assets\Scripts\Logic\GP\GPProtocol.cs" />
     <Compile Include="Assets\Scripts\main.cs" />
     <Compile Include="Assets\Scripts\Module\SkillModule.cs" />
     <Compile Include="Assets\Scripts\Protocol\Game\GameBase.cs" />
-    <Compile Include="Assets\Scripts\Protocol\Game\GameProto.cs" />
+    <Compile Include="Assets\Scripts\Protocol\Game\GPGameProto.cs" />
     <Compile Include="Assets\Scripts\Protocol\ProtoBase.cs" />
     <Compile Include="Assets\Scripts\Protocol\protobuf\BclHelpers.cs" />
     <Compile Include="Assets\Scripts\Protocol\protobuf\BufferExtension.cs" />

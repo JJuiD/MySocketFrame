@@ -11,6 +11,10 @@ namespace Scripts.Logic.GP
     // 标签: 格斗,联机
     public static class GPConfig
     {
+        public const string XML_GP_USERDEFAULT = "GP/GPUserDefault.xml";
+        public const string XML_GP_HERODEFAULT = "GP/GPHeroDefault.xml";
+        public const string XML_GP_WEAPONDEFAULT = "GP/GPWeaponDefault.xml";
+        public const string XML_GP_SKILLDEFAULT = "GP/GPSkillDefault.xml";
         //事件名
         public const string KEY_UP = "KEY_UP";
         public const string KEY_RIGHT = "KEY_RIGHT";
@@ -25,7 +29,16 @@ namespace Scripts.Logic.GP
         public const float SKILL_OUTTIME = 5f;
         public const float GAME_GRAVITY = 10f;
         public const float JUMP_FORCE = 12f;
+
     }
+
+    public enum GameState
+    {
+        NONE, //未开始
+        READY, //准备阶段
+        START, //游戏开始
+    }
+       
 
     public enum KeyByte : byte
     {
@@ -96,9 +109,9 @@ namespace Scripts.Logic.GP
             }
         }
 
-        public byte GetKey() { return curKey; }
-        public byte GetLastKey() { return lastKey; }
-        public byte GetTopKey() { return topKey; }
+        public byte GetKey() { return curKey; } //集合键值
+        public byte GetLastKey() { return lastKey; } //上个键值
+        public byte GetTopKey() { return topKey; } //集合键值里的最大键值
 
         private byte doubleLastKey = 0;
         private float lerpTime = 0;
@@ -116,6 +129,7 @@ namespace Scripts.Logic.GP
         public float cost = 0;
         public CostType costType;
         public int id = 0;
+        public GameObject prefab;
         public List<string> keys = new List<string>();
 
         public void ReadStream(Dictionary<string, string> data, int id)
@@ -126,25 +140,26 @@ namespace Scripts.Logic.GP
             keys = new List<string>(data["key"].Split('|'));
             float.TryParse(data["cost"], out this.cost);
             this.costType = (CostType)Enum.Parse(typeof(CostType), data["costType"]);
+            prefab = Resources.Load<GameObject>(data["path"]);
         }
     }
 
-    public class WeanponUnit
-    {
-        public string weaponName = "";
-        public float damage = 3;
-        public int id = 0;
-        public Sprite sprite;
-        public Dictionary<int,SkillUnit> skills = new Dictionary<int, SkillUnit>();
+    //public class WeanponUnit
+    //{
+    //    public string weaponName = "";
+    //    public float damage = 3;
+    //    public int id = 0;
+    //    public Sprite sprite;
+    //    public Dictionary<int,SkillUnit> skills = new Dictionary<int, SkillUnit>();
 
-        public void ReadStream(Dictionary<string, string> data, int id)
-        {
-            this.id = id;
-            weaponName = data["weaponName"];
-            float.TryParse(data["damage"], out this.damage);
-            sprite = Resources.Load<Sprite>(data["path"]);
-        }
-    }
+    //    public void ReadStream(Dictionary<string, string> data, int id)
+    //    {
+    //        this.id = id;
+    //        weaponName = data["weaponName"];
+    //        float.TryParse(data["damage"], out this.damage);
+    //        sprite = Resources.Load<Sprite>(data["path"]);
+    //    }
+    //}
 
     public class HeroUnit
     {

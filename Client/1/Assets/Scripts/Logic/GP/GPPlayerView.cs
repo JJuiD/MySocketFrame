@@ -16,23 +16,18 @@ namespace Scripts.Logic.GP
         private Animation playerAnimation;
         public void ExcuteIdelAnimation()
         {
-            Debug.Log("ExcuteIdelAnimation");
         }
         public void ExcuteMoveAnimaion()
         {
-            Debug.Log("ExcuteMoveAnimaion");
         }
         public void ExcuteDefenceAnimation()
         {
-            Debug.Log("ExcuteDefenceAnimation");
         }
         public void ExcuteAttackAnimation()
         {
-            Debug.Log("ExcuteAttackAnimation");
         }
         public void ExcuteJumpAnimation()
         {
-            Debug.Log("ExcuteJumpAnimation");
         }
         public void ExcuteSkillAnimation(int id)
         {

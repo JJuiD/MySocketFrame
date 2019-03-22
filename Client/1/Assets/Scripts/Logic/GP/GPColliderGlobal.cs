@@ -9,8 +9,19 @@ namespace Scripts.Logic.GP
 {
     public class GPColliderGlobal : BoxColliderBase
     {
+        public override void OnColliderEnter(BoxColliderBase collider)
+        {
+            
+        }
 
+        public override void OnColliderExit(BoxColliderBase collider)
+        {
+            
+        }
 
-        
+        public override void OnColliderStay(BoxColliderBase collider)
+        {
+            
+        }
     }
 }

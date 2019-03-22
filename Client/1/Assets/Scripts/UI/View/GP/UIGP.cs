@@ -15,7 +15,7 @@ namespace Scripts.UI.GP
 
         public override void Open(params object[] _params)
         {
-           
+            
         }
 
         public Transform GetUIPlayerInfo(int localseat)
@@ -67,8 +67,7 @@ namespace Scripts.UI.GP
                     break;
             }
             if (_node_max == null || _node_cur == null) return;
-            _node_cur.sizeDelta = new Vector2(
-                        _node_max.sizeDelta.x, _node_max.sizeDelta.y * value);
+            _node_cur.localScale = new Vector2(value, 1);
         }
     }
 

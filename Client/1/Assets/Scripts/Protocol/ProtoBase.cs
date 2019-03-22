@@ -51,24 +51,6 @@ namespace Proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CMD_TEST")]
-  public partial class CMD_TEST : global::ProtoBuf.IExtensible
-  {
-    public CMD_TEST() {}
-    
-    private byte[] _msg = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"msg", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public byte[] msg
-    {
-      get { return _msg; }
-      set { _msg = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
     [global::ProtoBuf.ProtoContract(Name=@"ProtoCommand")]
     public enum ProtoCommand
     {
@@ -76,15 +58,11 @@ namespace Proto
       [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_Heart", Value=1)]
       ProtoCommand_Heart = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_TestModel", Value=2)]
-      ProtoCommand_TestModel = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_Room", Value=2)]
+      ProtoCommand_Room = 2,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_Game", Value=3)]
-      ProtoCommand_Game = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"ProtoCommand_Room", Value=4)]
-      ProtoCommand_Room = 4
-
+      ProtoCommand_Game = 3
     }
   
 }

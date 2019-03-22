@@ -29,7 +29,7 @@ namespace Scripts.UI
 
         private void onClickGPStart()
         {
-            Logic.GameController.GetInstance().StartGame(Config.GP);
+            //Logic.GameController.GetInstance().StartGame(Config.GP);
             UIManager.GetInstance().OpenNode<UIRoomMenu>(UIConfig.UIRoomMenu,Config.GP);
         }
 

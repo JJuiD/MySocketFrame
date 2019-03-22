@@ -9,6 +9,8 @@ using ProtoBuf;
 using System.Collections.Generic;
 using System;
 using Scripts;
+using Scripts.Logic;
+using Proto.Cell;
 
 namespace Proto
 {
@@ -18,17 +20,7 @@ namespace Proto
         public delegate void CallBack(object _object, byte[] buffer);
         public void Start()
         {
-            InitSocket();
-        }
-
-        public void SendGamePacket(byte[] buffer)
-        {
-            SendPacket(ProtoCommand.ProtoCommand_Game, buffer);
-        }
-
-        public void SendRoomPacket(byte[] buffer)
-        {
-            SendPacket(ProtoCommand.ProtoCommand_Room, buffer);
+            //InitSocket();
         }
 
         private Dictionary<ProtoCommand, List<CallBack>> callBackDic = new Dictionary<ProtoCommand, List<CallBack>>();
@@ -102,7 +94,6 @@ namespace Proto
                 socket.Close();
         }
 
-
         //定时发送服务器心跳
         void SocketHeartSend()
         {
@@ -111,7 +102,7 @@ namespace Proto
                 CMD_HEART cmdHeart = new CMD_HEART();
                 MemoryStream ms = new MemoryStream();
                 Serializer.Serialize<CMD_HEART>(ms, cmdHeart);
-                SendPacket(ProtoCommand.ProtoCommand_Heart, ms.ToArray());
+                //SendPacket(ProtoCommand.ProtoCommand_Heart, ms.ToArray());
                 Thread.Sleep(1000);
             }
         }
@@ -144,7 +135,7 @@ namespace Proto
 
         private System.Object SwitchToObject(ProtoCommand cmdHead, UInt32 cmd)
         {
-            System.Object _object = new object();
+            System.Object _object = null;
             switch (cmdHead)
             {
                 case ProtoCommand.ProtoCommand_Room:
@@ -161,12 +152,13 @@ namespace Proto
             CloseSocket();
         }
 
-        private void SendPacket(ProtoCommand cmdHead, byte[] buffer)
+        public void SendPacket(Cell_Base data)
         {
             MemoryStream ms = new MemoryStream();
             ProtoBaseCmd cmd = new ProtoBaseCmd();
-            cmd.buffer = buffer;
-            cmd.CmdHead = cmdHead;
+            cmd.buffer = data.GetBuffer();
+            cmd.CmdHead = data.Proto_Head;
+            cmd.CmdInfo = data.Proto_Info;
             Serializer.Serialize<ProtoBaseCmd>(ms, cmd);
             //清空发送缓存
             byte[] sendData = new byte[1024];
@@ -175,10 +167,6 @@ namespace Proto
             //发送给指定服务端
             socket.SendTo(sendData, sendData.Length, SocketFlags.None, ipEnd);
         }
-
-        
-
-       
     }
 
 }

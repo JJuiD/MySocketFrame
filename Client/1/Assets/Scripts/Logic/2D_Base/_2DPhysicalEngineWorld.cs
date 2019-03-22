@@ -116,6 +116,7 @@ namespace Scripts.Logic._2D_Base
             {
                 temp.FixedUpdateGlobal();
             }
+            _2DColliderEngineWorld.GetInstance().FixedUpdate();
         }
     }
 }

@@ -38,10 +38,15 @@ namespace Scripts.UI
         }
 
         #region 场景Load Realse
-        private string CurSceneName = "";
+        private string CurSceneName = Config.Lobby;
         private BaseUI MainUI;
-        public void LoadScene(string name)
+        public void LoadScene(string name,bool firstLoad = false)
         {
+            if(firstLoad)
+            {
+                MainUI = OpenNode<UILobby>(UIConfig.UILobby);
+                return;
+            }
             RealseScene();
             CurSceneName = name;
             //先写这里 2.25

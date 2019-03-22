@@ -4,10 +4,8 @@ package Proto;
 enum ProtoCommand
 {
 	ProtoCommand_Heart = 1;
-	ProtoCommand_TestModel = 2;
+	ProtoCommand_Room = 2;
 	ProtoCommand_Game = 3;
-	ProtoCommand_GameS = 4;
-	ProtoCommand_Room = 5;
 }
 
 message ProtoBaseCmd
@@ -22,10 +20,6 @@ message CMD_HEART
 	
 }
 
-message CMD_TEST
-{
-	optional bytes msg = 1;
-}
 
 
 

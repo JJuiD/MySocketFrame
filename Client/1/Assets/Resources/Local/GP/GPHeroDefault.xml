@@ -10,6 +10,7 @@
         <_Info name="mprcvrate">0.05</_Info>
         <_Info name="speed">2</_Info>
         <_Info name="attack">5</_Info>
+        <_Info name="path">GameRes/GP/Prefabs/unit_1</_Info>
       </InfoList>
     </_ViewList>
   </ViewList>

@@ -54,8 +54,11 @@ namespace Scripts
             //Debug.Log(num1 & ~num1);
             //Debug.Log( ~num1);
             //Debug.Log(num1 | num2);
+            Debug.Log(Mathf.Cos(Mathf.Deg2Rad * 45 ));
+            Debug.Log(Mathf.Sin(Mathf.Deg2Rad * 45 ));
             DataCenter.GetInstance().InitData();
-            UIManager.GetInstance().LoadScene(Config.Lobby);
+            UIManager.GetInstance().LoadScene(Config.Lobby,true);
+            
         }
 
         //public void FixedUpdate()

@@ -1,0 +1,34 @@
+syntax = "proto2";
+import "GameBase.proto";
+package Proto.GPGameProto;
+
+enum GameCMD
+{
+	CMD_GAME_REQSTARTGAME = 1;
+	CMD_GAME_RESPSTARTGAME = 2;
+	CMD_GAME_PLAYERINFO = 3;
+	CMD_GAME_UPDATESTEP = 4;
+}
+
+message CMD_ReqStartGame
+{
+	required uint32 roomid = 1;
+}
+
+message CMD_RespStartGame
+{
+	repeated GameBase.GameUserInfo gameUser = 1;
+}
+
+message CMD_PlayerInfo
+{
+	required uint32 seat = 1;
+	required string name = 2;
+}
+
+message CMD_UpdateStep
+{
+	required uint32 step = 1;
+}
+
+
