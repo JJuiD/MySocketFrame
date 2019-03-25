@@ -14,10 +14,9 @@ using Proto.Cell;
 
 namespace Proto
 {
+    public delegate bool CallBack(object _object, byte[] buffer);
     public class SocketManager : SingletonMono<SocketManager>
     {
-
-        public delegate void CallBack(object _object, byte[] buffer);
         public void Start()
         {
             //InitSocket();

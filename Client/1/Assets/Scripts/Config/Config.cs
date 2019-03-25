@@ -6,31 +6,17 @@ using UnityEngine;
 
 namespace Scripts
 {
-    public enum PlayerServerState
-    {
-        FREE,
-        READY,
-        INGAME,
-    }
-
     public class PlayerInfo
     {
         public string name;
-        public Int16 seat;
-        public Int16 localSeat;
-        private PlayerServerState state;
+        public uint seat;
+        public uint state { get; set; }
 
         public PlayerInfo()
         {
             name = "";
             seat = 0;
-            localSeat = 0;
-            state = PlayerServerState.FREE;
-        }
-
-        public void SetPlayerState(PlayerServerState state)
-        {
-            this.state = state;
+            state = 0;
         }
     }
 

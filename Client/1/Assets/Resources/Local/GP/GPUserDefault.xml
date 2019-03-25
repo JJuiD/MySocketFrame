@@ -8,6 +8,7 @@
     <STRValue name="KEY_ATTACK">J</STRValue>
     <STRValue name="KEY_JUMP">K</STRValue>
     <STRValue name="KEY_DEFENCE">L</STRValue>
+    <STRValue name="LEVEL_0_0">u101</STRValue>
   </STRValueNode>
   <INTValueNode>
     <INTValue name="DEFAULT_HERO">0</INTValue>

@@ -32,7 +32,15 @@ namespace Scripts.Logic.GP
 
     }
 
-    public enum GameState
+    public enum PlayerState
+    {
+        NONE = 0,
+        READY_NULL, //未准备
+        READY, //准备
+        INGAME, //游戏中
+    }
+
+    public enum GameStep
     {
         NONE, //未开始
         READY, //准备阶段
@@ -118,18 +126,17 @@ namespace Scripts.Logic.GP
         private float downtime = 0;
         public bool IsClickDouble()
         {
-            return lerpTime > 0 && lerpTime < 0.5f && ((curKey & doubleLastKey) == doubleLastKey) ;
+            return lerpTime > 0 && lerpTime < 0.25f && ((curKey & doubleLastKey) == doubleLastKey) ;
         }
     }
 
-    public class SkillUnit
+    public class SkillInfo
     {
         public string skillName = "";
         public float damage = 0;
         public float cost = 0;
         public CostType costType;
         public int id = 0;
-        public GameObject prefab;
         public List<string> keys = new List<string>();
 
         public void ReadStream(Dictionary<string, string> data, int id)
@@ -140,7 +147,7 @@ namespace Scripts.Logic.GP
             keys = new List<string>(data["key"].Split('|'));
             float.TryParse(data["cost"], out this.cost);
             this.costType = (CostType)Enum.Parse(typeof(CostType), data["costType"]);
-            prefab = Resources.Load<GameObject>(data["path"]);
+            
         }
     }
 
@@ -150,7 +157,7 @@ namespace Scripts.Logic.GP
     //    public float damage = 3;
     //    public int id = 0;
     //    public Sprite sprite;
-    //    public Dictionary<int,SkillUnit> skills = new Dictionary<int, SkillUnit>();
+    //    public Dictionary<int,SkillInfo> skills = new Dictionary<int, SkillInfo>();
 
     //    public void ReadStream(Dictionary<string, string> data, int id)
     //    {
@@ -161,19 +168,21 @@ namespace Scripts.Logic.GP
     //    }
     //}
 
-    public class HeroUnit
+    public class HeroInfo
     {
         public string heroName = "";
         public float hp = 0;
         public float costHp = 0;
         public float costMp = 0;
         public float mp = 0;
-        public float mprcvrate = 0;
+        public float mprcvrate = 0; //mp回复速率
         public float speed = 0;
         public int id = 0;
         public float attack = 0;
-        public Dictionary<EmoticonType, Sprite> emoticons;
-        public Sprite headImage;
+        public Dictionary<EmoticonType, Sprite> emoticons; //表情
+        public Sprite headImage; // 头像
+        public GameObject prefab;
+        public Dictionary<int, SkillInfo> skills = new Dictionary<int, SkillInfo>();
 
         public void ReadStream(Dictionary<string,string> data,int id)
         {
@@ -191,6 +200,19 @@ namespace Scripts.Logic.GP
                 emoticons.Add((EmoticonType)i, sprites[i]);
             }
             headImage = sprites[6];
+            this.prefab = Resources.Load<GameObject>(data["path"]);
         }
+
+        public void Resert()
+        {
+            costMp = 0;
+            costHp = 0;
+        }
+    }
+
+    public class LevelInfo
+    {
+        //子场景信息
+        public Dictionary<int, List<string>> childlevelInfo = new Dictionary<int, List<string>>();
     }
 }

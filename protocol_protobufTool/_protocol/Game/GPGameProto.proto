@@ -1,34 +1,50 @@
 syntax = "proto2";
 import "GameBase.proto";
 package Proto.GPGameProto;
-
-enum GameCMD
+//req 请求 resp 回复
+//Update 请求&回复 
+enum GPGameCMD
 {
-	CMD_GAME_REQSTARTGAME = 1;
-	CMD_GAME_RESPSTARTGAME = 2;
-	CMD_GAME_PLAYERINFO = 3;
-	CMD_GAME_UPDATESTEP = 4;
+	CMD_GAME_REQSTARTGAME = 1; //c->s
+	CMD_GAME_RESPSTARTGAME = 2; //s->c
+	CMD_GAME_PLAYERINFO = 3;  //s->c
+	CMD_GAME_UPDATEPLAYERSTATE = 4; //s->c
+	CMD_GAME_UPDATESTEP = 5; //s->c
+	CMD_GAME_PLAYERGAMEINFO = 6;//c->s 
 }
 
-message CMD_ReqStartGame
+message GPCMD_ReqStartGame
 {
 	required uint32 roomid = 1;
 }
 
-message CMD_RespStartGame
+message GPCMD_RespStartGame
 {
 	repeated GameBase.GameUserInfo gameUser = 1;
 }
 
-message CMD_PlayerInfo
+message GPCMD_PlayerInfo
 {
 	required uint32 seat = 1;
 	required string name = 2;
 }
 
-message CMD_UpdateStep
+message GPCMD_UpdatePlayerState
+{
+	required uint32 seat = 1;
+	required uint32 state = 2;
+}
+
+message GPCMD_UpdateStep
 {
 	required uint32 step = 1;
 }
+
+message CMD_GAME_PLAYERGAMEINFO
+{
+	required uint32 heroid = 1;
+}
+
+
 
 

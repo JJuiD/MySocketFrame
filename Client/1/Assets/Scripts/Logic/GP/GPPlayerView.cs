@@ -10,10 +10,9 @@ namespace Scripts.Logic.GP
     {
         public void Init()
         {
-            playerAnimation = this.GetComponent<Animation>();
+            
         }
 
-        private Animation playerAnimation;
         public void ExcuteIdelAnimation()
         {
         }

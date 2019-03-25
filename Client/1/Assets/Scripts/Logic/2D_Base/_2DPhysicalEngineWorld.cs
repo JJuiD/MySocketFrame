@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
 namespace Scripts.Logic._2D_Base
 {
     // 自定义Vector3
+    [Serializable]
     public class _Vector3
     {
         public float x = 0;
@@ -60,21 +63,43 @@ namespace Scripts.Logic._2D_Base
         }
     }
 
-    
+    [CustomPropertyDrawer(typeof(_Vector3))]
+    public class _Vector3Drawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+#if UNITY_EDITOR
+            var x = property.FindPropertyRelative("x");
+            var y = property.FindPropertyRelative("y");
+            var z = property.FindPropertyRelative("z");
+            float LabelWidth = EditorGUIUtility.labelWidth;
+            var labelRect = new Rect(position.x, position.y, LabelWidth, position.height);
+            var width = (position.width - 175) / 3 ;
+            //Debug.Log(position.min.x);
+            //Debug.Log(position.min.y);
+            var xRect = new Rect(position.x + 160, position.y, width, position.height);
+            var yRect = new Rect(position.x + 160 + width, position.y, width, position.height);
+            var zRect = new Rect(position.x + 160 + 2*width, position.y, width, position.height);
+
+            EditorGUIUtility.labelWidth = 12.0f;
+            EditorGUI.LabelField(labelRect, label);
+            EditorGUI.PropertyField(xRect, x);
+            EditorGUI.PropertyField(yRect, y);
+            EditorGUI.PropertyField(zRect, z);
+            EditorGUIUtility.labelWidth = LabelWidth;
+#endif
+        }
+    }
 
     //物理Base(个人)
     public abstract class PhysicalGlobalBase : MonoBehaviour
     {
         public _Vector3 velocity; //初速度
         public _Vector3 position; //实际坐标
-        public PhysicalGlobalBase()
+        private void Start()
         {
             velocity = new _Vector3(0, 0, 0);
-            position = new _Vector3(0, 0, 0);
-        }
-        public void Init(Vector3 pos)
-        {
-            position = new _Vector3(pos);
+            position += this.transform.position;
             _2DPhysicalEngineWorld.GetInstance().AddPhysicalGlobal(this);
         }
         //移动

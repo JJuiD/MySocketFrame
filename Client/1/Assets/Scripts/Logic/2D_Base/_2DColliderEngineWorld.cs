@@ -37,22 +37,20 @@ namespace Scripts.Logic._2D_Base
     [ExecuteInEditMode]
     public abstract class BoxColliderBase : MonoBehaviour
     {
-        public Vector2 offset;
-        public Vector2 size;
+        public _Vector3 offset;
+        public _Vector3 size; 
         public bool isTrigger;
         [HideInInspector]
         public RectangleArea area;
         [HideInInspector]
         public List<BoxColliderBase> colliders;
         [HideInInspector]
-        public PhysicalGlobalBase physical;
+        public PhysicalGlobalBase physical; //判断实际坐标用
         [HideInInspector]
         public bool isCloseCollider;
-        public void Init(Vector2 size, Vector2 offset)
+        private void Start()
         {
-            this.offset = offset;
-            this.size = size;
-            area = new RectangleArea(size, offset);
+            //area = new RectangleArea(size, offset);
             physical = this.GetComponent<PhysicalGlobalBase>();
             colliders = new List<BoxColliderBase>();
             isCloseCollider = false;
@@ -99,35 +97,29 @@ namespace Scripts.Logic._2D_Base
             DrawBGLine();
         }
 
-        public float GetWidth()
+        public float Get45Y(float value)
         {
-            return size.x * 0.4f;
+            return value * Mathf.Cos(Deg2Rad(45));
         }
 
         public void DrawBGLine()
         {
 #if UNITY_EDITOR
-            area = new RectangleArea(size, offset);
-            float angle = this.transform.rotation.z;
-            //x0 = (x - offset.x) * cos(a) - (y - offset.y) * sin(a) + offset.x;
-            //y0 = (x - offset.x) * sin(a) + (y - offset.y) * cos(a) + offset.y;
-            Vector2 center = this.transform.position + new Vector3(offset.x, offset.y);
-            Vector2 lef_top = new Vector3(center.x, center.y) + new Vector3(-size.x / 2, size.y / 2);
-            Vector2 rig_bot = new Vector3(size.x / 2, -size.y / 2) + new Vector3(center.x, center.y);
+            Gizmos.color = Color.red;
+            Vector3 bot_lef = new Vector3(this.transform.position.x + offset.x - size.x / 2
+                , this.transform.position.y + offset.y - size.z / 2);
+            Vector3 top_rig = new Vector3(this.transform.position.x + offset.x + size.x / 2
+                , this.transform.position.y + offset.y + size.z / 2);
+            Gizmos.DrawLine(bot_lef, bot_lef);
             Gizmos.color = Color.green;
-            //Debug.Log(GetRPos(lef_top, center, angle).x + "," + GetRPos(lef_top, center, angle).y);
-            //Debug.Log((size.x/2) * Mathf.Cos(Deg2Rad(90)) - (size.y/2) * Mathf.Sin(Deg2Rad(90)));
-            Gizmos.DrawLine(GetRPos(lef_top, center, angle), GetRPos(new Vector2(lef_top.x + size.x, lef_top.y), center, angle));
-            Gizmos.DrawLine(GetRPos(lef_top, center, angle), GetRPos(new Vector2(lef_top.x, lef_top.y - size.y), center, angle));
-            Gizmos.DrawLine(GetRPos(rig_bot, center, angle), GetRPos(new Vector2(rig_bot.x - size.x, rig_bot.y), center, angle));
-            Gizmos.DrawLine(GetRPos(rig_bot, center, angle), GetRPos(new Vector2(rig_bot.x, rig_bot.y + size.y), center, angle));
+            Gizmos.DrawLine(bot_lef, bot_lef + new Vector3(size.x,0));
+            Gizmos.DrawLine(bot_lef, bot_lef + new Vector3(0, size.z));
+            Gizmos.DrawLine(top_rig, top_rig + new Vector3(0, -size.z));
+            Gizmos.DrawLine(top_rig, top_rig + new Vector3(-size.x, 0));
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(bot_lef, bot_lef + new Vector3(Get45Y(size.y),0, -Get45Y(size.y)));
+            Gizmos.DrawLine(bot_lef, bot_lef + new Vector3(-Get45Y(size.y),0, Get45Y(size.y)));
 #endif
-        }
-
-        public Vector2 GetRPos(Vector2 pos,Vector2 center, float a)
-        {
-            return new Vector3((pos.x - center.x) * Mathf.Cos(Deg2Rad(a)) - (pos.y - center.y) * Mathf.Sin(Deg2Rad(a)) + center.x,
-                (pos.x - center.x) * Mathf.Sin(Deg2Rad(a)) + (pos.y - center.y) * Mathf.Cos(Deg2Rad(a)) + center.y);
         }
         public float Deg2Rad(float rad)
         {
@@ -137,6 +129,7 @@ namespace Scripts.Logic._2D_Base
 
     }
 
+    
     public class _2DColliderEngineWorld : Singleton<_2DColliderEngineWorld>
     {
         private RectangleArea area;
@@ -174,6 +167,13 @@ namespace Scripts.Logic._2D_Base
 
         public bool IsCollider(BoxColliderBase collider1, BoxColliderBase collider2)
         {
+            _Vector3 pos1 = collider1.physical.position;
+            _Vector3 pos2 = collider2.physical.position;
+            if (Mathf.Abs(pos1.z - pos2.z) > (collider1.size.z + collider2.size.z)
+                || Mathf.Abs(pos1.x - pos2.x) > (collider1.size.x + collider2.size.x)
+                || Mathf.Abs(pos1.y - pos2.y) > (collider1.size.y + collider2.size.y))
+                return false;
+
             return true;
         }
 

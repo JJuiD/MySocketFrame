@@ -40,9 +40,11 @@ namespace Proto.Cell
             return ms.ToArray();
         }
 
-        public byte[] GetBuffer() => buffer;
-        public virtual global::ProtoBuf.IExtensible ParseData(byte[] buffer)
-        { return new T(); }
+        public byte[] GetBuffer() { return buffer; }
+        public virtual T ParseData<T>(byte[] buffer)
+        {
+            return unPacket<T>(buffer);
+        }
         public virtual void SaveData(params object[] args) { }
         public abstract ProtoCommand Proto_Head { get; }
         public abstract uint Proto_Info { get; }

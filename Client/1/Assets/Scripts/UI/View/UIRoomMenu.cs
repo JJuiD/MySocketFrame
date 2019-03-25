@@ -17,7 +17,7 @@ namespace Scripts.UI
 
         private void OnClickConsoleGame()
         {
-            Logic.GameController.GetInstance().StartGame(game_name);
+            Logic.GameController.GetInstance().StartGame(game_name,1);
         }
     }
 }

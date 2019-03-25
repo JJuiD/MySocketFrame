@@ -11,14 +11,10 @@ namespace Scripts.Logic.GP
     public class GPConsoleServer : SingletonMono<GPConsoleServer>
     {
         public float fixedTime = 0.01f;
-        private GameState state;
-        private Random randseed ;
+        private GameStep state = GameStep.NONE;
+        private Random randseed = new Random();
+        private List<CallBack> call_list = new List<CallBack>();
 
-        public void Init()
-        {
-            randseed = new Random();
-            state = GameState.NONE;
-        }
         /// <summary>
         /// 获取随机数
         /// </summary>
@@ -32,7 +28,7 @@ namespace Scripts.Logic.GP
 
         public void FixedUpdate()
         {
-            GameController.GetInstance().GetLogic<GPLogic>().LogicFixedUpdate();
+            GameController.GetInstance().Logic.LogicFixedUpdate();
         }
 
         public void OnPacketDealCenter(Cell_Base cell)
@@ -40,19 +36,45 @@ namespace Scripts.Logic.GP
             if (cell.Proto_Head != ProtoCommand.ProtoCommand_Game) return;
             Object _object = null;
             byte[] buffer = new byte[1024];
-            switch ((GameCMD)cell.Proto_Info)
+            switch ((GPGameCMD)cell.Proto_Info)
             {
-                case GameCMD.CMD_GAME_REQSTARTGAME:
-                    _object = Enum.ToObject(typeof(GameCMD), (int)GameCMD.CMD_GAME_PLAYERINFO);
+                case GPGameCMD.CMD_GAME_REQSTARTGAME:
+                    //添加玩家信息
+                    _object = Enum.ToObject(typeof(GPGameCMD), (int)GPGameCMD.CMD_GAME_PLAYERINFO);
                     CellPlayerInfo cellPlayer = new CellPlayerInfo();
                     cellPlayer.SaveData(0,DataCenter.GetInstance().LocalName);
-                    GameController.GetInstance().Logic.OnReciveConsole(_object, cellPlayer.GetBuffer());
-
-                    _object = Enum.ToObject(typeof(GameCMD),(int)GameCMD.CMD_GAME_RESPSTARTGAME);
-                    state = GameState.READY;
+                    GameController.GetInstance().Logic.OnRecivePacket(_object, cellPlayer.GetBuffer());
+                    //显示英雄选择界面
+                    _object = Enum.ToObject(typeof(GPGameCMD),(int)GPGameCMD.CMD_GAME_RESPSTARTGAME);
+                    state = GameStep.READY;
+                    GameController.GetInstance().Logic.OnReciveConsole(_object, buffer);
+                    break;
+                case GPGameCMD.CMD_GAME_UPDATEPLAYERSTATE:
+                    //隐藏英雄选择界面，开始游戏
+                    _object = Enum.ToObject(typeof(GPGameCMD), (int)GPGameCMD.CMD_GAME_UPDATESTEP);
+                    CellUpdateGameStep cellStep = new CellUpdateGameStep();
+                    cellStep.SaveData(GameStep.START);
+                    GameController.GetInstance().Logic.OnRecivePacket(_object, cellStep.GetBuffer());
                     break;
             }
-            GameController.GetInstance().Logic.OnReciveConsole(_object, buffer);
+
+            List<int> del_f = new List<int>();
+            for(int i = 0;i < call_list.Count;++i)
+            {
+                if (call_list[i](_object, buffer))
+                {
+                    del_f.Add(i);
+                }
+            }
+            for (int i = 0; i < del_f.Count; ++i)
+            {
+                call_list.RemoveAt(del_f[i] - i);
+            }
+            
+        }
+        public void addPortocolListen(CallBack callback)
+        {
+            call_list.Add(callback);
         }
     }
 }

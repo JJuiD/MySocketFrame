@@ -1,4 +1,5 @@
-﻿using Proto.Cell;
+﻿using Proto;
+using Proto.Cell;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,19 @@ namespace Scripts.Logic
         /// 接受协议
         /// </summary>
         /// <param name="buffer"></param>
-        public abstract void OnRecivePacket(object _object, byte[] buffer);
+        public abstract bool OnRecivePacket(object _object, byte[] buffer);
         /// <summary>
         /// 接受单机协议
         /// </summary>
         /// <param name="_object"></param>
         /// <param name="buffer"></param>
-        public abstract void OnReciveConsole(object _object, byte[] buffer);
+        public abstract bool OnReciveConsole(object _object, byte[] buffer);
+        /// <summary>
+        /// 添加监听协议
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <param name="cmd"></param>
+        public abstract void AddPortocolListen(CallBack callback, ProtoCommand cmd);
         /// <summary>
         /// 本地循环
         /// </summary>

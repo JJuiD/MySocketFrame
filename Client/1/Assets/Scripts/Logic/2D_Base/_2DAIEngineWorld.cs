@@ -18,7 +18,6 @@ namespace Scripts.Logic._2D_Base
     {
         public AIState state = AIState.Idel;
         public float watchTime = 2;
-        public abstract void Craete(Vector3 pos);
     }
 
     public class _2DAIEngineWorld : Singleton<_2DAIEngineWorld>

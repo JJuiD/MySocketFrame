@@ -35,29 +35,29 @@ namespace socket
         //初始化
         public void InitSocket()
         {
-            //定义连接的服务器ip和端口，可以是本机ip，局域网，互联网
-            ipEnd = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5501);
-            //定义套接字类型,在主线程中定义
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            //定义服务端
-            IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
-            serverEnd = (EndPoint)sender;
-            print("waiting for sending UDP dgram");
+            ////定义连接的服务器ip和端口，可以是本机ip，局域网，互联网
+            //ipEnd = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5501);
+            ////定义套接字类型,在主线程中定义
+            //socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            ////定义服务端
+            //IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+            //serverEnd = (EndPoint)sender;
+            //print("waiting for sending UDP dgram");
 
-            //建立初始连接，这句非常重要，第一次连接初始化了serverEnd后面才能收到消息
-            CMD_TEST cmdTest = new CMD_TEST();
-            cmdTest.msg = System.Text.Encoding.Default.GetBytes("Hello Server!");
-            MemoryStream ms = new MemoryStream();
-            Serializer.Serialize<CMD_TEST>(ms, cmdTest);
+            ////建立初始连接，这句非常重要，第一次连接初始化了serverEnd后面才能收到消息
+            //CMD_TEST cmdTest = new CMD_TEST();
+            //cmdTest.msg = System.Text.Encoding.Default.GetBytes("Hello Server!");
+            //MemoryStream ms = new MemoryStream();
+            //Serializer.Serialize<CMD_TEST>(ms, cmdTest);
 
-            SocketSend(ProtoCommand.ProtoCommand_TestModel, ms.ToArray());
+            //SocketSend(ProtoCommand.ProtoCommand_TestModel, ms.ToArray());
 
-            //开启一个线程连接，必须的，否则主线程卡死
-            connectThread = new Thread(new ThreadStart(SocketReceive));
-            connectThread.Start();
+            ////开启一个线程连接，必须的，否则主线程卡死
+            //connectThread = new Thread(new ThreadStart(SocketReceive));
+            //connectThread.Start();
 
-            serverHeartThread = new Thread(new ThreadStart(SocketHeartSend));
-            serverHeartThread.Start();
+            //serverHeartThread = new Thread(new ThreadStart(SocketHeartSend));
+            //serverHeartThread.Start();
         }
 
         public void SocketSend(ProtoCommand cmdHead, byte[] buffer)
@@ -106,11 +106,11 @@ namespace socket
                 ProtoBaseCmd p1 = Serializer.Deserialize<ProtoBaseCmd>(ms1);
                 switch (p1.CmdHead)
                 {
-                    case ProtoCommand.ProtoCommand_TestModel:
-                        MemoryStream ms2 = new MemoryStream(p1.buffer);
-                        CMD_TEST p2 = Serializer.Deserialize<CMD_TEST>(ms2);
-                        print(System.Text.Encoding.Default.GetString(p2.msg));
-                        return;
+                    //case ProtoCommand.ProtoCommand_TestModel:
+                    //    MemoryStream ms2 = new MemoryStream(p1.buffer);
+                    //    CMD_TEST p2 = Serializer.Deserialize<CMD_TEST>(ms2);
+                    //    print(System.Text.Encoding.Default.GetString(p2.msg));
+                    //    return;
                 }
             }
         }
