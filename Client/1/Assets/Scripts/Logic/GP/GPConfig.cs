@@ -26,7 +26,7 @@ namespace Scripts.Logic.GP
         public const string KEY_DEFENCE = "KEY_DEFENCE";
 
         public const int HERO_EMOTICONS_MAX_COUNT = 6;
-        public const float SKILL_OUTTIME = 5f;
+        public const float SKILL_OUTTIME = 2f;
         public const float GAME_GRAVITY = 10f;
         public const float JUMP_FORCE = 12f;
 
@@ -59,6 +59,7 @@ namespace Scripts.Logic.GP
         KEY_ATTACK = 16,
         KEY_JUMP = 32,
         KEY_DEFENCE = 64,
+        KEY_ALL = 255,
     }
 
 
@@ -83,7 +84,7 @@ namespace Scripts.Logic.GP
     {
         private byte lastKey;
         private byte curKey;
-        private byte topKey;
+      //  private byte topKey;
 
         public ClickKey() { ResetData(); }
 
@@ -91,35 +92,48 @@ namespace Scripts.Logic.GP
         {
             lastKey = (byte)KeyByte.KEY_NULL;
             curKey = (byte)KeyByte.KEY_NULL;
-            topKey = (byte)KeyByte.KEY_NULL;
+          //  topKey = (byte)KeyByte.KEY_NULL;
             doubleLastKey = (byte)KeyByte.KEY_NULL;
             lerpTime = 0;
             downtime = 0;
         }
 
-        public void StartSetKey() { lastKey = topKey; topKey = 0; curKey = 0; }
-        public void SetKey(bool isDown, KeyByte keyByte, bool isAdd = false)
+        public void StartSetKey()
         {
-            if (isDown)
+            lastKey = curKey;
+            curKey = 0;
+            //  topKey = 0
+        }
+        public void SetKey(KeyCode key, KeyByte clkKey,KeyByte cftKey = KeyByte.KEY_ALL)
+        {
+            if (Input.GetKey(key))
             {
-                topKey = (byte)keyByte;
-                if (isAdd) curKey += (byte)keyByte;
-                else curKey = (byte)keyByte;
+                if (cftKey == KeyByte.KEY_ALL) curKey = (byte)clkKey;
+                else
+                {
+                    if((curKey & (byte)cftKey) == (byte)cftKey)
+                    {
+                        curKey -= (byte)cftKey;
+                    }
+                    curKey += (byte)clkKey;
+                }
             }
         }
         public void EndSetKey()
         {
-            if(lastKey == 0 && topKey != 0)
+            if (lastKey == 0 && curKey != 0)
             {
-                doubleLastKey = topKey;
+                doubleLastKey = curKey;
                 lerpTime = Time.time - downtime;
                 downtime = Time.time;
             }
         }
 
+        private byte Add(byte key1, byte key2) { return key1+=key2; }
+        private byte Cmp(byte key1, byte key2) { return key2 == 0 ? key1 : key2; }
         public byte GetKey() { return curKey; } //集合键值
-        public byte GetLastKey() { return lastKey; } //上个键值
-        public byte GetTopKey() { return topKey; } //集合键值里的最大键值
+        public byte GetLastKey() { return lastKey; } //上个最大键值
+        //public byte GetTopKey() { return topKey; } //集合键值里的最大键值
 
         private byte doubleLastKey = 0;
         private float lerpTime = 0;

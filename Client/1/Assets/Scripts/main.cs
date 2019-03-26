@@ -47,13 +47,13 @@ namespace Scripts
 
         private void Start()
         {
-            //KeyNum num1 = KeyNum.Skill1;
-            //KeyNum num2 = KeyNum.Skill2;
-            //Debug.Log(num1 & num2);
-            //Debug.Log(num1 & ~num2);
-            //Debug.Log(num1 & ~num1);
-            //Debug.Log( ~num1);
-            //Debug.Log(num1 | num2);
+            KeyNum num1 = KeyNum.Skill1;
+            KeyNum num2 = KeyNum.Skill2;
+            Debug.Log(num1 & num2);
+            Debug.Log(num1 & ~num2);
+            Debug.Log(num1 & ~num1);
+            Debug.Log(~num1);
+            Debug.Log(num1 | num2);
             Debug.Log(Mathf.Cos(Mathf.Deg2Rad * 45 ));
             Debug.Log(Mathf.Sin(Mathf.Deg2Rad * 45 ));
             DataCenter.GetInstance().InitData();

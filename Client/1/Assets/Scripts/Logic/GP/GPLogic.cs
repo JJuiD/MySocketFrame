@@ -267,17 +267,17 @@ namespace Scripts.Logic.GP
             if (gameStep != GameStep.START || UnitList.Count == 0) return;
             _2DPhysicalEngineWorld.GetInstance().FixedUpdate();
             key.StartSetKey();
-            key.SetKey(Input.GetKey(KeyPairs[GPConfig.KEY_UP]), KeyByte.KEY_UP, true);
-            key.SetKey(Input.GetKey(KeyPairs[GPConfig.KEY_RIGHT]), KeyByte.KEY_RIGHT, true);
-            key.SetKey(Input.GetKey(KeyPairs[GPConfig.KEY_LEFT]), KeyByte.KEY_LEFT, true);
-            key.SetKey(Input.GetKey(KeyPairs[GPConfig.KEY_DOWN]), KeyByte.KEY_DOWN, true);
+            key.SetKey(KeyPairs[GPConfig.KEY_UP], KeyByte.KEY_UP);
+            key.SetKey(KeyPairs[GPConfig.KEY_DOWN], KeyByte.KEY_DOWN);
+            key.SetKey(KeyPairs[GPConfig.KEY_RIGHT], KeyByte.KEY_RIGHT, KeyByte.KEY_NULL);
+            key.SetKey(KeyPairs[GPConfig.KEY_LEFT], KeyByte.KEY_LEFT, KeyByte.KEY_RIGHT);
 
-            key.SetKey(Input.GetKey(KeyPairs[GPConfig.KEY_ATTACK]), KeyByte.KEY_ATTACK);
-            key.SetKey(Input.GetKey(KeyPairs[GPConfig.KEY_JUMP]), KeyByte.KEY_JUMP);
-            key.SetKey(Input.GetKey(KeyPairs[GPConfig.KEY_DEFENCE]), KeyByte.KEY_DEFENCE);
+            key.SetKey(KeyPairs[GPConfig.KEY_ATTACK], KeyByte.KEY_ATTACK);
+            key.SetKey(KeyPairs[GPConfig.KEY_JUMP], KeyByte.KEY_JUMP);
+            key.SetKey(KeyPairs[GPConfig.KEY_DEFENCE], KeyByte.KEY_DEFENCE);
             key.EndSetKey();
 
-            foreach(var temp in UnitList)
+            foreach (var temp in UnitList)
             {
                 if (temp.localTag == 0)
                     temp.DealKey(key);
@@ -352,6 +352,8 @@ namespace Scripts.Logic.GP
 
         public void DealKey(ClickKey key)
         {
+            if (key.GetKey() == key.GetLastKey()) return;
+            //没有键按下
             if (key.GetKey() == 0)
             {
                 if(!isJump)
@@ -360,16 +362,14 @@ namespace Scripts.Logic.GP
                 return;
             }
 
-            if (key.GetTopKey() != key.GetLastKey())
+            if (key.GetKey() != key.GetLastKey())
             {
                 bool isFowardToRight = playerView.transform.eulerAngles.y != 180;
-                byte animKey = key.GetTopKey();
-                Debug.Log(isFowardToRight);
+                byte animKey = key.GetKey();
                 if (!isFowardToRight && (animKey == (byte)KeyByte.KEY_LEFT
                     || animKey == (byte)KeyByte.KEY_RIGHT))
                 {
                     animKey = (byte)(((byte)KeyByte.KEY_RIGHT + (byte)KeyByte.KEY_LEFT) & ~animKey);
-                    Debug.Log(animKey);
                 }
                 if (DealSkillCombo(animKey)) return;
             }
@@ -418,15 +418,11 @@ namespace Scripts.Logic.GP
                 return;
             }
 
-            if (moveDirection != Vector2.zero && !isJump)
+            if ( !isJump)
             {
                 bool isRun = false;
 
-                if (moveDirection.y > 0)
-                {
-
-                }
-                else if (moveDirection.x > 0)
+                if (moveDirection.x > 0)
                 {
                     isRun = moveDirection.x > 1;
                     playerView.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -436,11 +432,6 @@ namespace Scripts.Logic.GP
                     isRun = moveDirection.x < -1;
                     playerView.transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
-                else if (moveDirection.y < 0)
-                {
-
-                }
-
                 Vector2 targetPos = new Vector2(moveDirection.x + playerView.transform.position.x
                     , moveDirection.y + playerView.transform.position.y) * unitInfo.speed;
                 playerView.gameObject.GetComponent<GPPhysicalGlobal>().SetVelocity(moveDirection * unitInfo.speed * Time.fixedDeltaTime);
@@ -501,6 +492,7 @@ namespace Scripts.Logic.GP
                     if (addList.Count > i) skillClickKeyCount[addList[i]] += 1;
                     if (delList.Count > i) skillClickKeyCount.Remove(delList[i]);
                 }
+                if (skillClickKeyCount.Count > 0) return true;
             }
             return false;
         }
